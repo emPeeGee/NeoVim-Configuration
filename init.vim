@@ -1,10 +1,22 @@
+" Mentions
+" :CocInstall coc-eslint
+" :CocInstall angular lsp
+" To be completed...
+
 call plug#begin("~/.vim/plugged")
-  " Theme
-  Plug 'dracula/vim'
+  " Theme and coloring
+  Plug 'morhetz/gruvbox'
+
+  " Git status icons
+  Plug 'airblade/vim-gitgutter'
+
+  " Buffer line on the bottom
+  Plug 'itchyny/lightline.vim'
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+  
   " TypeScript Highlighting
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
@@ -13,6 +25,15 @@ call plug#begin("~/.vim/plugged")
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'romgrk/barbar.nvim'
 
+  " Comment out lines
+  " Plug 'tpope/vim-commentary'
+
+  " Git blamer
+  Plug 'APZelos/blamer.nvim'
+
+  " Cheat.sh integration
+  Plug 'RishabhRD/popfix'
+  Plug 'RishabhRD/nvim-cheat.sh'
 
   " File Explorer with Icons
   Plug 'scrooloose/nerdtree'
@@ -35,9 +56,53 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+
+" Settings
+let mapleader = "\<Space>"
+filetype plugin on
+set completeopt=longest,menuone
+set mouse=a
+set nobackup
+set nocompatible
+set noswapfile
+set nowritebackup
+set number
+set title
+set wrap
+setlocal wrap
+set encoding=UTF-8
+
+" Remaps
+nmap <Leader>p :Rg<CR>
+nmap <Leader>h :History<CR>
+nmap <Leader>n :NERDTreeToggle<CR>
+imap jj <Esc>:w<CR>a
+nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Reduce updatetime
+set updatetime=300
+
 " Theme
-syntax enable
-colorscheme dracula
+syntax on
+colorscheme gruvbox
+set background=dark
+set cursorline
+set hidden
+set list
+set listchars=tab:»·,trail:·
+
+" let buffers be clickable
+let g:lightline#bufferline#clickable=1
+let g:lightline#bfferline#shorten_path=1
+let g:lightline#bufferline#min_buffer_count=1
+
+" Git blamer
+let g:blamer_enabled = 1
+let g:blamer_delay = 200
+
 
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
