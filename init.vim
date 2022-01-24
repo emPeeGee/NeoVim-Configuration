@@ -1,6 +1,7 @@
 " Mentions
 " :CocInstall coc-eslint
 " :CocInstall angular lsp
+" :CocInstall coc-pairs
 " To be completed...
 
 call plug#begin("~/.vim/plugged")
@@ -13,7 +14,7 @@ call plug#begin("~/.vim/plugged")
 
   " Tab through coc
   " Plug 'ervandew/supertab'
-
+  
   " Git
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
@@ -73,6 +74,11 @@ call plug#begin("~/.vim/plugged")
   Plug 'RishabhRD/popfix'
   Plug 'RishabhRD/nvim-cheat.sh'
 
+  " Go lang
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+  " Vim sneak pluggin
+  Plug 'justinmk/vim-sneak'
 
 call plug#end()
 
@@ -83,9 +89,9 @@ endif
 
 " Theme
 syntax on
-colorscheme PaperColor
+let g:gruvbox_contrast_dark='soft'
 set background=dark
-
+colorscheme gruvbox
 " let g:lightline = {
 "       \ 'colorscheme': 'PaperColor',
 "       \ }
@@ -107,6 +113,13 @@ set number
 set title
 set wrap
 setlocal wrap
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
@@ -132,8 +145,29 @@ set cmdheight=2
 set undofile " Maintain undo history between sessions
 set undodir=~/.vim/undodir
 
+" Make nvim use global clipboard
+set clipboard=unnamedplus
+
 " Default value is clap
 let g:mapleader="\<Space>"
+
+" Go setup
+" Highlight variable with same name when cursor is on them
+let g:go_auto_sameids = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+
+" Auto imports for go
+let g:go_fmt_command = "goimports"
+" Show type in bottom of screen
+let g:go_auto_type_info = 1
+
 
 
 " Always show the signcolumn, otherwise it would shift the text each time
@@ -386,10 +420,15 @@ nnoremap <silent>    <A-9> :BufferLast<CR>
 nmap <Leader>r :Ranger<CR>
 nmap <Leader>p :Rg<CR>
 nmap <Leader>h :History<CR>
-nmap <Leader>n :NERDTreeToggle<CR>
+" nmap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>nc :NERDTreeFocus<CR>
+nnoremap <Leader>nt :NERDTree<CR>
+nnoremap <Leader>nn :NERDTreeToggle<CR>
+nnoremap <Leader>nf :NERDTreeFind<CR>
 nmap <Leader>fa :FZF<CR>
 
-imap jj <Esc>:w<CR>a
+"  imap jj <Esc>:w<CR>a
+imap jj <Esc>
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -413,3 +452,6 @@ nmap <Leader>sl :<C-u>SessionLoad<CR>
 
 " nmap <Leader>dc :<C-u>:call delete(expand('%')) | bdelete!<CR>
 
+" Golang keybingdings
+nnoremap <Leader>ll :GoRun<CR>
+nnoremap <Leader>ld :GoDeclsDir<CR>
