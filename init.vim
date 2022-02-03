@@ -12,9 +12,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'francoiscabrol/ranger.vim'
   Plug 'rbgrouleff/bclose.vim'
 
-  " Tab through coc
-  " Plug 'ervandew/supertab'
-  
   " Git
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
@@ -38,10 +35,6 @@ call plug#begin("~/.vim/plugged")
 
   " Which key
   Plug 'liuchengxu/vim-which-key'
-
-  " Tab manager, barbar
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'romgrk/barbar.nvim'
 
   " Comment out lines
   Plug 'tpope/vim-commentary'
@@ -120,6 +113,16 @@ set tabstop=4
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
+
+" Folding auto mode
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+
+" keep 20 lines visible above and below cursor at all times
+set scrolloff=15  
+" set sidescrolloff=10   " keep 30 columns visible left and right of the cursor at all time
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
@@ -259,10 +262,6 @@ autocmd BufReadPost *
   \ |   exe "normal! g`\""
   \ | endif
 
-" SuperTab
-" let g:SuperTabMappingForward = '<S-tab>'
-" let g:SuperTabMappingBackward = '<tab>'
-
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -273,15 +272,10 @@ else
 endif
 
 
-" let buffers be clickable
-let g:lightline#bufferline#clickable=1
-let g:lightline#bfferline#shorten_path=1
-let g:lightline#bufferline#min_buffer_count=1
-
 " Git blamer
 let g:blamer_enabled = 1
 let g:blamer_delay = 1000
-let g:blamer_prefix = ' > '
+" let g:blamer_prefix = ' > '
 
 " Launch NERDTree on start-up
 let g:NERDTreeShowHidden = 1
@@ -334,18 +328,8 @@ endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
 
-" Tabs, bufferline
-let bufferline = get(g:, 'bufferline', {})
-
-" Configure icons on the bufferline.
-let bufferline.icon_separator_active = '▎'
-let bufferline.icon_separator_inactive = '▎'
-let bufferline.icon_close_tab = ''
-let bufferline.icon_close_tab_modified = '●'
-let bufferline.icon_pinned = '車'
-
 " vim-test {{{
-let test#strategy = "neovim"
+" let test#strategy = "neovim"
 
 "nmap <silent> t<C-n> :TestNearest<CR>
 "nmap <silent> t<C-f> :TestFile<CR>
@@ -400,21 +384,6 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-" Move to previous/next
-nnoremap <silent>    <M-,> :BufferPrevious<CR>
-nnoremap <silent>    <M-.> :BufferNext<CR>
-
-" Goto buffer in position...
-nnoremap <silent>    <A-1> :BufferGoto 1<CR>
-nnoremap <silent>    <A-2> :BufferGoto 2<CR>
-nnoremap <silent>    <A-3> :BufferGoto 3<CR>
-nnoremap <silent>    <A-4> :BufferGoto 4<CR>
-nnoremap <silent>    <A-5> :BufferGoto 5<CR>
-nnoremap <silent>    <A-6> :BufferGoto 6<CR>
-nnoremap <silent>    <A-7> :BufferGoto 7<CR>
-nnoremap <silent>    <A-8> :BufferGoto 8<CR>
-nnoremap <silent>    <A-9> :BufferLast<CR>
-
 
 " Remaps
 nmap <Leader>r :Ranger<CR>
@@ -455,3 +424,8 @@ nmap <Leader>sl :<C-u>SessionLoad<CR>
 " Golang keybingdings
 nnoremap <Leader>ll :GoRun<CR>
 nnoremap <Leader>ld :GoDeclsDir<CR>
+
+nnoremap <F6> :w <CR> :GoTestCompile <CR> <CR>
+inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
+let g:go_metalinter_autosave=1
+let g:go_metalinter_autosave_enabled=['golint', 'govet']
