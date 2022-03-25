@@ -9,8 +9,26 @@ call plug#begin("~/.vim/plugged")
   Plug 'morhetz/gruvbox'
   Plug 'NLKNguyen/papercolor-theme'
 
+  " Highlight jsx
+  Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'maxmellon/vim-jsx-pretty'
+
+  " Ranger
   Plug 'francoiscabrol/ranger.vim'
   Plug 'rbgrouleff/bclose.vim'
+        
+  " Telescope
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim' 
+
+  " Minimap
+  Plug 'wfxr/minimap.vim' 
+
+  " Start screen
+  Plug 'mhinz/vim-startify'
+
+  " Autocomplete pairs
+  Plug 'jiangmiao/auto-pairs'
 
   " Git
   Plug 'airblade/vim-gitgutter'
@@ -48,8 +66,8 @@ call plug#begin("~/.vim/plugged")
   Plug 'ryanoasis/vim-devicons'
 
   " File Search
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+  " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  "Plug 'junegunn/fzf.vim'
 
   " Indent colorscheme
   "  Plug 'lukas-reineke/indent-blankline.nvim'
@@ -243,17 +261,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 
-" coc-jest
-" -----------
-" Run jest for current project
-command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
-" Run jest for current file
-command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
-" Run jest for current test
-nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
-" Init jest in current cwd, require global jest command exists
-command! JestInit :call CocAction('runCommand', 'jest.init')
-
 
 
 " Persist cursor
@@ -285,7 +292,7 @@ let g:NERDTreeStatusline = ' '
 
 let g:ranger_map_keys = 0
 let g:NERDTreeHijackNetrw = 0 
-let g:ranger_replace_netrw = 1 
+" let g:ranger_replace_netrw = 1 
 
 
 " Add (Neo)Vim's native statusline support.
@@ -326,6 +333,12 @@ function! OpenTerminal()
   resize 10
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
+
+" Configure minimap
+let g:minimap_width = 10
+let g:minimap_auto_start = 0
+let g:minimap_auto_start_win_enter = 0
+let g:minimap_git_colors = 1
 
 
 " vim-test {{{
@@ -387,14 +400,14 @@ nnoremap <A-l> <C-w>l
 
 " Remaps
 nmap <Leader>r :Ranger<CR>
-nmap <Leader>p :Rg<CR>
+" nmap <Leader>p :Rg<CR>
 nmap <Leader>h :History<CR>
 " nmap <Leader>n :NERDTreeToggle<CR>
 nnoremap <Leader>nc :NERDTreeFocus<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>nn :NERDTreeToggle<CR>
 nnoremap <Leader>nf :NERDTreeFind<CR>
-nmap <Leader>fa :FZF<CR>
+" nmap <Leader>fa :FZF<CR>
 
 "  imap jj <Esc>:w<CR>a
 imap jj <Esc>
@@ -412,9 +425,6 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap <leader>ff  <Plug>(coc-format-selected)
-nmap <leader>ff  <Plug>(coc-format-selected)
 
 nmap <Leader>ss :<C-u>SessionSave<CR>
 nmap <Leader>sl :<C-u>SessionLoad<CR>
@@ -429,3 +439,15 @@ nnoremap <F6> :w <CR> :GoTestCompile <CR> <CR>
 inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
 let g:go_metalinter_autosave=1
 let g:go_metalinter_autosave_enabled=['golint', 'govet']
+
+
+" Telescope remaps 
+nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tg <cmd>Telescope live_grep<cr>
+nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>th <cmd>Telescope help_tags<cr>
+
+" Minimap maps
+nnoremap <leader>mm :MinimapToggle<CR>
+nnoremap <leader>mr :MinimapRescan<CR>
+nnoremap <leader>ms :MinimapRefresh<CR>
