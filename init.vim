@@ -40,6 +40,9 @@ call plug#begin("~/.vim/plugged")
   " Buffer line on the bottom
   Plug 'itchyny/lightline.vim'
 
+  " Auto comment lines
+  Plug 'preservim/nerdcommenter'
+
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular']
@@ -98,14 +101,40 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+" lightline
+" Remove redundant statusline -- MODE --
+set noshowmode
+
+" set lightline to include git-branch
+let g:lightline = {
+      \ 'active': {
+      \   'left': [['mode', 'paste'],
+      \             ['gitbranch', 'readonly', 'filename' , 'modified'],
+      \             ['venv', 'readonly']],
+      \   'right': [['lineinfo'], ['percent'], ['filetype']],
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'venv': 'virtualenv#statusline',
+      \   'filename': 'LightlineFilename',
+      \ },
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
+
+
 " Theme
 syntax on
 let g:gruvbox_contrast_dark='soft'
 set background=dark
 colorscheme gruvbox
-" let g:lightline = {
-"       \ 'colorscheme': 'PaperColor',
-"       \ }
 
 set cursorline
 " :set hidden
@@ -309,15 +338,6 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-nnoremap <C-p> :FZF<CR>
-" let g:fzf_action = {
-"  \ 'ctrl-t': 'tab split',
-"  \ 'ctrl-s': 'split',
-"  \ 'ctrl-v': 'vsplit'
-"  \}
-" requires silversearcher-ag
-" used to ignore gitignore files
-" let $FZF_DEFAULT_COMMAND = 'ag --ignore node_modules -g ""'
 
 " open new split panes to right and below
 set splitright
@@ -398,6 +418,10 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
 
 " Remaps
 nmap <Leader>r :Ranger<CR>
