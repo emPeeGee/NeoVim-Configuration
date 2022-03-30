@@ -293,6 +293,7 @@ let g:NERDTreeStatusline = ' '
 let g:ranger_map_keys = 0
 let g:NERDTreeHijackNetrw = 0 
 " let g:ranger_replace_netrw = 1 
+let g:netrw_liststyle = 3
 
 
 " Add (Neo)Vim's native statusline support.
@@ -309,14 +310,14 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 nnoremap <C-p> :FZF<CR>
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit'
-  \}
+" let g:fzf_action = {
+"  \ 'ctrl-t': 'tab split',
+"  \ 'ctrl-s': 'split',
+"  \ 'ctrl-v': 'vsplit'
+"  \}
 " requires silversearcher-ag
 " used to ignore gitignore files
-let $FZF_DEFAULT_COMMAND = 'ag --ignore node_modules -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag --ignore node_modules -g ""'
 
 " open new split panes to right and below
 set splitright
@@ -445,9 +446,18 @@ let g:go_metalinter_autosave_enabled=['golint', 'govet']
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>ts <cmd>Telescope grep_string<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
 
 " Minimap maps
 nnoremap <leader>mm :MinimapToggle<CR>
 nnoremap <leader>mr :MinimapRescan<CR>
 nnoremap <leader>ms :MinimapRefresh<CR>
+
+" Buffer maps
+nnoremap <Leader>bh :bprevious<CR>
+nnoremap <Leader>bl :bnext<CR>
+nnoremap <Leader>bk :bfirst<CR>
+nnoremap <Leader>bj :blast<CR>
+nnoremap <Leader>bx :bd<CR>
+nnoremap <Leader>bq :ls<CR>
