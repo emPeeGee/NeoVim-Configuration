@@ -63,9 +63,8 @@ call plug#begin("~/.vim/plugged")
   " Cheat.sh integration
   Plug 'RishabhRD/popfix'
   Plug 'RishabhRD/nvim-cheat.sh'
-
-  " File Explorer with Icons
-  Plug 'preservim/nerdtree'
+  
+  " Icons for vim
   Plug 'ryanoasis/vim-devicons'
 
   " File Search
@@ -94,6 +93,8 @@ call plug#begin("~/.vim/plugged")
   " Vim sneak pluggin
   Plug 'justinmk/vim-sneak'
 
+  " File tree  
+  Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 call plug#end()
 
 " Enable theming support
@@ -311,17 +312,10 @@ endif
 " Git blamer
 let g:blamer_enabled = 1
 let g:blamer_delay = 1000
-" let g:blamer_prefix = ' > '
 
-" Launch NERDTree on start-up
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeIgnore = []
-let g:NERDTreeStatusline = ' '
 
 let g:ranger_map_keys = 0
-let g:NERDTreeHijackNetrw = 0 
-" let g:ranger_replace_netrw = 1 
+let g:ranger_replace_netrw = 1 
 let g:netrw_liststyle = 3
 
 
@@ -334,9 +328,6 @@ set statusline^=%{coc#status()}
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
 " open new split panes to right and below
@@ -418,21 +409,22 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-" Create default mappings
-let g:NERDCreateDefaultMappings = 1
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
 
 " Remaps
 nmap <Leader>r :Ranger<CR>
 " nmap <Leader>p :Rg<CR>
 nmap <Leader>h :History<CR>
-" nmap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>nc :NERDTreeFocus<CR>
-nnoremap <Leader>nt :NERDTree<CR>
-nnoremap <Leader>nn :NERDTreeToggle<CR>
-nnoremap <Leader>nf :NERDTreeFind<CR>
-" nmap <Leader>fa :FZF<CR>
+
+nnoremap <leader>nn <cmd>CHADopen<cr>
+nnoremap <leader>nf <cmd>CHADopen --always-focus<cr>
+nnoremap <leader>nm <cmd>:CHADopen --nofocus<cr>
+nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
+
+" set width of the file tree
+let g:chadtree_settings = {"view.width": 30}
+
+" Autoclose chadtree if it the last window left
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == "CHADTree") | q | endif
 
 "  imap jj <Esc>:w<CR>a
 imap jj <Esc>
