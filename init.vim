@@ -21,8 +21,8 @@ call plug#begin("~/.vim/plugged")
   " Start screen
   Plug 'mhinz/vim-startify'
 
-  " Autocomplete pairs
-  Plug 'jiangmiao/auto-pairs'
+   "Autocomplete pairs
+  "Plug 'jiangmiao/auto-pairs'
 
   " Git
   Plug 'airblade/vim-gitgutter'
@@ -113,29 +113,6 @@ endif
 " Remove redundant statusline -- MODE --
 set noshowmode
 
-" set lightline to include git-branch
-let g:lightline = {
-      \ 'active': {
-      \   'left': [['mode', 'paste'],
-      \             ['gitbranch', 'readonly', 'filename' , 'modified'],
-      \             ['venv', 'readonly']],
-      \   'right': [['lineinfo'], ['percent'], ['filetype']],
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'venv': 'virtualenv#statusline',
-      \   'filename': 'LightlineFilename',
-      \ },
-      \ }
-
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
-endfunction
 
 
 " Theme
@@ -150,8 +127,11 @@ set list
 set listchars=tab:»·,trail:·
 
 
+" NeoVim default settings
 " Settings
 let mapleader = "\<Space>"
+let g:mapleader="\<Space>"
+
 filetype plugin on
 set completeopt=longest,menuone
 set mouse=a
@@ -206,31 +186,39 @@ set undodir=~/.vim/undodir
 " Make nvim use global clipboard
 set clipboard=unnamedplus
 
+" Persist cursor
+autocmd BufReadPost *
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ |   exe "normal! g`\""
+  \ | endif
+
 " highlight the visual selection after pressing enter.
 xnoremap <silent> <cr> "*y:silent! let searchTerm = '\V'.substitute(escape(@*, '\/'), "\n", '\\n', "g") <bar> let @/ = searchTerm <bar> echo '/'.@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>
 
-" Default value is clap
-let g:mapleader="\<Space>"
+"  imap jj <Esc>:w<CR>a
+imap jj <Esc>
 
-" Go setup
-" Highlight variable with same name when cursor is on them
-let g:go_auto_sameids = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
+" Neovim non plugin keybindings
+" Buffer maps
+nnoremap <Leader>bh :bprevious<CR>
+nnoremap <Leader>bl :bnext<CR>
+nnoremap <Leader>bk :bfirst<CR>
+nnoremap <Leader>bj :blast<CR>
+nnoremap <Leader>bx :bd<CR>
+nnoremap <Leader>bq :ls<CR>
 
-" Auto imports for go
-let g:go_fmt_command = "goimports"
-" Show type in bottom of screen
-let g:go_auto_type_info = 1
+" use alt+hjkl to move between split/vsplit panels
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 
-
+" Coc config
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("nvim-0.5.0") || has("patch-8.1.1564")
@@ -241,8 +229,6 @@ else
 endif
 
 " Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -261,7 +247,25 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -276,7 +280,12 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 
+" Formatting selected code.
+xmap <leader>ff  <Plug>(coc-format-selected)
+nmap <leader>ff  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -286,8 +295,20 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>ap  <Plug>(coc-codeaction-selected)
+nmap <leader>ap  <Plug>(coc-codeaction-selected)
 
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -300,15 +321,10 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-
-
-
-" Persist cursor
-autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
-  \ | endif
-
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -318,175 +334,76 @@ else
   imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
+" Coc settings end
+
+
+" WhickKey
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" Open whichkey after 500ms
+set timeoutlen=500
+
+
+" Vim-go -> Go setup
+" Highlight variable with same name when cursor is on them
+let g:go_auto_sameids = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+
+" Enrich go linter
+let g:go_metalinter_autosave=1
+let g:go_metalinter_autosave_enabled=['golint', 'govet']
+
+" Auto imports for go
+let g:go_fmt_command = "goimports"
+" Show type in bottom of screen
+let g:go_auto_type_info = 1
+
+" Keybindings
+nnoremap <Leader>ll :GoRun<CR>
+nnoremap <Leader>ld :GoDeclsDir<CR>
+
+nnoremap <F6> :w <CR> :GoTestCompile <CR> <CR>
+inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
+
 
 " Git blamer
 let g:blamer_enabled = 1
 let g:blamer_delay = 1000
 
 
+" Ranger
 let g:ranger_map_keys = 0
 let g:ranger_replace_netrw = 1 
-let g:netrw_liststyle = 3
 
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-
-" open new split panes to right and below
-set splitright
-set splitbelow
-
-
-" start terminal in insert mode
-au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-
-" open terminal on ctrl+;
-" uses zsh instead of bash
-function! OpenTerminal()
-  split term://bash
-  resize 10
-endfunction
-nnoremap <c-n> :call OpenTerminal()<CR>
-
-" Configure minimap
-let g:minimap_width = 10
-let g:minimap_auto_start = 0
-let g:minimap_auto_start_win_enter = 0
-let g:minimap_git_colors = 1
-
-
-" vim-test {{{
-" let test#strategy = "neovim"
-
-"nmap <silent> t<C-n> :TestNearest<CR>
-"nmap <silent> t<C-f> :TestFile<CR>
-"nmap <silent> t<C-s> :TestSuite<CR>
-"nmap <silent> t<C-l> :TestLast<CR>
-"nmap <silent> t<C-g> :TestVisit<CR>
-
-"Syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-" By default timeoutlen is 1000 ms
-set timeoutlen=500
-
-" Use <TAB> for selections ranges.
-" NOTE: Requires 'textDocument/selectionRange' support from the language server.
-" coc-tsserver, coc-python are the examples of servers that support it.
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" turn terminal to normal mode with escape
-tnoremap <Esc> <C-\><C-n>
-
-" use alt+hjkl to move between split/vsplit panels
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-
-
-" Remaps
+" Keybindings 
 nmap <Leader>r :Ranger<CR>
-" nmap <Leader>p :Rg<CR>
-nmap <Leader>h :History<CR>
-
-nnoremap <leader>nn <cmd>CHADopen<cr>
-nnoremap <leader>nf <cmd>CHADopen --always-focus<cr>
-nnoremap <leader>nm <cmd>:CHADopen --nofocus<cr>
-nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
-
-" set width of the file tree
-let g:chadtree_settings = {"view.width": 30}
-
-" Autoclose chadtree if it the last window left
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == "CHADTree") | q | endif
-
-"  imap jj <Esc>:w<CR>a
-imap jj <Esc>
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>ap  <Plug>(coc-codeaction-selected)
-nmap <leader>ap  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
 
 
-nmap <Leader>ss :<C-u>SessionSave<CR>
-nmap <Leader>sl :<C-u>SessionLoad<CR>
+" Minimap
+let g:minimap_width = 10
+let g:minimap_auto_start = 0 " Disable autostart
+let g:minimap_auto_start_win_enter = 0
+let g:minimap_git_colors = 1 " Use with git 
 
-" nmap <Leader>dc :<C-u>:call delete(expand('%')) | bdelete!<CR>
-
-" Golang keybingdings
-nnoremap <Leader>ll :GoRun<CR>
-nnoremap <Leader>ld :GoDeclsDir<CR>
-
-nnoremap <F6> :w <CR> :GoTestCompile <CR> <CR>
-inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
-let g:go_metalinter_autosave=1
-let g:go_metalinter_autosave_enabled=['golint', 'govet']
+" Keybindings
+nnoremap <leader>mm :MinimapToggle<CR>
+nnoremap <leader>mr :MinimapRescan<CR>
+nnoremap <leader>ms :MinimapRefresh<CR>
 
 
-" Telescope remaps 
+" Telescope
+" Keybindings
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>ts <cmd>Telescope grep_string<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
-
-" Minimap maps
-nnoremap <leader>mm :MinimapToggle<CR>
-nnoremap <leader>mr :MinimapRescan<CR>
-nnoremap <leader>ms :MinimapRefresh<CR>
-
-" Buffer maps
-nnoremap <Leader>bh :bprevious<CR>
-nnoremap <Leader>bl :bnext<CR>
-nnoremap <Leader>bk :bfirst<CR>
-nnoremap <Leader>bj :blast<CR>
-nnoremap <Leader>bx :bd<CR>
-nnoremap <Leader>bq :ls<CR>
 
 
 " Illuminate
@@ -506,6 +423,7 @@ nnoremap <leader><leader>h <cmd>HopChar2<cr>
 nnoremap <leader><leader>l <cmd>HopLine<cr>
 nnoremap <leader><leader>k <cmd>HopLineStart<cr>
 
+
 " quick-scope
 " Change delay
 let g:qs_delay = 150
@@ -515,3 +433,72 @@ let g:qs_buftype_blacklist = ['Ranger', 'nofile']
 " Keybindings
 nmap <leader>sq <plug>(QuickScopeToggle)
 xmap <leader>sq <plug>(QuickScopeToggle)
+
+
+" CHADTree
+" set width of the file tree
+let g:chadtree_settings = {"view.width": 30}
+
+" Autoclose chadtree if it the last window left
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == "CHADTree") | q | endif
+
+" Keybindings
+nnoremap <leader>nn <cmd>CHADopen<cr>
+nnoremap <leader>nf <cmd>CHADopen --always-focus<cr>
+nnoremap <leader>nm <cmd>:CHADopen --nofocus<cr>
+nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
+
+
+" Lightline
+let g:lightline = {
+      \ 'active': {
+      \   'left': [['mode', 'paste'],
+      \             ['gitbranch', 'readonly', 'filename' , 'modified'],
+      \             ['venv', 'readonly']],
+      \   'right': [['lineinfo'], ['percent'], ['filetype']],
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'venv': 'virtualenv#statusline',
+      \   'filename': 'LightlineFilename',
+      \ },
+      \ }
+
+" Get file name from git root
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
+
+
+" Unknown at this moment
+" open new split panes to right and below
+set splitright
+set splitbelow
+
+
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+
+" open terminal on ctrl+;
+" uses zsh instead of bash
+function! OpenTerminal()
+  split term://bash
+  resize 10
+endfunction
+nnoremap <c-n> :call OpenTerminal()<CR>
+
+
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+
+" nmap <Leader>p :Rg<CR>
+nmap <Leader>h :History<CR>
+
+
+nmap <Leader>ss :<C-u>SessionSave<CR>
+nmap <Leader>sl :<C-u>SessionLoad<CR>
