@@ -95,6 +95,9 @@ call plug#begin("~/.vim/plugged")
 
   " Jump anywhere
   Plug 'phaazon/hop.nvim'
+
+  " spell checker
+  Plug 'kamykn/spelunker.vim'
 call plug#end()
 
 " Change quick-scope colors, should be before setting colorscheme
@@ -186,6 +189,10 @@ set undodir=~/.vim/undodir
 " Make nvim use global clipboard
 set clipboard=unnamedplus
 
+" disable default spell checker
+set nospell
+
+" hey yoi take 
 " Persist cursor
 autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
