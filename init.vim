@@ -1,9 +1,3 @@
-" Mentions
-" :CocInstall coc-eslint
-" :CocInstall angular lsp
-" :CocInstall coc-pairs
-" To be completed...
-
 call plug#begin("~/.vim/plugged")
   " Theme and coloring
   Plug 'morhetz/gruvbox'
@@ -45,7 +39,7 @@ call plug#begin("~/.vim/plugged")
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs']
   
   " TypeScript Highlighting
   Plug 'leafgarland/typescript-vim'
@@ -90,12 +84,25 @@ call plug#begin("~/.vim/plugged")
   " Go lang
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-  " Vim sneak pluggin
-  Plug 'justinmk/vim-sneak'
-
   " File tree  
   Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+
+  " Highlight word under curson
+  Plug 'RRethy/vim-illuminate'
+
+  " An always-on highlight for a unique character in every word on a line to help you use f, F
+  Plug 'unblevable/quick-scope'
+
+  " Jump anywhere
+  Plug 'phaazon/hop.nvim'
 call plug#end()
+
+" Change quick-scope colors, should be before setting colorscheme
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+augroup END
 
 " Enable theming support
 if (has("termguicolors"))
@@ -198,6 +205,9 @@ set undodir=~/.vim/undodir
 
 " Make nvim use global clipboard
 set clipboard=unnamedplus
+
+" highlight the visual selection after pressing enter.
+xnoremap <silent> <cr> "*y:silent! let searchTerm = '\V'.substitute(escape(@*, '\/'), "\n", '\\n', "g") <bar> let @/ = searchTerm <bar> echo '/'.@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>
 
 " Default value is clap
 let g:mapleader="\<Space>"
@@ -477,3 +487,31 @@ nnoremap <Leader>bk :bfirst<CR>
 nnoremap <Leader>bj :blast<CR>
 nnoremap <Leader>bx :bd<CR>
 nnoremap <Leader>bq :ls<CR>
+
+
+" Illuminate
+" Underline word under cursor instead of backgroud change
+hi illuminatedWord cterm=underline gui=underline
+
+
+" Hop
+" Setup hop
+:lua require'hop'.setup()
+
+" Keybindings
+nnoremap <leader><leader>w <cmd>HopWord<cr>
+nnoremap <leader><leader>p <cmd>HopPattern<cr>
+nnoremap <leader><leader>g <cmd>HopChar1<cr>
+nnoremap <leader><leader>h <cmd>HopChar2<cr>
+nnoremap <leader><leader>l <cmd>HopLine<cr>
+nnoremap <leader><leader>k <cmd>HopLineStart<cr>
+
+" quick-scope
+" Change delay
+let g:qs_delay = 150
+let g:qs_filetype_blacklist = ['Ranger', 'startify']
+let g:qs_buftype_blacklist = ['Ranger', 'nofile']
+
+" Keybindings
+nmap <leader>sq <plug>(QuickScopeToggle)
+xmap <leader>sq <plug>(QuickScopeToggle)
