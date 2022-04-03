@@ -68,8 +68,8 @@ call plug#begin("~/.vim/plugged")
   " Indent colorscheme
   "  Plug 'lukas-reineke/indent-blankline.nvim'
   
-   " Show error hints and highlights
-  Plug 'vim-syntastic/syntastic'
+  " Show error hints and highlights
+  "Plug 'vim-syntastic/syntastic'
 
   " Select multiple same items
   Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -142,11 +142,11 @@ set title
 set wrap
 setlocal wrap
 filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=4
-" when indenting with '>', use 4 spaces width
+" show existing tab with 2 spaces width
+set tabstop=2
+" when indenting with '>', use 2 spaces width
 set shiftwidth=4
-" On pressing tab, insert 4 spaces
+" On pressing tab, insert 2 spaces
 set expandtab
 
 " Folding auto mode
