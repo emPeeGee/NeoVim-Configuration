@@ -96,10 +96,11 @@ call plug#begin("~/.vim/plugged")
   " Jump anywhere
   Plug 'phaazon/hop.nvim'
 
-  " spell checker
+  " Spell checker
   Plug 'kamykn/spelunker.vim'
 call plug#end()
 
+" quick-scope
 " Change quick-scope colors, should be before setting colorscheme
 augroup qs_colors
   autocmd!
@@ -111,11 +112,6 @@ augroup END
 if (has("termguicolors"))
  set termguicolors
 endif
-
-" lightline
-" Remove redundant statusline -- MODE --
-set noshowmode
-
 
 
 " Theme
@@ -457,6 +453,9 @@ nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
 
 
 " Lightline
+" Remove redundant statusline -- MODE --
+set noshowmode
+
 let g:lightline = {
       \ 'active': {
       \   'left': [['mode', 'paste'],
