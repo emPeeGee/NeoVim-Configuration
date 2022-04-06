@@ -98,6 +98,10 @@ call plug#begin("~/.vim/plugged")
 
   " Spell checker
   Plug 'kamykn/spelunker.vim'
+
+  " A class outline viewer for Vim
+  " Required ctags to be installed
+  Plug 'preservim/tagbar'
 call plug#end()
 
 " quick-scope
@@ -508,3 +512,8 @@ nmap <Leader>h :History<CR>
 
 nmap <Leader>ss :<C-u>SessionSave<CR>
 nmap <Leader>sl :<C-u>SessionLoad<CR>
+
+
+" Tagbar
+" Keybindings
+nnoremap <leader>to <cmd>TagbarToggle<cr>
