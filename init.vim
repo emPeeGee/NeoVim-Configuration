@@ -107,13 +107,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'vimwiki/vimwiki'
 call plug#end()
 
-" quick-scope
-" Change quick-scope colors, should be before setting colorscheme
-augroup qs_colors
-  autocmd!
-  autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
-  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
-augroup END
 
 " Enable theming support
 if (has("termguicolors"))
@@ -418,7 +411,7 @@ nnoremap <leader>th <cmd>Telescope help_tags<cr>
 
 " Illuminate
 " Underline word under cursor instead of backgroud change
-hi illuminatedWord cterm=underline gui=underline
+hi illuminatedWord guifg=white guibg=grey50
 
 
 " Hop
@@ -434,15 +427,14 @@ nnoremap <leader><leader>l <cmd>HopLine<cr>
 nnoremap <leader><leader>k <cmd>HopLineStart<cr>
 
 
-" quick-scope
-" Change delay
+" Quick-scope
 let g:qs_delay = 150
-let g:qs_filetype_blacklist = ['Ranger', 'startify']
-let g:qs_buftype_blacklist = ['Ranger', 'nofile']
+let g:qs_filetype_blacklist = ['startify']
+let g:qs_buftype_blacklist = ['nofile']
 
-" Keybindings
-nmap <leader>sq <plug>(QuickScopeToggle)
-xmap <leader>sq <plug>(QuickScopeToggle)
+ "Keybindings
+"nmap <leader>sq <plug>(QuickScopeToggle)
+"xmap <leader>sq <plug>(QuickScopeToggle)
 
 
 " CHADTree
