@@ -61,21 +61,11 @@ call plug#begin("~/.vim/plugged")
   " Icons for vim
   Plug 'ryanoasis/vim-devicons'
 
-  " File Search
-  " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  "Plug 'junegunn/fzf.vim'
-
   " Indent colorscheme
-  "  Plug 'lukas-reineke/indent-blankline.nvim'
-  
-  " Show error hints and highlights
-  "Plug 'vim-syntastic/syntastic'
+  " Plug 'lukas-reineke/indent-blankline.nvim'
 
   " Select multiple same items
   Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-
-  " Markdown
-  " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
   " Cheat.sh integration
   Plug 'RishabhRD/popfix'
@@ -119,6 +109,13 @@ syntax on
 let g:gruvbox_contrast_dark='soft'
 set background=dark
 colorscheme gruvbox
+
+"if strftime("%H") < 12
+  "set background=light
+"else
+"colorscheme Papercolor
+  "set background=light
+"endif
 
 set cursorline
 " :set hidden
@@ -478,35 +475,6 @@ function! LightlineFilename()
   endif
   return expand('%')
 endfunction
-
-
-" Unknown at this moment
-" open new split panes to right and below
-set splitright
-set splitbelow
-
-
-" start terminal in insert mode
-au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-
-" open terminal on ctrl+;
-" uses zsh instead of bash
-function! OpenTerminal()
-  split term://bash
-  resize 10
-endfunction
-nnoremap <c-n> :call OpenTerminal()<CR>
-
-
-" turn terminal to normal mode with escape
-tnoremap <Esc> <C-\><C-n>
-
-" nmap <Leader>p :Rg<CR>
-nmap <Leader>h :History<CR>
-
-
-nmap <Leader>ss :<C-u>SessionSave<CR>
-nmap <Leader>sl :<C-u>SessionLoad<CR>
 
 
 " Tagbar
