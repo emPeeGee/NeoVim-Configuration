@@ -102,6 +102,9 @@ call plug#begin("~/.vim/plugged")
   " A class outline viewer for Vim
   " Required ctags to be installed
   Plug 'preservim/tagbar'
+
+  " I guess something like org-mode
+  Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " quick-scope
@@ -406,12 +409,12 @@ nnoremap <leader>ms :MinimapRefresh<CR>
 
 " Telescope
 " Keybindings
+nnoremap <leader>tt <cmd>Telescope<cr>
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>ts <cmd>Telescope grep_string<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
-
 
 " Illuminate
 " Underline word under cursor instead of backgroud change
