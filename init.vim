@@ -96,7 +96,11 @@ call plug#begin("~/.vim/plugged")
   " I guess something like org-mode
   Plug 'vimwiki/vimwiki'
 
+  " Color Highlight
   Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
+  " Calendar for vim
+  Plug 'mattn/calendar-vim'
 call plug#end()
 
 
