@@ -141,12 +141,12 @@ filetype plugin indent on
 " show existing tab with 2 spaces width
 set tabstop=2
 " when indenting with '>', use 2 spaces width
-set shiftwidth=4
+set shiftwidth=2
 " On pressing tab, insert 2 spaces
 set expandtab
 
 " Folding auto mode
-set foldmethod=syntax
+set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
@@ -217,6 +217,7 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
+nnoremap <leader>fcv :vsp $MYVIMRC<CR>
 
 " Coc config
 " Always show the signcolumn, otherwise it would shift the text each time
