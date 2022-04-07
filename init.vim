@@ -95,6 +95,8 @@ call plug#begin("~/.vim/plugged")
 
   " I guess something like org-mode
   Plug 'vimwiki/vimwiki'
+
+  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 call plug#end()
 
 
@@ -185,6 +187,9 @@ set clipboard=unnamedplus
 " disable default spell checker
 set nospell
 
+" Show signcolumn before line number
+set signcolumn=yes
+
 " hey yoi take 
 " Persist cursor
 autocmd BufReadPost *
@@ -219,14 +224,6 @@ nnoremap <A-l> <C-w>l
 
 
 " Coc config
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
@@ -456,6 +453,7 @@ let g:lightline = {
       \ 'active': {
       \   'left': [['mode', 'paste'],
       \             ['gitbranch', 'readonly', 'filename' , 'modified'],
+      \             ['gitgutterstatus'],
       \             ['venv', 'readonly']],
       \   'right': [['lineinfo'], ['percent'], ['filetype']],
       \ },
@@ -463,6 +461,7 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head',
       \   'venv': 'virtualenv#statusline',
       \   'filename': 'LightlineFilename',
+      \   'gitgutterstatus': 'GitGutterStatus',
       \ },
       \ }
 
@@ -476,7 +475,29 @@ function! LightlineFilename()
   return expand('%')
 endfunction
 
+" Show additions, removals and changes of current buffer in lightline
+function! GitGutterStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
+set statusline+=%{GitStatus()}
 
 " Tagbar
 " Keybindings
 nnoremap <leader>to <cmd>TagbarToggle<cr>
+
+
+" GitGutter
+highlight! link SignColumn LineNr
+highlight GitGutterAdd    guifg=#009900
+highlight GitGutterChange guifg=#bbbb00
+highlight GitGutterDelete guifg=#ff2222
+"let g:gitgutter_highlight_lines = 1
+
+
+"Hexokinase
+" All possible highlighters
+let g:Hexokinase_highlighters = [
+\   'virtual',
+\   'backgroundfull',
+\ ]
