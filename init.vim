@@ -87,7 +87,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'phaazon/hop.nvim'
 
   " Spell checker
-  Plug 'kamykn/spelunker.vim'
+  "Plug 'kamykn/spelunker.vim'
 
   " A class outline viewer for Vim
   " Required ctags to be installed
@@ -104,6 +104,9 @@ call plug#begin("~/.vim/plugged")
 
   " Speed up folding
   Plug 'Konfekt/FastFold'
+
+  " Debugging
+  Plug 'puremourning/vimspector'
 call plug#end()
 
 
@@ -502,7 +505,7 @@ highlight GitGutterDelete guifg=#ff2222
 "let g:gitgutter_highlight_lines = 1
 
 
-"Hexokinase
+" Hexokinase
 " All possible highlighters
 let g:Hexokinase_highlighters = [
 \   'virtual',
@@ -510,6 +513,7 @@ let g:Hexokinase_highlighters = [
 \ ]
 
 
+" FastFold
 let g:markdown_folding = 1
 let g:rst_fold_enabled = 1
 let g:tex_fold_enabled = 1
@@ -518,3 +522,16 @@ let g:xml_syntax_folding = 1
 let g:javaScript_fold = 1
 let g:sh_fold_enabled= 7
 let g:zsh_fold_enable = 1
+
+
+" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+nmap <leader>vl :call vimspector#Launch()<CR>
+nmap <leader>vr :VimspectorReset<CR>
+nmap <leader>ve :VimspectorEval
+nmap <leader>vw :VimspectorWatch
+nmap <leader>vo :VimspectorShowOutput
+nmap <leader>vi <Plug>VimspectorBalloonEval
+xmap <leader>vi <Plug>VimspectorBalloonEval
+let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-go', 'CodeLLDB', 'vscode-node-debug2' ]
+
