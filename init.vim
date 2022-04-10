@@ -107,6 +107,9 @@ call plug#begin("~/.vim/plugged")
 
   " Debugging
   Plug 'puremourning/vimspector'
+
+  " Tpope pairs of mappings
+  Plug 'tpope/vim-unimpaired'
 call plug#end()
 
 
@@ -153,7 +156,7 @@ filetype plugin indent on
 " show existing tab with 2 spaces width
 set tabstop=2
 " when indenting with '>', use 2 spaces width
-set shiftwidth=4
+set shiftwidth=2
 " On pressing tab, insert 2 spaces
 set expandtab
 
