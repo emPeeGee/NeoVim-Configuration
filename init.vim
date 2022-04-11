@@ -53,9 +53,6 @@ call plug#begin("~/.vim/plugged")
   " Icons for vim
   Plug 'ryanoasis/vim-devicons'
 
-  " Indent colorscheme
-  " Plug 'lukas-reineke/indent-blankline.nvim'
-
   " Select multiple same items
   Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
@@ -127,10 +124,12 @@ colorscheme gruvbox
   "set background=light
 "endif
 
-set cursorline
-" :set hidden
+set cursorline   " highlight current line
+set cursorcolumn " highlight current column
+
 set list
 set listchars=tab:»·,trail:·
+" TODO: understand above 2 lines
 
 
 " NeoVim default settings
