@@ -87,7 +87,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'phaazon/hop.nvim'
 
   " Spell checker
-  Plug 'kamykn/spelunker.vim'
+  "Plug 'kamykn/spelunker.vim'
 
   " A class outline viewer for Vim
   " Required ctags to be installed
@@ -101,6 +101,15 @@ call plug#begin("~/.vim/plugged")
 
   " Calendar for vim
   Plug 'mattn/calendar-vim'
+
+  " Speed up folding
+  Plug 'Konfekt/FastFold'
+
+  " Debugging
+  Plug 'puremourning/vimspector'
+
+  " Tpope pairs of mappings
+  Plug 'tpope/vim-unimpaired'
 call plug#end()
 
 
@@ -216,15 +225,13 @@ nnoremap <Leader>bj :blast<CR>
 nnoremap <Leader>bx :bd<CR>
 nnoremap <Leader>bq :ls<CR>
 
-" use alt+hjkl to move between split/vsplit panels
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+" Move the line using alt and jk https://vim.fandom.com/wiki/Moving_lines_up_or_down
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 nnoremap <leader>fcv :vsp $MYVIMRC<CR>
 
@@ -500,9 +507,33 @@ highlight GitGutterDelete guifg=#ff2222
 "let g:gitgutter_highlight_lines = 1
 
 
-"Hexokinase
+" Hexokinase
 " All possible highlighters
 let g:Hexokinase_highlighters = [
 \   'virtual',
 \   'backgroundfull',
 \ ]
+
+
+" FastFold
+let g:markdown_folding = 1
+let g:rst_fold_enabled = 1
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
+let g:javaScript_fold = 1
+let g:sh_fold_enabled= 7
+let g:zsh_fold_enable = 1
+
+
+" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+nmap <leader>vl :call vimspector#Launch()<CR>
+nmap <leader>vr :VimspectorReset<CR>
+nmap <leader>ve :VimspectorEval
+nmap <leader>vw :VimspectorWatch
+nmap <leader>vo :VimspectorShowOutput
+nmap <leader>vi <Plug>VimspectorBalloonEval
+xmap <leader>vi <Plug>VimspectorBalloonEval
+let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-go', 'CodeLLDB', 'vscode-node-debug2' ]
+
