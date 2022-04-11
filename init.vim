@@ -3,10 +3,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'morhetz/gruvbox'
   Plug 'NLKNguyen/papercolor-theme'
 
-  " Highlight jsx
-  Plug 'HerringtonDarkholme/yats.vim'
-  Plug 'maxmellon/vim-jsx-pretty'
-
   " Ranger
   Plug 'francoiscabrol/ranger.vim'
   Plug 'rbgrouleff/bclose.vim'
@@ -41,10 +37,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs']
   
-  " TypeScript Highlighting
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
-
   " Tests
   Plug 'janko-m/vim-test' 
 
@@ -110,6 +102,9 @@ call plug#begin("~/.vim/plugged")
 
   " Tpope pairs of mappings
   Plug 'tpope/vim-unimpaired'
+
+  " Treesitter for highlighting
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 
@@ -536,4 +531,36 @@ nmap <leader>vo :VimspectorShowOutput
 nmap <leader>vi <Plug>VimspectorBalloonEval
 xmap <leader>vi <Plug>VimspectorBalloonEval
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-go', 'CodeLLDB', 'vscode-node-debug2' ]
+
+
+" Treesitter
+lua << EOF
+
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- List of parsers to ignore installing (for "all")
+  -- ignore_install = { "javascript" },
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is the name of the parser)
+    -- list of language that will be disabled
+    disable = { "c", "rust" },
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+EOF
 
