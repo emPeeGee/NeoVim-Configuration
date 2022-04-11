@@ -102,6 +102,10 @@ call plug#begin("~/.vim/plugged")
 
   " Treesitter for highlighting
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+  " Themes
+  Plug 'Th3Whit3Wolf/space-nvim' " Good light background
+  Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 
@@ -113,12 +117,17 @@ endif
 
 " Theme
 syntax on
-let g:gruvbox_contrast_dark='soft'
-set background=dark
-colorscheme gruvbox
+set background=light
+autocmd vimenter * ++nested colorscheme solarized8_high
+let g:solarized_visibility="high"
+"let g:solarized_old_cursor_style=1
+"let g:solarized_use16=1
+
 
 "if strftime("%H") < 12
-  "set background=light
+  "let g:gruvbox_contrast_dark='soft'
+  "set background=dark
+  "colorscheme gruvbox
 "else
 "colorscheme Papercolor
   "set background=light
@@ -130,6 +139,7 @@ set cursorcolumn " highlight current column
 set list
 set listchars=tab:»·,trail:·
 " TODO: understand above 2 lines
+
 
 
 " NeoVim default settings
