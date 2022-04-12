@@ -561,3 +561,9 @@ EOF
 
 " Lightline
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+set wildmenu
+set wildmode=list:longest,list:full
+" set colorcolumn=80
+let &colorcolumn="80,".join(range(120,999),",")
+set noruler
