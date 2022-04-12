@@ -2,6 +2,10 @@ call plug#begin("~/.vim/plugged")
   " Theme and coloring
   Plug 'morhetz/gruvbox'
   Plug 'NLKNguyen/papercolor-theme'
+  Plug 'lifepillar/vim-solarized8'
+  
+  " Icons for vim
+  Plug 'ryanoasis/vim-devicons'
 
   " Ranger
   Plug 'francoiscabrol/ranger.vim'
@@ -17,9 +21,6 @@ call plug#begin("~/.vim/plugged")
   " Start screen
   Plug 'mhinz/vim-startify'
 
-   "Autocomplete pairs
-  "Plug 'jiangmiao/auto-pairs'
-
   " Git
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
@@ -30,35 +31,22 @@ call plug#begin("~/.vim/plugged")
   " Buffer line on the bottom
   Plug 'itchyny/lightline.vim'
 
-  " Auto comment lines
-  Plug 'preservim/nerdcommenter'
-
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs']
   
-  " Tests
-  Plug 'janko-m/vim-test' 
-
   " Which key
   Plug 'liuchengxu/vim-which-key'
 
   " Comment out lines
   Plug 'tpope/vim-commentary'
 
-  " Cheat.sh integration
-  Plug 'RishabhRD/popfix'
-  Plug 'RishabhRD/nvim-cheat.sh'
-  
-  " Icons for vim
-  Plug 'ryanoasis/vim-devicons'
-
-  " Select multiple same items
-  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+  " Tpope pairs of mappings
+  Plug 'tpope/vim-unimpaired'
 
   " Cheat.sh integration
-  Plug 'RishabhRD/popfix'
-  Plug 'RishabhRD/nvim-cheat.sh'
+  " Plug 'RishabhRD/popfix'
+  " Plug 'RishabhRD/nvim-cheat.sh'
 
   " Go lang
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -91,21 +79,11 @@ call plug#begin("~/.vim/plugged")
   " Calendar for vim
   Plug 'mattn/calendar-vim'
 
-  " Speed up folding
-  "Plug 'Konfekt/FastFold'
-
   " Debugging
   Plug 'puremourning/vimspector'
 
-  " Tpope pairs of mappings
-  Plug 'tpope/vim-unimpaired'
-
   " Treesitter for highlighting
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-  " Themes
-  Plug 'Th3Whit3Wolf/space-nvim' " Good light background
-  Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 " Appearence
@@ -140,16 +118,17 @@ function SetupLightline(colorscheme)
   let g:lightline = {
     \ 'colorscheme': a:colorscheme,
     \ 'active': {
-    \   'left': [['mode', 'paste'],
+    \   'left': [ ['mode', 'paste'],
     \             ['gitbranch', 'readonly', 'filename' , 'modified'],
     \             ['venv', 'readonly']],
-    \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitgutterstatus']],
+    \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitgutterstatus'],['cocstatus']],
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#head',
     \   'venv': 'virtualenv#statusline',
     \   'filename': 'LightlineFilename',
     \   'gitgutterstatus': 'GitGutterStatus',
+    \   'cocstatus': 'coc#status'
     \ },
     \ }
 
@@ -189,11 +168,6 @@ function! SetLightTheme()
   call SetupLightline('solarized')
 endfunction
 
-set cursorline   " highlight current line
-set cursorcolumn " highlight current column
-
-set list
-set listchars=tab:»·,trail:·
 
 "Change theme depending on the time of day
 let hr = (strftime('%H'))
@@ -271,7 +245,12 @@ set nospell
 " Show signcolumn before line number
 set signcolumn=yes
 
-" hey yoi take 
+set cursorline   " highlight current line
+set cursorcolumn " highlight current column
+
+set list
+set listchars=tab:»·,trail:·
+
 " Persist cursor
 autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
@@ -301,10 +280,15 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-nnoremap <leader>fcv :vsp $MYVIMRC<CR>
+" Miscellaneous
+" Open vim init 
+nnoremap <leader>ov :vsp $MYVIMRC<CR>
 
-nnoremap <leader>ml <cmd>:call SetLightTheme()<cr>
-nnoremap <leader>md <cmd>:call SetDarkTheme()<cr>
+"Unsets the last search pattern
+nnoremap <leader>oh :noh<CR><CR> 
+nnoremap <leader>ol <cmd>:call SetLightTheme()<cr>
+nnoremap <leader>od <cmd>:call SetDarkTheme()<cr>
+nnoremap <leader>ot <cmd>TagbarToggle<cr>
 
 " Coc config
 
@@ -361,11 +345,11 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>cr <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>ff  <Plug>(coc-format-selected)
-nmap <leader>ff  <Plug>(coc-format-selected)
+xmap <leader>cf  <Plug>(coc-format-selected)
+nmap <leader>cf  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -377,13 +361,13 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>ap  <Plug>(coc-codeaction-selected)
-nmap <leader>ap  <Plug>(coc-codeaction-selected)
+xmap <leader>cd  <Plug>(coc-codeaction-selected)
+nmap <leader>cd  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>cc  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>cv  <Plug>(coc-fix-current)
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -401,10 +385,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -486,10 +466,6 @@ nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>ts <cmd>Telescope grep_string<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
 
-" Illuminate
-" Underline word under cursor instead of backgroud change
-hi illuminatedWord guifg=white guibg=grey50
-
 
 " Hop
 " Setup hop
@@ -509,10 +485,6 @@ let g:qs_delay = 150
 let g:qs_filetype_blacklist = ['startify']
 let g:qs_buftype_blacklist = ['nofile']
 
- "Keybindings
-"nmap <leader>sq <plug>(QuickScopeToggle)
-"xmap <leader>sq <plug>(QuickScopeToggle)
-
 
 " CHADTree
 " set width of the file tree
@@ -527,11 +499,6 @@ nnoremap <leader>nf <cmd>CHADopen --always-focus<cr>
 nnoremap <leader>nm <cmd>:CHADopen --nofocus<cr>
 nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
 
-
-
-" Tagbar
-" Keybindings
-nnoremap <leader>to <cmd>TagbarToggle<cr>
 
 
 " GitGutter
@@ -592,3 +559,5 @@ require'nvim-treesitter.configs'.setup {
 
 EOF
 
+" Lightline
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
