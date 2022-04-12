@@ -6,7 +6,7 @@ call plug#begin("~/.vim/plugged")
   " Ranger
   Plug 'francoiscabrol/ranger.vim'
   Plug 'rbgrouleff/bclose.vim'
-        
+
   " Telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim' 
@@ -108,32 +108,15 @@ call plug#begin("~/.vim/plugged")
   Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
-
+" Appearence
 " Enable theming support
 if (has("termguicolors"))
  set termguicolors
 endif
 
-set t_Co=256 " https://superuser.com/questions/311370/solarized-colors-in-vim-dont-seem-to-be-working-for-me
-" Lightline Remove redundant statusline -- MODE --
-set noshowmode
+syntax on
 
-let g:lightline = {
-      \ 'active': {
-      \   'left': [['mode', 'paste'],
-      \             ['gitbranch', 'readonly', 'filename' , 'modified'],
-      \             ['gitgutterstatus'],
-      \             ['venv', 'readonly']],
-      \   'right': [['lineinfo'], ['percent'], ['filetype']],
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'venv': 'virtualenv#statusline',
-      \   'filename': 'LightlineFilename',
-      \   'gitgutterstatus': 'GitGutterStatus',
-      \ },
-      \ }
-
+" Lightline
 " Get file name from git root
 function! LightlineFilename()
   let root = fnamemodify(get(b:, 'git_dir'), ':h')
@@ -149,8 +132,31 @@ function! GitGutterStatus()
   let [a,m,r] = GitGutterGetHunkSummary()
   return printf('+%d ~%d -%d', a, m, r)
 endfunction
-set statusline+=%{GitStatus()}
 
+function SetupLightline(colorscheme)
+  " Lightline Remove redundant statusline -- MODE --
+  set noshowmode
+
+  let g:lightline = {
+    \ 'colorscheme': a:colorscheme,
+    \ 'active': {
+    \   'left': [['mode', 'paste'],
+    \             ['gitbranch', 'readonly', 'filename' , 'modified'],
+    \             ['venv', 'readonly']],
+    \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitgutterstatus']],
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'fugitive#head',
+    \   'venv': 'virtualenv#statusline',
+    \   'filename': 'LightlineFilename',
+    \   'gitgutterstatus': 'GitGutterStatus',
+    \ },
+    \ }
+
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
 
 function! SetDarkTheme()
   let g:gruvbox_contrast_dark='soft'
@@ -159,51 +165,45 @@ function! SetDarkTheme()
 
   highlight Cursor guifg=white guibg=reverse
   highlight iCursor guifg=white guibg=reverse
+
   hi illuminatedWord guifg=white guibg=grey50
 
-  let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ }
+  call SetupLightline('powerline')
 endfunction
 
 function! SetLightTheme()
   set background=light
-  "autocmd vimenter * ++nested colorscheme solarized8_high
-  colorscheme solarized8_high " Looks good but there are 4 themes but actually they look the same"
+  colorscheme solarized8_high
+  colo solarized8_high
 
-  highlight Cursor guifg=white guibg=blue
-  highlight iCursor guifg=white guibg=blue
+  highlight Cursor guifg=reverse guibg=#0087ff
+  highlight iCursor guifg=reverse guibg=#0087ff
   set guicursor=n-v-c:block-Cursor
   set guicursor+=i:ver100-iCursor
   set guicursor+=n-v-c:blinkon0
   set guicursor+=i:blinkwait10
-  hi LineNr  guibg=NONE
+
+  hi LineNr guibg=NONE
   hi illuminatedWord guifg=white guibg=grey50
 
-  let g:lightline = {
-    \ 'colorscheme': 'solarized',
-    \ }
+  call SetupLightline('solarized')
 endfunction
-
-
-" Theme
-syntax on
-
-if strftime("%H") < 12
-  call SetDarkTheme()
-else
-  call SetLightTheme()
-endif
-
-
 
 set cursorline   " highlight current line
 set cursorcolumn " highlight current column
 
 set list
 set listchars=tab:»·,trail:·
-" TODO: understand above 2 lines
 
+"Change theme depending on the time of day
+let hr = (strftime('%H'))
+if hr >= 19
+  call SetDarkTheme()
+elseif hr >= 8
+  call SetLightTheme()
+elseif hr >= 0
+  call SetDarkTheme()
+endif
 
 
 " NeoVim default settings
@@ -302,7 +302,6 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 nnoremap <leader>fcv :vsp $MYVIMRC<CR>
-
 
 nnoremap <leader>ml <cmd>:call SetLightTheme()<cr>
 nnoremap <leader>md <cmd>:call SetDarkTheme()<cr>
