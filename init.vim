@@ -114,24 +114,88 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+set t_Co=256 " https://superuser.com/questions/311370/solarized-colors-in-vim-dont-seem-to-be-working-for-me
+" Lightline Remove redundant statusline -- MODE --
+set noshowmode
+
+let g:lightline = {
+      \ 'active': {
+      \   'left': [['mode', 'paste'],
+      \             ['gitbranch', 'readonly', 'filename' , 'modified'],
+      \             ['gitgutterstatus'],
+      \             ['venv', 'readonly']],
+      \   'right': [['lineinfo'], ['percent'], ['filetype']],
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'venv': 'virtualenv#statusline',
+      \   'filename': 'LightlineFilename',
+      \   'gitgutterstatus': 'GitGutterStatus',
+      \ },
+      \ }
+
+" Get file name from git root
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
+
+" Show additions, removals and changes of current buffer in lightline
+function! GitGutterStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
+set statusline+=%{GitStatus()}
+
+
+function! SetDarkTheme()
+  let g:gruvbox_contrast_dark='soft'
+  set background=dark
+  colorscheme gruvbox
+
+  highlight Cursor guifg=white guibg=reverse
+  highlight iCursor guifg=white guibg=reverse
+  hi illuminatedWord guifg=white guibg=grey50
+
+  let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ }
+endfunction
+
+function! SetLightTheme()
+  set background=light
+  "autocmd vimenter * ++nested colorscheme solarized8_high
+  colorscheme solarized8_high " Looks good but there are 4 themes but actually they look the same"
+
+  highlight Cursor guifg=white guibg=blue
+  highlight iCursor guifg=white guibg=blue
+  set guicursor=n-v-c:block-Cursor
+  set guicursor+=i:ver100-iCursor
+  set guicursor+=n-v-c:blinkon0
+  set guicursor+=i:blinkwait10
+  hi LineNr  guibg=NONE
+  hi illuminatedWord guifg=white guibg=grey50
+
+  let g:lightline = {
+    \ 'colorscheme': 'solarized',
+    \ }
+endfunction
+
 
 " Theme
 syntax on
-set background=light
-autocmd vimenter * ++nested colorscheme solarized8_high
-let g:solarized_visibility="high"
-"let g:solarized_old_cursor_style=1
-"let g:solarized_use16=1
+
+if strftime("%H") < 12
+  call SetDarkTheme()
+else
+  call SetLightTheme()
+endif
 
 
-"if strftime("%H") < 12
-  "let g:gruvbox_contrast_dark='soft'
-  "set background=dark
-  "colorscheme gruvbox
-"else
-"colorscheme Papercolor
-  "set background=light
-"endif
 
 set cursorline   " highlight current line
 set cursorcolumn " highlight current column
@@ -238,6 +302,10 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 nnoremap <leader>fcv :vsp $MYVIMRC<CR>
+
+
+nnoremap <leader>ml <cmd>:call SetLightTheme()<cr>
+nnoremap <leader>md <cmd>:call SetDarkTheme()<cr>
 
 " Coc config
 
@@ -461,42 +529,6 @@ nnoremap <leader>nm <cmd>:CHADopen --nofocus<cr>
 nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
 
 
-" Lightline
-" Remove redundant statusline -- MODE --
-set noshowmode
-
-let g:lightline = {
-      \ 'active': {
-      \   'left': [['mode', 'paste'],
-      \             ['gitbranch', 'readonly', 'filename' , 'modified'],
-      \             ['gitgutterstatus'],
-      \             ['venv', 'readonly']],
-      \   'right': [['lineinfo'], ['percent'], ['filetype']],
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'venv': 'virtualenv#statusline',
-      \   'filename': 'LightlineFilename',
-      \   'gitgutterstatus': 'GitGutterStatus',
-      \ },
-      \ }
-
-" Get file name from git root
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
-endfunction
-
-" Show additions, removals and changes of current buffer in lightline
-function! GitGutterStatus()
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return printf('+%d ~%d -%d', a, m, r)
-endfunction
-set statusline+=%{GitStatus()}
 
 " Tagbar
 " Keybindings
@@ -514,7 +546,6 @@ highlight GitGutterDelete guifg=#ff2222
 " Hexokinase
 " All possible highlighters
 let g:Hexokinase_highlighters = [
-\   'virtual',
 \   'backgroundfull',
 \ ]
 
