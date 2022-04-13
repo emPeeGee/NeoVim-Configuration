@@ -567,3 +567,14 @@ set wildmode=list:longest,list:full
 " set colorcolumn=80
 let &colorcolumn="80,".join(range(120,999),",")
 set noruler
+
+" Fugitive
+set diffopt+=vertical
+
+" Keybindings
+
+nnoremap <leader>gg <cmd>G<cr>
+nnoremap <leader>gm <cmd>Gdiffsplit!<cr>
+nnoremap <leader>gf <cmd>0Gclog<cr>
+nnoremap <leader>gl <cmd>Gclog<cr>
+nnoremap <leader>gb <cmd>Git blame<cr>
