@@ -121,14 +121,13 @@ function SetupLightline(colorscheme)
     \   'left': [ ['mode', 'paste'],
     \             ['gitbranch', 'readonly', 'filename' , 'modified'],
     \             ['venv', 'readonly']],
-    \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitgutterstatus'],['cocstatus']],
+    \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitgutterstatus']],
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#head',
     \   'venv': 'virtualenv#statusline',
     \   'filename': 'LightlineFilename',
     \   'gitgutterstatus': 'GitGutterStatus',
-    \   'cocstatus': 'coc#status'
     \ },
     \ }
 
@@ -461,10 +460,11 @@ nnoremap <leader>ms :MinimapRefresh<CR>
 " Keybindings
 nnoremap <leader>tt <cmd>Telescope<cr>
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
-nnoremap <leader>tg <cmd>Telescope live_grep<cr>
+nnoremap <leader>tl <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>ts <cmd>Telescope grep_string<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
+nnoremap <leader>tg <cmd>Telescope git_status<cr>
 
 
 " Hop
