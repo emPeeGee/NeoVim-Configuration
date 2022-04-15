@@ -84,6 +84,9 @@ call plug#begin("~/.vim/plugged")
 
   " Treesitter for highlighting
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+  " Context 
+  Plug 'romgrk/nvim-treesitter-context'
 call plug#end()
 
 " Appearence
@@ -259,6 +262,9 @@ autocmd BufReadPost *
 " highlight the visual selection after pressing enter.
 xnoremap <silent> <cr> "*y:silent! let searchTerm = '\V'.substitute(escape(@*, '\/'), "\n", '\\n', "g") <bar> let @/ = searchTerm <bar> echo '/'.@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>
 
+" Highlight matching paren
+hi MatchParen guibg=magenta guifg=white
+
 "  imap jj <Esc>:w<CR>a
 imap jj <Esc>
 
@@ -283,8 +289,12 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 " Open vim init 
 nnoremap <leader>ov :vsp $MYVIMRC<CR>
 
+" Toggle relativenumber
+nnoremap <leader>or <set relativenumber!<Cr>
+
 "Unsets the last search pattern
 nnoremap <leader>oh :noh<CR><CR> 
+" Theme toggler
 nnoremap <leader>ol <cmd>:call SetLightTheme()<cr>
 nnoremap <leader>od <cmd>:call SetDarkTheme()<cr>
 nnoremap <leader>ot <cmd>TagbarToggle<cr>
@@ -556,6 +566,26 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+
+-- Treesitter context
+require'treesitter-context'.setup{
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    throttle = true, -- Throttles plugin updates (may improve performance)
+    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        default = {
+            'class',
+            'function',
+            'method',
+            'for', 
+            'while',
+            'if',
+            'switch',
+            'case',
+        },
+    },
+}
+
 EOF
 
 " Lightline
@@ -567,6 +597,7 @@ set colorcolumn=80,120
 set noruler
 
 " Fugitive
+" Make diff vertical
 set diffopt+=vertical
 
 " Keybindings
@@ -576,3 +607,6 @@ nnoremap <leader>gm <cmd>Gdiffsplit!<cr>
 nnoremap <leader>gf <cmd>0Gclog<cr>
 nnoremap <leader>gl <cmd>Gclog<cr>
 nnoremap <leader>gb <cmd>Git blame<cr>
+
+
+
