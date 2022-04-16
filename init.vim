@@ -15,6 +15,9 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim' 
 
+  "
+  Plug 'fannheyward/telescope-coc.nvim'
+
   " Minimap
   Plug 'wfxr/minimap.vim' 
 
@@ -95,6 +98,7 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+" Turn syntax highlighting on.
 syntax on
 
 " Lightline
@@ -172,14 +176,14 @@ endfunction
 
 
 "Change theme depending on the time of day
-let hr = (strftime('%H'))
-if hr >= 19
+" let hr = (strftime('%H'))
+" if hr >= 19
+"   call SetDarkTheme()
+" elseif hr >= 8
+"   call SetLightTheme()
+" elseif hr >= 0
   call SetDarkTheme()
-elseif hr >= 8
-  call SetLightTheme()
-elseif hr >= 0
-  call SetDarkTheme()
-endif
+" endif
 
 
 " NeoVim default settings
@@ -187,16 +191,21 @@ endif
 let mapleader = "\<Space>"
 let g:mapleader="\<Space>"
 
+" Enable type file detection. Vim will be able to try to detect the type of file is use.
+filetype on
+" Enable plugins and load plugin for the detected file type.
 filetype plugin on
+" Load an indent file for the detected file type.
+filetype indent on
 set completeopt=longest,menuone
 set mouse=a
+" Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
 set noswapfile
 set number
 set title
+" Wrap lines.
 set wrap
-setlocal wrap
-filetype plugin indent on
 " show existing tab with 2 spaces width
 set tabstop=2
 " when indenting with '>', use 2 spaces width
@@ -247,11 +256,23 @@ set nospell
 " Show signcolumn before line number
 set signcolumn=yes
 
-set cursorline   " highlight current line
-set cursorcolumn " highlight current column
+" Highlight cursor line underneath the cursor horizontally.
+set cursorline
+" Highlight cursor line underneath the cursor vertically.
+set cursorcolumn
 
 set list
 set listchars=tab:»·,trail:·
+
+set colorcolumn=80,120
+set noruler
+
+set wildmenu
+set wildmode=list:longest,list:full
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
 
 " Persist cursor
 autocmd BufReadPost *
@@ -265,8 +286,11 @@ xnoremap <silent> <cr> "*y:silent! let searchTerm = '\V'.substitute(escape(@*, '
 " Highlight matching paren
 hi MatchParen guibg=magenta guifg=white
 
-"  imap jj <Esc>:w<CR>a
 imap jj <Esc>
+" If you select some lines then press > to indent the lines, the selection is removed. The indentation can be repeated on the same range using ., but if you still want to retain the visual selection after having pressed > or <, you can use these mappings
+vnoremap > >gv
+vnoremap < <gv
+
 
 " Neovim non plugin keybindings
 " Buffer maps
@@ -448,7 +472,7 @@ let g:blamer_delay = 1000
 
 " Ranger
 let g:ranger_map_keys = 0
-let g:ranger_replace_netrw = 1 
+" let g:ranger_replace_netrw = 1 
 
 " Keybindings 
 nmap <Leader>r :Ranger<CR>
@@ -569,44 +593,47 @@ require'nvim-treesitter.configs'.setup {
 
 -- Treesitter context
 require'treesitter-context'.setup{
-    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-    throttle = true, -- Throttles plugin updates (may improve performance)
-    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-    patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-        default = {
-            'class',
-            'function',
-            'method',
-            'for', 
-            'while',
-            'if',
-            'switch',
-            'case',
-        },
+  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+  throttle = true, -- Throttles plugin updates (may improve performance)
+  max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+  patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+    default = {
+      'class',
+      'function',
+      'method',
+      'for', 
+      'while',
+      'if',
+      'switch',
+      'case',
     },
+  },
 }
 
+require('telescope').setup{
+  defaults = {
+    layout_strategy = 'vertical',
+    layout_config = {
+      width = 0.9,
+      height = 0.9
+    }
+  },
+}
+
+
+require('telescope').load_extension('coc')
 EOF
 
-" Lightline
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
-set wildmenu
-set wildmode=list:longest,list:full
-set colorcolumn=80,120
-set noruler
 
 " Fugitive
 " Make diff vertical
 set diffopt+=vertical
 
 " Keybindings
-
 nnoremap <leader>gg <cmd>G<cr>
 nnoremap <leader>gm <cmd>Gdiffsplit!<cr>
 nnoremap <leader>gf <cmd>0Gclog<cr>
 nnoremap <leader>gl <cmd>Gclog<cr>
 nnoremap <leader>gb <cmd>Git blame<cr>
 
-
-
+" Handy for angular https://www.reddit.com/r/vim/comments/fedjzm/open_angular_counterpart_html_or_ts_files/
