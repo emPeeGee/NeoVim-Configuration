@@ -14,8 +14,6 @@ call plug#begin("~/.vim/plugged")
   " Telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim' 
-
-  "
   Plug 'fannheyward/telescope-coc.nvim'
 
   " Minimap
@@ -36,16 +34,15 @@ call plug#begin("~/.vim/plugged")
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs']
-  
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-tabnine', 'coc-snippets']
+ 
   " Which key
   Plug 'liuchengxu/vim-which-key'
 
-  " Comment out lines
-  Plug 'tpope/vim-commentary'
-
-  " Tpope pairs of mappings
-  Plug 'tpope/vim-unimpaired'
+  " Tim Pope
+  Plug 'tpope/vim-commentary' " Comment out lines
+  Plug 'tpope/vim-unimpaired' " Tpope pairs of mappings
+  Plug 'tpope/vim-surround'   " Surround
 
   " Cheat.sh integration
   " Plug 'RishabhRD/popfix'
@@ -59,12 +56,6 @@ call plug#begin("~/.vim/plugged")
 
   " Highlight word under curson
   Plug 'RRethy/vim-illuminate'
-
-  " An always-on highlight for a unique character in every word on a line to help you use f, F
-  Plug 'unblevable/quick-scope'
-
-  " Jump anywhere
-  Plug 'phaazon/hop.nvim'
 
   " Spell checker
   "Plug 'kamykn/spelunker.vim'
@@ -90,6 +81,22 @@ call plug#begin("~/.vim/plugged")
 
   " Context 
   Plug 'romgrk/nvim-treesitter-context'
+
+  " Show marks on signcolumn
+  Plug 'kshenoy/vim-signature'
+
+  " View undo list visually
+  Plug 'mbbill/undotree'
+
+  " Enhanced navigation
+  Plug 'ggandor/lightspeed.nvim'
+
+  " An always-on highlight for a unique character in every word on a line to help you use f, F
+  Plug 'unblevable/quick-scope'
+
+  " Jump anywhere
+  Plug 'phaazon/hop.nvim'
+
 call plug#end()
 
 " Appearence
@@ -244,8 +251,20 @@ set nowritebackup
 set cmdheight=2
 
 " persist
-set undofile " Maintain undo history between sessions
-set undodir=~/.vim/undodir
+" set undofile " Maintain undo history between sessions
+" set undodir=~/.vim/undodir
+if has("persistent_undo")
+   let target_path = expand('~/.undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
 
 " Make nvim use global clipboard
 set clipboard=unnamedplus
@@ -322,7 +341,7 @@ nnoremap <leader>oh :noh<CR><CR>
 nnoremap <leader>ol <cmd>:call SetLightTheme()<cr>
 nnoremap <leader>od <cmd>:call SetDarkTheme()<cr>
 nnoremap <leader>ot <cmd>TagbarToggle<cr>
-
+nnoremap <leader>ou :UndotreeToggle<CR>
 " Coc config
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -499,6 +518,7 @@ nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>ts <cmd>Telescope grep_string<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
 nnoremap <leader>tg <cmd>Telescope git_status<cr>
+nnoremap <leader>tc <cmd>Telescope coc<cr>
 
 
 " Hop
@@ -619,7 +639,6 @@ require('telescope').setup{
     }
   },
 }
-
 
 require('telescope').load_extension('coc')
 EOF
