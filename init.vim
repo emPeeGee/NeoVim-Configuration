@@ -94,9 +94,6 @@ call plug#begin("~/.vim/plugged")
   " An always-on highlight for a unique character in every word on a line to help you use f, F
   Plug 'unblevable/quick-scope'
 
-  " Jump anywhere
-  Plug 'phaazon/hop.nvim'
-
 call plug#end()
 
 " Appearence
@@ -160,7 +157,7 @@ function! SetDarkTheme()
 
   hi illuminatedWord guifg=white guibg=grey50
 
-  call SetupLightline('powerline')
+  call SetupLightline('wombat')
 endfunction
 
 function! SetLightTheme()
@@ -521,19 +518,6 @@ nnoremap <leader>tg <cmd>Telescope git_status<cr>
 nnoremap <leader>tc <cmd>Telescope coc<cr>
 
 
-" Hop
-" Setup hop
-:lua require'hop'.setup()
-
-" Keybindings
-nnoremap <leader><leader>w <cmd>HopWord<cr>
-nnoremap <leader><leader>p <cmd>HopPattern<cr>
-nnoremap <leader><leader>g <cmd>HopChar1<cr>
-nnoremap <leader><leader>h <cmd>HopChar2<cr>
-nnoremap <leader><leader>l <cmd>HopLine<cr>
-nnoremap <leader><leader>k <cmd>HopLineStart<cr>
-
-
 " Quick-scope
 let g:qs_delay = 150
 let g:qs_filetype_blacklist = ['startify']
@@ -552,7 +536,6 @@ nnoremap <leader>nn <cmd>CHADopen<cr>
 nnoremap <leader>nf <cmd>CHADopen --always-focus<cr>
 nnoremap <leader>nm <cmd>:CHADopen --nofocus<cr>
 nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
-
 
 
 " GitGutter
