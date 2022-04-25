@@ -3,7 +3,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'morhetz/gruvbox'
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'lifepillar/vim-solarized8'
-  
+ 
   " Icons for vim
   Plug 'ryanoasis/vim-devicons'
 
@@ -264,7 +264,7 @@ if has("persistent_undo")
 endif
 
 " Make nvim use global clipboard
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
 " disable default spell checker
 set nospell
@@ -289,6 +289,13 @@ set wildmode=list:longest,list:full
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
+set incsearch " Show results as you type
+set hlsearch  " Highlight the search results 
+
+set spell spelllang=en_us
+
+set path+=**
+
 
 " Persist cursor
 autocmd BufReadPost *
@@ -299,7 +306,7 @@ autocmd BufReadPost *
 " highlight the visual selection after pressing enter.
 xnoremap <silent> <cr> "*y:silent! let searchTerm = '\V'.substitute(escape(@*, '\/'), "\n", '\\n', "g") <bar> let @/ = searchTerm <bar> echo '/'.@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>
 
-" Highlight matching paren
+" Highlight matching parenthesis
 hi MatchParen guibg=magenta guifg=white
 
 imap jj <Esc>
@@ -332,6 +339,9 @@ nnoremap <leader>ov :vsp $MYVIMRC<CR>
 " Toggle relativenumber
 nnoremap <leader>or <set relativenumber!<Cr>
 
+" Toggle spelling
+nnoremap <leader>os :set spell! 
+
 "Unsets the last search pattern
 nnoremap <leader>oh :noh<CR><CR> 
 " Theme toggler
@@ -339,8 +349,9 @@ nnoremap <leader>ol <cmd>:call SetLightTheme()<cr>
 nnoremap <leader>od <cmd>:call SetDarkTheme()<cr>
 nnoremap <leader>ot <cmd>TagbarToggle<cr>
 nnoremap <leader>ou :UndotreeToggle<CR>
-" Coc config
 
+
+" Coc config
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -375,7 +386,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -626,7 +636,6 @@ require('telescope').setup{
 require('telescope').load_extension('coc')
 EOF
 
-
 " Fugitive
 " Make diff vertical
 set diffopt+=vertical
@@ -639,3 +648,10 @@ nnoremap <leader>gl <cmd>Gclog<cr>
 nnoremap <leader>gb <cmd>Git blame<cr>
 
 " Handy for angular https://www.reddit.com/r/vim/comments/fedjzm/open_angular_counterpart_html_or_ts_files/
+
+" Abbreviations list
+ab @@ eempeegee@email.com
+ab <expr> cdate strftime('%d/%m/%Y')
+ab uuidgen r! uuidgen
+
+
