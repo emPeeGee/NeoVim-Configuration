@@ -57,9 +57,6 @@ call plug#begin("~/.vim/plugged")
   " Highlight word under curson
   Plug 'RRethy/vim-illuminate'
 
-  " Spell checker
-  "Plug 'kamykn/spelunker.vim'
-
   " A class outline viewer for Vim
   " Required ctags to be installed
   Plug 'preservim/tagbar'
@@ -284,16 +281,19 @@ set colorcolumn=80,120
 set noruler
 
 set wildmenu
-set wildmode=list:longest,list:full
+set wildmode=list:full
+
 " There are certain files that we would never want to edit with Vim.
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore+=*/node_modules/*
 
 set incsearch " Show results as you type
 set hlsearch  " Highlight the search results 
 
 set spell spelllang=en_us
 
+" Find recursive, not just in current folder
 set path+=**
 
 
@@ -655,3 +655,7 @@ ab <expr> cdate strftime('%d/%m/%Y')
 ab uuidgen r! uuidgen
 
 
+" Get rid of the artifacts
+autocmd CompleteDone <buffer> if has_key(v:completed_item, 'word') && v:completed_item.word =~ '\.$'
+\| call feedkeys("\<bs>")
+\| endif
