@@ -23,11 +23,9 @@ call plug#begin("~/.vim/plugged")
   Plug 'mhinz/vim-startify'
 
   " Git
-  Plug 'airblade/vim-gitgutter'
+  " Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
-
-  " Git blamer
-  Plug 'APZelos/blamer.nvim'
+  Plug 'lewis6991/gitsigns.nvim'
 
   " Buffer line on the bottom
   Plug 'itchyny/lightline.vim'
@@ -83,7 +81,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'romgrk/nvim-treesitter-context'
 
   " Show marks on signcolumn
-  Plug 'kshenoy/vim-signature'
+  " Plug 'kshenoy/vim-signature'
 
   " View undo list visually
   Plug 'mbbill/undotree'
@@ -132,13 +130,11 @@ function SetupLightline(colorscheme)
     \   'left': [ ['mode', 'paste'],
     \             ['gitbranch', 'readonly', 'filename' , 'modified'],
     \             ['venv', 'readonly']],
-    \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitgutterstatus']],
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#head',
     \   'venv': 'virtualenv#statusline',
     \   'filename': 'LightlineFilename',
-    \   'gitgutterstatus': 'GitGutterStatus',
     \ },
     \ }
 
@@ -492,8 +488,8 @@ inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
 
 
 " Git blamer
-let g:blamer_enabled = 1
-let g:blamer_delay = 1000
+" let g:blamer_enabled = 1
+" let g:blamer_delay = 1000
 
 
 " Ranger
@@ -550,9 +546,9 @@ nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
 
 " GitGutter
 highlight! link SignColumn LineNr
-highlight GitGutterAdd    guifg=#009900
-highlight GitGutterChange guifg=#bbbb00
-highlight GitGutterDelete guifg=#ff2222
+" highlight GitGutterAdd    guifg=#009900
+" highlight GitGutterChange guifg=#bbbb00
+" highlight GitGutterDelete guifg=#ff2222
 "let g:gitgutter_highlight_lines = 1
 
 
@@ -577,6 +573,40 @@ let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-go', 'CodeLLDB', 'vscode
 
 " Treesitter
 lua << EOF
+
+require'gitsigns'.setup{
+  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+  numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
+  current_line_blame = true, -- color is ...
+
+  on_attach = function(bufnr)
+    local function map(mode, lhs, rhs, opts)
+        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+
+    -- Actions
+    map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
+    map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+    map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
+    map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+    map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+    -- map('n', '<leader>hb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+    map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
+    map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+    map('n', '<leader>hd', '<cmd>Gitsigns toggle_deleted<CR>')
+  end
+}
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
