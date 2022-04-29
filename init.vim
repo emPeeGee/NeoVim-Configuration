@@ -56,8 +56,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'RRethy/vim-illuminate'
 
   " A class outline viewer for Vim
-  " Required ctags to be installed
-  Plug 'preservim/tagbar'
+  Plug 'liuchengxu/vista.vim'
 
   " I guess something like org-mode
   Plug 'vimwiki/vimwiki'
@@ -343,9 +342,10 @@ nnoremap <leader>oh :noh<CR><CR>
 " Theme toggler
 nnoremap <leader>ol <cmd>:call SetLightTheme()<cr>
 nnoremap <leader>od <cmd>:call SetDarkTheme()<cr>
-nnoremap <leader>ot <cmd>TagbarToggle<cr>
 nnoremap <leader>ou :UndotreeToggle<CR>
 
+nnoremap <leader>ott <cmd>Vista!!<cr>
+nnoremap <leader>otc <cmd>Vista coc<cr>
 
 " Coc config
 " Use tab for trigger completion with characters ahead and navigate.
@@ -596,15 +596,12 @@ require'gitsigns'.setup{
     map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
     map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
     map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-    map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
     map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
-    map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
     map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
-    map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-    -- map('n', '<leader>hb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
     map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
     map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-    map('n', '<leader>hd', '<cmd>Gitsigns toggle_deleted<CR>')
+    map('n', '<leader>hv', '<cmd>Gitsigns toggle_deleted<CR>')
+    map('n', '<leader>hB', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
   end
 }
 
