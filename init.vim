@@ -112,9 +112,8 @@ function! LightlineFilename()
 endfunction
 
 " Show additions, removals and changes of current buffer in lightline
-function! GitGutterStatus()
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return printf('+%d ~%d -%d', a, m, r)
+function! GitSignsStatus()
+  return get(b:,'gitsigns_status','')
 endfunction
 
 function SetupLightline(colorscheme)
@@ -127,12 +126,13 @@ function SetupLightline(colorscheme)
     \   'left': [ ['mode', 'paste'],
     \             ['gitbranch', 'readonly', 'filename' , 'modified'],
     \             ['venv', 'readonly']],
-    \   'right': [['lineinfo'], ['percent'], ['filetype'] ],
+    \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitsignsstatus']],
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#head',
     \   'venv': 'virtualenv#statusline',
     \   'filename': 'LightlineFilename',
+    \   'gitsignsstatus': 'GitSignsStatus',
     \ },
     \ }
 
@@ -584,6 +584,8 @@ require'gitsigns'.setup{
   linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
   current_line_blame = true, -- color is ...
+
+  sign_priority = 1,
 
   on_attach = function(bufnr)
     local function map(mode, lhs, rhs, opts)
