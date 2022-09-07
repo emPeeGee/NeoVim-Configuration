@@ -52,7 +52,7 @@ call plug#begin("~/.vim/plugged")
   " File tree  
   Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
-  " Highlight word under curson
+  " Highlight word under cursor
   Plug 'RRethy/vim-illuminate'
 
   " A class outline viewer for Vim
@@ -72,9 +72,7 @@ call plug#begin("~/.vim/plugged")
 
   " Treesitter for highlighting
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-  " Context 
-  Plug 'romgrk/nvim-treesitter-context'
+  Plug 'nvim-treesitter/nvim-treesitter-context'
 
   " Show marks on signcolumn
   " Plug 'kshenoy/vim-signature'
@@ -86,11 +84,10 @@ call plug#begin("~/.vim/plugged")
   Plug 'ggandor/lightspeed.nvim'
 
   " An always-on highlight for a unique character in every word on a line to help you use f, F
-  Plug 'unblevable/quick-scope'
-
+  " Plug 'unblevable/quick-scope'
 call plug#end()
 
-" Appearence
+" Appearance
 " Enable theming support
 if (has("termguicolors"))
  set termguicolors
@@ -126,6 +123,7 @@ function SetupLightline(colorscheme)
     \   'left': [ ['mode', 'paste'],
     \             ['gitbranch', 'readonly', 'filename' , 'modified'],
     \             ['venv', 'readonly']],
+    \   'right': [['lineinfo'], ['percent'], ['filetype'] ],
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#head',
@@ -144,9 +142,9 @@ function! SetDarkTheme()
   set background=dark
   colorscheme gruvbox
 
-  highlight Cursor guifg=white guibg=reverse
-  highlight iCursor guifg=white guibg=reverse
-
+  " highlight Cursor guifg=white guibg=reverse
+  " highlight iCursor guifg=white guibg=reverse
+  highlight! link SignColumn LineNr
   hi illuminatedWord guifg=white guibg=grey50
 
   call SetupLightline('wombat')
@@ -157,12 +155,14 @@ function! SetLightTheme()
   colorscheme solarized8_high
   colo solarized8_high
 
-  highlight Cursor guifg=reverse guibg=#0087ff
-  highlight iCursor guifg=reverse guibg=#0087ff
-  set guicursor=n-v-c:block-Cursor
-  set guicursor+=i:ver100-iCursor
-  set guicursor+=n-v-c:blinkon0
-  set guicursor+=i:blinkwait10
+  " highlight Cursor guifg=reverse guibg=#0087ff
+  " highlight iCursor guifg=reverse guibg=#0087ff
+  highlight! link SignColumn LineNr
+
+  " set guicursor=n-v-c:block-Cursor
+  " set guicursor+=i:ver100-iCursor
+  " set guicursor+=n-v-c:blinkon0
+  " set guicursor+=i:blinkwait10
 
   hi LineNr guibg=NONE
   hi illuminatedWord guifg=white guibg=grey50
@@ -460,15 +460,16 @@ set timeoutlen=500
 
 " Vim-go -> Go setup
 " Highlight variable with same name when cursor is on them
-let g:go_auto_sameids = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
+" I guess the below highlights are the same as treesitter provides
+" let g:go_auto_sameids = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_types = 1
 
 " Enrich go linter
 let g:go_metalinter_autosave=1
@@ -514,14 +515,14 @@ nnoremap <leader>ms :MinimapRefresh<CR>
 
 " Telescope
 " Keybindings
-nnoremap <leader>tt <cmd>Telescope<cr>
-nnoremap <leader>tf <cmd>Telescope find_files<cr>
-nnoremap <leader>tl <cmd>Telescope live_grep<cr>
-nnoremap <leader>tb <cmd>Telescope buffers<cr>
-nnoremap <leader>ts <cmd>Telescope grep_string<cr>
-nnoremap <leader>th <cmd>Telescope help_tags<cr>
-nnoremap <leader>tg <cmd>Telescope git_status<cr>
-nnoremap <leader>tc <cmd>Telescope coc<cr>
+nnoremap <leader>ft <cmd>Telescope<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fg <cmd>Telescope git_status<cr>
+nnoremap <leader>fc <cmd>Telescope coc<cr>
 
 
 " Quick-scope
@@ -538,8 +539,8 @@ let g:chadtree_settings = {"view.width": 30}
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == "CHADTree") | q | endif
 
 " Keybindings
-nnoremap <leader>nn <cmd>CHADopen<cr>
-nnoremap <leader>nf <cmd>CHADopen --always-focus<cr>
+nnoremap <leader>nn <cmd>CHADopen --always-focus<cr>
+nnoremap <leader>nt <cmd>CHADopen<cr>
 nnoremap <leader>nm <cmd>:CHADopen --nofocus<cr>
 nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
 
@@ -578,7 +579,7 @@ require'gitsigns'.setup{
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
   linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-  word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
+  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
   current_line_blame = true, -- color is ...
 
   on_attach = function(bufnr)
@@ -676,13 +677,26 @@ nnoremap <leader>gb <cmd>Git blame<cr>
 
 " Handy for angular https://www.reddit.com/r/vim/comments/fedjzm/open_angular_counterpart_html_or_ts_files/
 
-" Abbreviations list
-ab @@ eempeegee@email.com
-ab <expr> cdate strftime('%d/%m/%Y')
-ab uuidgen r! uuidgen
-
 
 " Get rid of the artifacts
 autocmd CompleteDone <buffer> if has_key(v:completed_item, 'word') && v:completed_item.word =~ '\.$'
 \| call feedkeys("\<bs>")
 \| endif
+
+
+" vimwiki
+augroup vimwikigroup
+    autocmd!
+    " automatically update links on read diary
+    autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
+augroup end
+
+
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+   \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+  highlight Cursor guifg=white guibg=#0087ff
+  highlight iCursor guifg=white guibg=#0087ff
+  highlight! link SignColumn LineNr
+
