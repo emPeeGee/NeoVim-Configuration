@@ -32,7 +32,7 @@ call plug#begin("~/.vim/plugged")
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir']
   " 'coc-tabnine' 
  
   " Which key
@@ -89,6 +89,9 @@ call plug#begin("~/.vim/plugged")
 
   Plug 'guns/vim-sexp',    {'for': 'clojure'}
   Plug 'liquidz/vim-iced', {'for': 'clojure'}
+
+  " Using vim-plug
+  Plug 'elixir-editors/vim-elixir'
 call plug#end()
 
 " Appearance
@@ -613,7 +616,7 @@ require'gitsigns'.setup{
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment" },
+  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -658,6 +661,9 @@ require'treesitter-context'.setup{
 
 require('telescope').setup{
   defaults = {
+    file_ignore_patterns = {
+      "_build"
+    },
     layout_strategy = 'vertical',
     layout_config = {
       width = 0.9,
@@ -706,3 +712,5 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   highlight! link SignColumn LineNr
 
 let g:iced_enable_default_key_mappings = v:true
+let g:iced#nrepl#skip_evaluation_when_buffer_size_is_exceeded = v:true
+
