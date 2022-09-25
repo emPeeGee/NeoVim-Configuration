@@ -7,17 +7,15 @@ call plug#begin("~/.vim/plugged")
   " Icons for vim
   Plug 'ryanoasis/vim-devicons'
 
-  " Ranger
-  " Plug 'francoiscabrol/ranger.vim'
-  " Plug 'rbgrouleff/bclose.vim'
-
   " Telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim' 
   Plug 'fannheyward/telescope-coc.nvim'
+  Plug 'nvim-telescope/telescope-symbols.nvim'
+  Plug 'nvim-telescope/telescope-frecency.nvim'
 
   " Minimap
-  Plug 'wfxr/minimap.vim' 
+  " Plug 'wfxr/minimap.vim' 
 
   " Start screen
   Plug 'mhinz/vim-startify'
@@ -32,8 +30,10 @@ call plug#begin("~/.vim/plugged")
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua']
   " 'coc-tabnine' 
+
+  Plug 'lewis6991/spellsitter.nvim'
  
   " Which key
   Plug 'liuchengxu/vim-which-key'
@@ -66,12 +66,12 @@ call plug#begin("~/.vim/plugged")
   Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
   " Calendar for vim
-  Plug 'mattn/calendar-vim'
+  " Plug 'mattn/calendar-vim'
 
   " Debugging
   Plug 'puremourning/vimspector'
 
-  " Treesitter for highlighting
+  " Treesitter
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-context'
 
@@ -83,6 +83,7 @@ call plug#begin("~/.vim/plugged")
 
   " Enhanced navigation
   Plug 'ggandor/lightspeed.nvim'
+  " Plug 'ggandor/leap.nvim'
 
   " An always-on highlight for a unique character in every word on a line to help you use f, F
   " Plug 'unblevable/quick-scope'
@@ -92,6 +93,26 @@ call plug#begin("~/.vim/plugged")
 
   " Using vim-plug
   Plug 'elixir-editors/vim-elixir'
+
+  Plug 'nvim-lua/plenary.nvim'
+
+  Plug 'nvim-neotest/neotest'
+  Plug 'nvim-neotest/neotest-go'
+  Plug 'haydenmeade/neotest-jest'
+
+  " hlsearch
+  Plug 'romainl/vim-cool'
+  Plug 'inside/vim-search-pulse'
+  Plug 'kevinhwang91/nvim-hlslens'
+
+  Plug 'kkharji/sqlite.lua'
+  Plug 'TimUntersberger/neogit'
+
+  Plug 'folke/todo-comments.nvim' " TODO: Map keys"
+
+  Plug 'rest-nvim/rest.nvim'
+  " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
+  " Plug 'rest-nvim/rest.nvim' TODO: Good concept but doesn't work
 call plug#end()
 
 " Appearance
@@ -245,6 +266,7 @@ set nowritebackup
 
 " Give more space for displaying messages.
 set cmdheight=2
+set relativenumber!
 
 " persist
 " set undofile " Maintain undo history between sessions
@@ -336,13 +358,16 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Miscellaneous
 " Open vim init 
-nnoremap <leader>ov :vsp $MYVIMRC<CR>
+nnoremap <leader>ov :e $MYVIMRC<CR>
+nnoremap <leader>oc :source $MYVIMRC<CR>
+nnoremap <leader>opi :PlugInstall<CR>
+nnoremap <leader>opc :PlugClean<CR>
 
 " Toggle relativenumber
-nnoremap <leader>or <set relativenumber!<Cr>
+nnoremap <leader>or :set relativenumber!<Cr>
 
 " Toggle spelling
-nnoremap <leader>os :set spell! 
+nnoremap <leader>os :set spell! <CR>
 
 "Unsets the last search pattern
 nnoremap <leader>oh :noh<CR><CR> 
@@ -499,30 +524,24 @@ inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
 " let g:blamer_delay = 1000
 
 
-" Ranger
-" let g:ranger_map_keys = 0
-" let g:ranger_replace_netrw = 1 
-
-" Keybindings 
-" nmap <Leader>r :Ranger<CR>
-
-
 " Minimap
-let g:minimap_width = 10
-let g:minimap_auto_start = 0 " Disable autostart
-let g:minimap_auto_start_win_enter = 0
-let g:minimap_git_colors = 1 " Use with git 
+" let g:minimap_width = 10
+" let g:minimap_auto_start = 0 " Disable autostart
+" let g:minimap_auto_start_win_enter = 0
+" let g:minimap_git_colors = 1 " Use with git 
 
 " Keybindings
-nnoremap <leader>mm :MinimapToggle<CR>
-nnoremap <leader>mr :MinimapRescan<CR>
-nnoremap <leader>ms :MinimapRefresh<CR>
+" nnoremap <leader>mm :MinimapToggle<CR>
+" nnoremap <leader>mr :MinimapRescan<CR>
+" nnoremap <leader>ms :MinimapRefresh<CR>
 
 
 " Telescope
 " Keybindings
 nnoremap <leader>ft <cmd>Telescope<cr>
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fr <cmd>Telescope frecency workspace=CWD<cr>
+nnoremap <leader>fe <cmd>Telescope frecency<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fs <cmd>Telescope grep_string<cr>
@@ -530,6 +549,10 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fg <cmd>Telescope git_status<cr>
 nnoremap <leader>fc <cmd>Telescope coc<cr>
 
+
+nnoremap <leader>tl <cmd>TodoLocList<cr>
+nnoremap <leader>tq <cmd>TodoQuickFix<cr>
+nnoremap <leader>tt <cmd>TodoTelescope<cr>
 
 " Quick-scope
 let g:qs_delay = 150
@@ -616,7 +639,7 @@ require'gitsigns'.setup{
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir" },
+  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir", "norg", "http" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -670,9 +693,51 @@ require('telescope').setup{
       height = 0.9
     }
   },
+  extensions = {
+    frecency = {
+      show_scores = true,
+    }
+  }
 }
 
 require('telescope').load_extension('coc')
+require"telescope".load_extension("frecency")
+
+require('spellsitter').setup()
+require("neotest").setup({
+  adapters = {
+    require('neotest-go'),
+    require('neotest-jest')({
+      jestCommand = "npm test --",
+      jestConfigFile = "custom.jest.config.ts",
+      env = { CI = true },
+      cwd = function(path)
+        return vim.fn.getcwd()
+      end,
+    }),
+  }
+})
+    
+-- require('leap').set_default_keymaps()
+--[[ require('neorg').setup {
+    load = {
+        ["core.defaults"] = {},
+        ["core.norg.concealer"] = {},
+        ["core.norg.journal"] = {},
+        ["core.norg.qol.toc"] = {},
+        ["core.norg.dirman"] = {
+            config = {
+                workspaces = {
+                    work = "~/notes/work",
+                    home = "~/notes/home",
+                }
+            }
+        }
+    }
+}]]
+
+require("todo-comments").setup{}
+
 EOF
 
 " Fugitive
@@ -680,11 +745,21 @@ EOF
 set diffopt+=vertical
 
 " Keybindings
-nnoremap <leader>gg <cmd>G<cr>
+nnoremap <leader>gg <cmd>Neogit<cr>
 nnoremap <leader>gm <cmd>Gdiffsplit!<cr>
 nnoremap <leader>gf <cmd>0Gclog<cr>
 nnoremap <leader>gl <cmd>Gclog<cr>
 nnoremap <leader>gb <cmd>Git blame<cr>
+
+
+" Neotest
+nnoremap <leader>rr <cmd>lua require("neotest").run.run()<CR>
+nnoremap <leader>rf <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>
+nnoremap <leader>rl <cmd>lua require("neotest").run.run_last()<CR>
+nnoremap <leader>rx <cmd>lua require("neotest").run.stop()<CR>
+nnoremap <leader>rs <cmd>lua require("neotest").summary.toggle()<CR>
+nnoremap <silent>[n <cmd>lua require("neotest").jump.prev()<CR>
+nnoremap <silent>]n <cmd>lua require("neotest").jump.next()<CR>
 
 " Handy for angular https://www.reddit.com/r/vim/comments/fedjzm/open_angular_counterpart_html_or_ts_files/
 
@@ -711,6 +786,12 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   highlight iCursor guifg=white guibg=#0087ff
   highlight! link SignColumn LineNr
 
+" Clojure development
 let g:iced_enable_default_key_mappings = v:true
 let g:iced#nrepl#skip_evaluation_when_buffer_size_is_exceeded = v:true
 
+" Highlight on yank
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})
+augroup END
