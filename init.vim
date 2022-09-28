@@ -36,7 +36,8 @@ call plug#begin("~/.vim/plugged")
   Plug 'lewis6991/spellsitter.nvim'
  
   " Which key
-  Plug 'liuchengxu/vim-which-key'
+  " Plug 'liuchengxu/vim-which-key'
+  Plug 'folke/which-key.nvim'
 
   " Tim Pope
   Plug 'tpope/vim-commentary' " Comment out lines
@@ -111,8 +112,11 @@ call plug#begin("~/.vim/plugged")
   Plug 'folke/todo-comments.nvim' " TODO: Map keys"
 
   Plug 'rest-nvim/rest.nvim'
+
+  " handy but why? 
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
-  " Plug 'rest-nvim/rest.nvim' TODO: Good concept but doesn't work
+  " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
+  " Plug 'mvllow/modes.nvim'
 call plug#end()
 
 " Appearance
@@ -484,9 +488,9 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 
 " WhickKey
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " Open whichkey after 500ms
-set timeoutlen=500
+set timeoutlen=0
 
 
 " Vim-go -> Go setup
@@ -737,6 +741,13 @@ require("neotest").setup({
 }]]
 
 require("todo-comments").setup{}
+require('which-key').setup({
+  plugins = { 
+    spelling = {
+      enabled = true
+    }
+  }
+})
 
 EOF
 
