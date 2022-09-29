@@ -11,5 +11,12 @@
     "less",
     "scss"
   ],
-  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
+  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
+  "cSpell.userWords": ["NLWS", "testid", "testkit"],
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.showUnused": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualTextPrefix": " | ",
+  "cSpell.showStatus": true
 }

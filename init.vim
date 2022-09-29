@@ -12,7 +12,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-telescope/telescope.nvim' 
   Plug 'fannheyward/telescope-coc.nvim'
   Plug 'nvim-telescope/telescope-symbols.nvim'
-  Plug 'nvim-telescope/telescope-frecency.nvim'
+  " Plug 'nvim-telescope/telescope-frecency.nvim'
 
   " Minimap
   " Plug 'wfxr/minimap.vim' 
@@ -51,7 +51,10 @@ call plug#begin("~/.vim/plugged")
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
   " File tree  
-  Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+  " Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+
+  Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+  Plug 'kyazdani42/nvim-tree.lua'
 
   " Highlight word under cursor
   Plug 'RRethy/vim-illuminate'
@@ -63,7 +66,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'vimwiki/vimwiki'
 
   " Color Highlight
-  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+  " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
   " Calendar for vim
   " Plug 'mattn/calendar-vim'
@@ -347,6 +350,7 @@ nnoremap <Leader>bk :bfirst<CR>
 nnoremap <Leader>bj :blast<CR>
 nnoremap <Leader>bx :bd<CR>
 nnoremap <Leader>bq :ls<CR>
+nmap <silent> [d :bd <CR>
 
 " Move the line using alt and jk https://vim.fandom.com/wiki/Moving_lines_up_or_down
 nnoremap <A-j> :m .+1<CR>==
@@ -540,9 +544,9 @@ inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
 " Keybindings
 nnoremap <leader>ft <cmd>Telescope<cr>
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fr <cmd>Telescope frecency workspace=CWD<cr>
-nnoremap <leader>fe <cmd>Telescope frecency<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>fr <cmd>Telescope frecency workspace=CWD<cr>
+" nnoremap <leader>fe <cmd>Telescope frecency<cr>
+nnoremap <leader>fv <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fs <cmd>Telescope grep_string<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
@@ -562,16 +566,14 @@ let g:qs_buftype_blacklist = ['nofile']
 
 " CHADTree
 " set width of the file tree
-let g:chadtree_settings = {"view.width": 30}
+" let g:chadtree_settings = {"view.width": 30}
 
 " Autoclose chadtree if it the last window left
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == "CHADTree") | q | endif
+" autocmd BufEnter * if (winnr("$") == 1 && &filetype == "CHADTree") | q | endif
 
 " Keybindings
-nnoremap <leader>nn <cmd>CHADopen --always-focus<cr>
-nnoremap <leader>nt <cmd>CHADopen<cr>
-nnoremap <leader>nm <cmd>:CHADopen --nofocus<cr>
-nnoremap <leader>nr <cmd>:CHADopen --version-ctl<cr>
+nnoremap <leader>nm <cmd>NvimTreeFindFileToggle<CR>
+nnoremap <leader>nn <cmd>NvimTreeFocus<cr>
 
 
 " GitGutter
@@ -693,23 +695,18 @@ require('telescope').setup{
       height = 0.9
     }
   },
-  extensions = {
-    frecency = {
-      show_scores = true,
-    }
-  }
 }
 
 require('telescope').load_extension('coc')
-require"telescope".load_extension("frecency")
+-- " require"telescope".load_extension("frecency")
 
 require('spellsitter').setup()
 require("neotest").setup({
   adapters = {
     require('neotest-go'),
     require('neotest-jest')({
-      jestCommand = "npm test --",
-      jestConfigFile = "custom.jest.config.ts",
+      jestCommand = 'npm test --',
+      jestConfigFile = "jest.config.js",
       env = { CI = true },
       cwd = function(path)
         return vim.fn.getcwd()
@@ -737,7 +734,23 @@ require("neotest").setup({
 }]]
 
 require("todo-comments").setup{}
-
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true,
+    mappings = { },
+  },
+  reload_on_bufenter = true,
+  update_focused_file = {
+    enable = true,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
 EOF
 
 " Fugitive
