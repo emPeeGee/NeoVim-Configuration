@@ -36,7 +36,8 @@ call plug#begin("~/.vim/plugged")
   Plug 'lewis6991/spellsitter.nvim'
  
   " Which key
-  Plug 'liuchengxu/vim-which-key'
+  " Plug 'liuchengxu/vim-which-key'
+  Plug 'folke/which-key.nvim'
 
   " Tim Pope
   Plug 'tpope/vim-commentary' " Comment out lines
@@ -114,8 +115,11 @@ call plug#begin("~/.vim/plugged")
   Plug 'folke/todo-comments.nvim' " TODO: Map keys"
 
   Plug 'rest-nvim/rest.nvim'
+
+  " handy but why? 
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
-  " Plug 'rest-nvim/rest.nvim' TODO: Good concept but doesn't work
+  " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
+  " Plug 'mvllow/modes.nvim'
 call plug#end()
 
 " Appearance
@@ -336,7 +340,7 @@ xnoremap <silent> <cr> "*y:silent! let searchTerm = '\V'.substitute(escape(@*, '
 " Highlight matching parenthesis
 hi MatchParen guibg=magenta guifg=white
 
-imap jj <Esc>
+
 " If you select some lines then press > to indent the lines, the selection is removed. The indentation can be repeated on the same range using ., but if you still want to retain the visual selection after having pressed > or <, you can use these mappings
 vnoremap > >gv
 vnoremap < <gv
@@ -366,6 +370,7 @@ nnoremap <leader>ov :e $MYVIMRC<CR>
 nnoremap <leader>oc :source $MYVIMRC<CR>
 nnoremap <leader>opi :PlugInstall<CR>
 nnoremap <leader>opc :PlugClean<CR>
+
 
 " Toggle relativenumber
 nnoremap <leader>or :set relativenumber!<Cr>
@@ -488,10 +493,9 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 
 " WhickKey
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " Open whichkey after 500ms
 set timeoutlen=500
-
 
 " Vim-go -> Go setup
 " Highlight variable with same name when cursor is on them
@@ -751,6 +755,15 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
+
+require('which-key').setup({
+  plugins = { 
+    spelling = {
+      enabled = true
+    }
+  }
+})
+
 EOF
 
 " Fugitive
@@ -808,3 +821,5 @@ augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})
 augroup END
+
+imap jj <Esc>
