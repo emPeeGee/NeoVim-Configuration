@@ -26,7 +26,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'lewis6991/gitsigns.nvim'
 
   " Buffer line on the bottom
-  Plug 'itchyny/lightline.vim'
+  " Plug 'itchyny/lightline.vim'
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -120,6 +120,11 @@ call plug#begin("~/.vim/plugged")
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
   " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
   " Plug 'mvllow/modes.nvim'
+
+  Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+  " Plug 'sidebar-nvim/sidebar.nvim' TODO: Good concept
+  Plug 'nvim-lualine/lualine.nvim'
+  Plug 'ntk148v/vim-horizon'
 call plug#end()
 
 " Appearance
@@ -133,43 +138,59 @@ syntax on
 
 " Lightline
 " Get file name from git root
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
-endfunction
+" function! LightlineFilename()
+"   let root = fnamemodify(get(b:, 'git_dir'), ':h')
+"   let path = expand('%:p')
+"   if path[:len(root)-1] ==# root
+"     return path[len(root)+1:]
+"   endif
+"   return expand('%')
+" endfunction
 
 " Show additions, removals and changes of current buffer in lightline
-function! GitSignsStatus()
-  return get(b:,'gitsigns_status','')
-endfunction
+" function! GitSignsStatus()
+"   return get(b:,'gitsigns_status','')
+" endfunction
 
 function SetupLightline(colorscheme)
   " Lightline Remove redundant statusline -- MODE --
   set noshowmode
 
-  let g:lightline = {
-    \ 'colorscheme': a:colorscheme,
-    \ 'active': {
-    \   'left': [ ['mode', 'paste'],
-    \             ['gitbranch', 'readonly', 'filename' , 'modified'],
-    \             ['venv', 'readonly']],
-    \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitsignsstatus']],
-    \ },
-    \ 'component_function': {
-    \   'gitbranch': 'fugitive#head',
-    \   'venv': 'virtualenv#statusline',
-    \   'filename': 'LightlineFilename',
-    \   'gitsignsstatus': 'GitSignsStatus',
-    \ },
-    \ }
+  " let g:lightline = {
+  "   \ 'colorscheme': a:colorscheme,
+  "   \ 'active': {
+  "   \   'left': [ ['mode', 'paste'],
+  "   \             ['gitbranch', 'readonly', 'filename' , 'modified'],
+  "   \             ['venv', 'readonly']],
+  "   \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitsignsstatus']],
+  "   \ },
+  "   \ 'component_function': {
+  "   \   'gitbranch': 'fugitive#head',
+  "   \   'venv': 'virtualenv#statusline',
+  "   \   'filename': 'LightlineFilename',
+  "   \   'gitsignsstatus': 'GitSignsStatus',
+  "   \ },
+  "   \ }
 
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
+  " call lightline#init()
+  " call lightline#colorscheme()
+  " call lightline#update()
+endfunction
+
+function! SetHorizon()
+  " let g:gruvbox_contrast_dark='soft'
+  " set background=dark
+  colorscheme horizon
+
+  " highlight Cursor guifg=white guibg=reverse
+  " highlight iCursor guifg=white guibg=reverse
+  highlight! link SignColumn LineNr
+  hi illuminatedWord guifg=white guibg=grey50
+
+  call SetupLightline('wombat')
+
+  " :lua require('lualine').setup{options = { theme = 'gruvbox-material' }}
+  :lua require('lualine').setup{options = { theme = 'horizon' }}
 endfunction
 
 function! SetDarkTheme()
@@ -183,6 +204,8 @@ function! SetDarkTheme()
   hi illuminatedWord guifg=white guibg=grey50
 
   call SetupLightline('wombat')
+
+  :lua require('lualine').setup{options = { theme = 'gruvbox-material' }}
 endfunction
 
 function! SetLightTheme()
@@ -203,6 +226,7 @@ function! SetLightTheme()
   hi illuminatedWord guifg=white guibg=grey50
 
   call SetupLightline('solarized')
+  :lua require('lualine').setup{options = { theme = 'gruvbox_light'}}
 endfunction
 
 
@@ -233,7 +257,7 @@ set mouse=a
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
 set noswapfile
-set number
+set number relativenumber
 set title
 " Wrap lines.
 set wrap
@@ -273,7 +297,6 @@ set nowritebackup
 
 " Give more space for displaying messages.
 set cmdheight=2
-set relativenumber!
 
 " persist
 " set undofile " Maintain undo history between sessions
@@ -383,6 +406,7 @@ nnoremap <leader>oh :noh<CR><CR>
 " Theme toggler
 nnoremap <leader>ol <cmd>:call SetLightTheme()<cr>
 nnoremap <leader>od <cmd>:call SetDarkTheme()<cr>
+nnoremap <leader>oq <cmd>:call SetHorizon()<cr>
 nnoremap <leader>ou :UndotreeToggle<CR>
 
 nnoremap <leader>ott <cmd>Vista!!<cr>
@@ -738,6 +762,12 @@ require("neotest").setup({
 }]]
 
 require("todo-comments").setup{}
+
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Right now, auto close of tree on last buffer doesn't work,
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -750,6 +780,7 @@ require("nvim-tree").setup({
   },
   renderer = {
     group_empty = true,
+    highlight_git = true,
   },
   filters = {
     dotfiles = true,
@@ -764,6 +795,34 @@ require('which-key').setup({
   }
 })
 
+require("bufferline").setup{
+options = {
+  diagnostics = "coc",
+  actions = {
+    open_file = {
+      quit_on_open = true
+      }
+    }
+  },
+}
+
+require('lualine').setup({
+options = {
+  globalstatus = true,
+  },
+extensions = {'nvim-tree'},
+sections = {
+  lualine_x = {'filesize'}
+  }
+})
+
+-- require("sidebar-nvim").setup({
+-- files = {
+--    icon = "",
+--   show_hidden = false,
+--   ignored_paths = {"%.git$"}
+--   }
+-- })
 EOF
 
 " Fugitive
@@ -813,7 +872,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   highlight! link SignColumn LineNr
 
 " Clojure development
-let g:iced_enable_default_key_mappings = v:true
 let g:iced#nrepl#skip_evaluation_when_buffer_size_is_exceeded = v:true
 
 " Highlight on yank
