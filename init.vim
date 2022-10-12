@@ -128,6 +128,8 @@ call plug#begin("~/.vim/plugged")
   Plug 'ntk148v/vim-horizon'
 
   Plug 'echasnovski/mini.nvim'
+Plug 'bennypowers/nvim-regexplainer'
+        Plug 'MunifTanjim/nui.nvim',
 call plug#end()
 
 " Appearance
@@ -672,7 +674,8 @@ require'gitsigns'.setup{
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir", "norg", "http" },
+  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir", "norg", "http", "regex" },
+
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -842,6 +845,8 @@ vim.keymap.set('n', '<Leader>ms', MiniMap.toggle_side)
 vim.keymap.set('n', '<Leader>mm', MiniMap.toggle)  
 
 
+require('regexplainer').setup() 
+
 -- require("sidebar-nvim").setup({
 -- files = {
 --    icon = "",
@@ -852,8 +857,7 @@ vim.keymap.set('n', '<Leader>mm', MiniMap.toggle)
 EOF
 
 
-" Problems on first open, starts git after saving
-au VimEnter *.* :lua MiniMap.open()
+au VimEnter,BufRead *.* :lua MiniMap.open()
 
 " Fugitive
 " Make diff vertical
