@@ -18,7 +18,7 @@ call plug#begin("~/.vim/plugged")
   " Plug 'wfxr/minimap.vim' 
 
   " Start screen
-  Plug 'mhinz/vim-startify'
+  " Plug 'mhinz/vim-startify'
 
   " Git
   " Plug 'airblade/vim-gitgutter'
@@ -92,11 +92,11 @@ call plug#begin("~/.vim/plugged")
   " An always-on highlight for a unique character in every word on a line to help you use f, F
   " Plug 'unblevable/quick-scope'
 
-  Plug 'guns/vim-sexp',    {'for': 'clojure'}
-  Plug 'liquidz/vim-iced', {'for': 'clojure'}
+  " Plug 'guns/vim-sexp',    {'for': 'clojure'}
+  " Plug 'liquidz/vim-iced', {'for': 'clojure'}
 
   " Using vim-plug
-  Plug 'elixir-editors/vim-elixir'
+  " Plug 'elixir-editors/vim-elixir'
 
   Plug 'nvim-lua/plenary.nvim'
 
@@ -120,11 +120,14 @@ call plug#begin("~/.vim/plugged")
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
   " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
   " Plug 'mvllow/modes.nvim'
+  " Plug 'mrjones2014/legendary.nvim'
+  " Plug 'sidebar-nvim/sidebar.nvim' TODO: Good concept
 
   Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
-  " Plug 'sidebar-nvim/sidebar.nvim' TODO: Good concept
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'ntk148v/vim-horizon'
+
+  Plug 'echasnovski/mini.nvim'
 call plug#end()
 
 " Appearance
@@ -816,6 +819,29 @@ sections = {
   }
 })
 
+require('mini.starter').setup()
+
+local map = require('mini.map')
+map.setup({
+-- symbols = {
+--   encode = map.gen_encode_symbols.shade('1x2'),
+-- },
+integrations = {
+  map.gen_integration.builtin_search(),
+  map.gen_integration.gitsigns(),
+  map.gen_integration.diagnostic(),
+  },
+window = {
+  width = 12
+  },
+})
+
+vim.keymap.set('n', '<Leader>mf', MiniMap.toggle_focus)
+vim.keymap.set('n', '<Leader>mr', MiniMap.refresh)
+vim.keymap.set('n', '<Leader>ms', MiniMap.toggle_side)
+vim.keymap.set('n', '<Leader>mm', MiniMap.toggle)  
+
+
 -- require("sidebar-nvim").setup({
 -- files = {
 --    icon = "",
@@ -824,6 +850,10 @@ sections = {
 --   }
 -- })
 EOF
+
+
+" Problems on first open, starts git after saving
+au VimEnter *.* :lua MiniMap.open()
 
 " Fugitive
 " Make diff vertical
