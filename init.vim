@@ -120,6 +120,11 @@ call plug#begin("~/.vim/plugged")
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
   " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
   " Plug 'mvllow/modes.nvim'
+  "
+  Plug 'folke/noice.nvim'
+  Plug 'MunifTanjim/nui.nvim'
+  Plug 'rcarriga/nvim-notify'
+  Plug 'hrsh7th/nvim-cmp'
 call plug#end()
 
 " Appearance
@@ -645,7 +650,7 @@ require'gitsigns'.setup{
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir", "norg", "http" },
+  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir", "norg", "http", "haskell" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -763,6 +768,8 @@ require('which-key').setup({
     }
   }
 })
+
+-- " require("noice").setup()
 
 EOF
 
