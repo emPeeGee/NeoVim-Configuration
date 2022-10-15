@@ -864,7 +864,7 @@ require('regexplainer').setup()
 EOF
 
 
-au VimEnter,BufRead *.* :lua MiniMap.open()
+" au VimEnter,BufRead *.* :lua MiniMap.open()
 
 " Fugitive
 " Make diff vertical
