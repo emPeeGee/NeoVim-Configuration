@@ -9,7 +9,8 @@
     "typescriptreact",
     "json",
     "less",
-    "scss"
+    "scss",
+    "rust"
   ],
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
   "cSpell.userWords": ["NLWS", "testid", "testkit"],
