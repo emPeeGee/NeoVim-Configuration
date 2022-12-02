@@ -18,5 +18,9 @@
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.virtualTextPrefix": " | ",
-  "cSpell.showStatus": true
+  "cSpell.showStatus": true,
+  "jest.watch": false,
+  "diagnostic.signPriority": 2,
+  "diagnostic.enableSign": true,
+  "diagnostic.infoSign": "!"
 }

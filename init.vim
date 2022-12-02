@@ -49,7 +49,7 @@ call plug#begin("~/.vim/plugged")
   " Plug 'RishabhRD/nvim-cheat.sh'
 
   " Go lang
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
   " File tree  
   " Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
@@ -78,6 +78,7 @@ call plug#begin("~/.vim/plugged")
   " Treesitter
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-context'
+  Plug 'nvim-treesitter/playground'
 
   " Show marks on signcolumn
   " Plug 'kshenoy/vim-signature'
@@ -101,8 +102,8 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-lua/plenary.nvim'
 
   Plug 'nvim-neotest/neotest'
-  Plug 'nvim-neotest/neotest-go'
-  Plug 'haydenmeade/neotest-jest'
+  " Plug 'nvim-neotest/neotest-go'
+  " Plug 'haydenmeade/neotest-jest'
 
   " hlsearch
   Plug 'romainl/vim-cool'
@@ -128,8 +129,12 @@ call plug#begin("~/.vim/plugged")
   Plug 'ntk148v/vim-horizon'
 
   Plug 'echasnovski/mini.nvim'
-Plug 'bennypowers/nvim-regexplainer'
-        Plug 'MunifTanjim/nui.nvim',
+  Plug 'bennypowers/nvim-regexplainer'
+  Plug 'MunifTanjim/nui.nvim',
+
+  Plug 'andythigpen/nvim-coverage'
+  Plug 'sindrets/diffview.nvim'
+  Plug 'rhysd/conflict-marker.vim'
 call plug#end()
 
 " Appearance
@@ -454,6 +459,19 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Run jest for current project
+command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+
+" Run jest for current file
+command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+
+" Run jest for current test
+nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
+nnoremap <leader>tf :call CocAction('runCommand', 'jest.fileTest')<CR>
+
+" Init jest in current cwd, require global jest command exists
+command! JestInit :call CocAction('runCommand', 'jest.init')
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
@@ -549,11 +567,11 @@ let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 
 " Keybindings
-nnoremap <Leader>ll :GoRun<CR>
-nnoremap <Leader>ld :GoDeclsDir<CR>
+" nnoremap <Leader>ll :GoRun<CR>
+" nnoremap <Leader>ld :GoDeclsDir<CR>
 
-nnoremap <F6> :w <CR> :GoTestCompile <CR> <CR>
-inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
+" nnoremap <F6> :w <CR> :GoTestCompile <CR> <CR>
+" inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
 
 
 " Git blamer
@@ -646,7 +664,7 @@ require'gitsigns'.setup{
   word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
   current_line_blame = true, -- color is ...
 
-  sign_priority = 1,
+  sign_priority = 10,
 
   on_attach = function(bufnr)
     local function map(mode, lhs, rhs, opts)
@@ -682,6 +700,10 @@ require'nvim-treesitter.configs'.setup {
 
   -- List of parsers to ignore installing (for "all")
   -- ignore_install = { "javascript" },
+
+  playground = {
+    enabled = true
+  },
 
   highlight = {
     -- `false` will disable the whole extension
@@ -737,15 +759,7 @@ require('telescope').load_extension('coc')
 require('spellsitter').setup()
 require("neotest").setup({
   adapters = {
-    require('neotest-go'),
-    require('neotest-jest')({
-      jestCommand = 'npm test --',
-      jestConfigFile = "jest.config.js",
-      env = { CI = true },
-      cwd = function(path)
-        return vim.fn.getcwd()
-      end,
-    }),
+    -- require('neotest-go'),
   }
 })
     
@@ -826,9 +840,9 @@ require('mini.starter').setup()
 
 local map = require('mini.map')
 map.setup({
--- symbols = {
---   encode = map.gen_encode_symbols.shade('1x2'),
--- },
+ symbols = {
+   encode = map.gen_encode_symbols.shade('1x2'),
+ },
 integrations = {
   map.gen_integration.builtin_search(),
   map.gen_integration.gitsigns(),
@@ -846,7 +860,13 @@ vim.keymap.set('n', '<Leader>mm', MiniMap.toggle)
 
 
 require('regexplainer').setup() 
-
+require("coverage").setup({
+lang = {
+  javascript = {
+    coverage_file = 'packages/delivery/coverage/lcov.info'
+    }
+  }
+})
 -- require("sidebar-nvim").setup({
 -- files = {
 --    icon = "",
@@ -854,10 +874,15 @@ require('regexplainer').setup()
 --   ignored_paths = {"%.git$"}
 --   }
 -- })
+
+require("diffview").setup({
+  enhanced_diff_hl = true,
+})
+
 EOF
 
 
-au VimEnter,BufRead *.* :lua MiniMap.open()
+" au VimEnter,BufRead *.* :lua MiniMap.open()
 
 " Fugitive
 " Make diff vertical
@@ -866,9 +891,15 @@ set diffopt+=vertical
 " Keybindings
 nnoremap <leader>gg <cmd>Neogit<cr>
 nnoremap <leader>gm <cmd>Gdiffsplit!<cr>
-nnoremap <leader>gf <cmd>0Gclog<cr>
-nnoremap <leader>gl <cmd>Gclog<cr>
+" nnoremap <leader>gf <cmd>0Gclog<cr>
+" nnoremap <leader>gl <cmd>Gclog<cr>
 nnoremap <leader>gb <cmd>Git blame<cr>
+
+" Diffview
+nnoremap <leader>go <cmd>DiffviewOpen<CR>
+nnoremap <leader>gc <cmd>DiffviewClose<CR>
+nnoremap <leader>gl <cmd>DiffviewFileHistory<CR>
+nnoremap <leader>gf <cmd>DiffviewFileHistory %<CR>
 
 
 " Neotest
@@ -879,6 +910,8 @@ nnoremap <leader>rx <cmd>lua require("neotest").run.stop()<CR>
 nnoremap <leader>rs <cmd>lua require("neotest").summary.toggle()<CR>
 nnoremap <silent>[n <cmd>lua require("neotest").jump.prev()<CR>
 nnoremap <silent>]n <cmd>lua require("neotest").jump.next()<CR>
+
+nnoremap <leader>tc :CoverageToggle<CR>
 
 " Handy for angular https://www.reddit.com/r/vim/comments/fedjzm/open_angular_counterpart_html_or_ts_files/
 
@@ -905,8 +938,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   highlight iCursor guifg=white guibg=#0087ff
   highlight! link SignColumn LineNr
 
-" Clojure development
-let g:iced#nrepl#skip_evaluation_when_buffer_size_is_exceeded = v:true
 
 " Highlight on yank
 augroup highlight_yank
@@ -915,3 +946,39 @@ augroup highlight_yank
 augroup END
 
 imap jj <Esc>
+
+" disable the default highlight group
+let g:conflict_marker_highlight_group = ''
+
+" Include text after begin and end markers
+let g:conflict_marker_begin = '^<<<<<<< .*$'
+let g:conflict_marker_end   = '^>>>>>>> .*$'
+
+
+highlight ConflictMarkerBegin guibg=#2f7366
+highlight ConflictMarkerOurs guibg=#2e5049
+highlight ConflictMarkerTheirs guibg=#344f69
+highlight ConflictMarkerEnd guibg=#2f628e
+highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
+
+
+hi DiffAdd      gui=none    guifg=NONE          guibg=#2e5049
+hi DiffChange   gui=none    guifg=NONE          guibg=#344f69
+hi DiffText     gui=none    guifg=NONE          guibg=#5f3469
+hi DiffDelete   gui=none    guifg=NONE          guibg=#693434
+hi DiffviewDiffAddAsDelete  gui=none guifg=NONE guibg=#693434
+
+hi GitSignsChangeInline     gui=none    guifg=NONE          guibg=#5f3469
+hi GitSignsAddInline     gui=none    guifg=NONE          guibg=#5f3469
+hi GitSignsDeleteInline     gui=none    guifg=NONE          guibg=#5f3469
+
+hi! CocInfoSign guifg=LightBlue
+" hi! CocErrorSign guibg=none
+" hi! CocInfoSign guibg=#353b45
+" hi! CocWarningSign guifg=#d1cd66
+
+
+if exists("g:neovide")
+  let g:neovide_scale_factor = 0.85
+  let g:neovide_fullscreen = v:true
+endif
