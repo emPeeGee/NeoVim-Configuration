@@ -12,7 +12,7 @@
     "scss"
   ],
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
-  "cSpell.userWords": ["NLWS", "testid", "testkit"],
+  "cSpell.userWords": ["Moldovanu", "NLWS", "testid", "testkit"],
   "diagnostic.checkCurrentLine": true,
   "diagnostic.showUnused": true,
   "diagnostic.virtualText": true,

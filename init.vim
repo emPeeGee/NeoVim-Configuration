@@ -135,6 +135,8 @@ call plug#begin("~/.vim/plugged")
   Plug 'andythigpen/nvim-coverage'
   Plug 'sindrets/diffview.nvim'
   Plug 'rhysd/conflict-marker.vim'
+
+  Plug 'famiu/bufdelete.nvim'
 call plug#end()
 
 " Appearance
@@ -387,7 +389,7 @@ nnoremap <Leader>bk :bfirst<CR>
 nnoremap <Leader>bj :blast<CR>
 nnoremap <Leader>bx :bd<CR>
 nnoremap <Leader>bq :ls<CR>
-nmap <silent> [d :bd <CR>
+nmap <silent> [d :Bdelete <CR>
 
 " Move the line using alt and jk https://vim.fandom.com/wiki/Moving_lines_up_or_down
 nnoremap <A-j> :m .+1<CR>==
@@ -511,8 +513,6 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
 xmap <leader>cd  <Plug>(coc-codeaction-selected)
 nmap <leader>cd  <Plug>(coc-codeaction-selected)
 
@@ -742,8 +742,12 @@ require'treesitter-context'.setup{
 
 require('telescope').setup{
   defaults = {
+    live_grep = {
+      debounce = 250,
+    },
     file_ignore_patterns = {
-      "_build"
+      "_build",
+      "__localization__"
     },
     layout_strategy = 'vertical',
     layout_config = {
@@ -756,7 +760,12 @@ require('telescope').setup{
 require('telescope').load_extension('coc')
 -- " require"telescope".load_extension("frecency")
 
-require('spellsitter').setup()
+require('spellsitter').setup({
+  enable = true,
+})
+
+require('hlslens').setup()
+
 require("neotest").setup({
   adapters = {
     -- require('neotest-go'),
