@@ -12,6 +12,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-telescope/telescope.nvim' 
   Plug 'fannheyward/telescope-coc.nvim'
   Plug 'nvim-telescope/telescope-symbols.nvim'
+  " IDEA: Then exploring new file, get outline an see the file
   " Plug 'nvim-telescope/telescope-frecency.nvim'
 
   " Minimap
@@ -30,7 +31,7 @@ call plug#begin("~/.vim/plugged")
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer', 'coc-go']
   " 'coc-tabnine' 
 
   Plug 'lewis6991/spellsitter.nvim'
@@ -142,6 +143,8 @@ call plug#begin("~/.vim/plugged")
   Plug 'rhysd/conflict-marker.vim'
 
   Plug 'famiu/bufdelete.nvim'
+  Plug 'petertriho/nvim-scrollbar'
+  Plug 'max397574/better-escape.nvim'
 call plug#end()
 
 " Appearance
@@ -153,47 +156,6 @@ endif
 " Turn syntax highlighting on.
 syntax on
 
-" Lightline
-" Get file name from git root
-" function! LightlineFilename()
-"   let root = fnamemodify(get(b:, 'git_dir'), ':h')
-"   let path = expand('%:p')
-"   if path[:len(root)-1] ==# root
-"     return path[len(root)+1:]
-"   endif
-"   return expand('%')
-" endfunction
-
-" Show additions, removals and changes of current buffer in lightline
-" function! GitSignsStatus()
-"   return get(b:,'gitsigns_status','')
-" endfunction
-
-function SetupLightline(colorscheme)
-  " Lightline Remove redundant statusline -- MODE --
-  set noshowmode
-
-  " let g:lightline = {
-  "   \ 'colorscheme': a:colorscheme,
-  "   \ 'active': {
-  "   \   'left': [ ['mode', 'paste'],
-  "   \             ['gitbranch', 'readonly', 'filename' , 'modified'],
-  "   \             ['venv', 'readonly']],
-  "   \   'right': [['lineinfo'], ['percent'], ['filetype'], ['gitsignsstatus']],
-  "   \ },
-  "   \ 'component_function': {
-  "   \   'gitbranch': 'fugitive#head',
-  "   \   'venv': 'virtualenv#statusline',
-  "   \   'filename': 'LightlineFilename',
-  "   \   'gitsignsstatus': 'GitSignsStatus',
-  "   \ },
-  "   \ }
-
-  " call lightline#init()
-  " call lightline#colorscheme()
-  " call lightline#update()
-endfunction
-
 function! SetHorizon()
   " let g:gruvbox_contrast_dark='soft'
   " set background=dark
@@ -204,7 +166,7 @@ function! SetHorizon()
   highlight! link SignColumn LineNr
   hi illuminatedWord guifg=white guibg=grey50
 
-  call SetupLightline('wombat')
+  " call SetupLightline('wombat')
 
   " :lua require('lualine').setup{options = { theme = 'gruvbox-material' }}
   :lua require('lualine').setup{options = { theme = 'horizon' }}
@@ -220,7 +182,7 @@ function! SetDarkTheme()
   highlight! link SignColumn LineNr
   hi illuminatedWord guifg=white guibg=grey50
 
-  call SetupLightline('wombat')
+  " call SetupLightline('wombat')
 
   :lua require('lualine').setup{options = { theme = 'gruvbox-material' }}
 endfunction
@@ -284,6 +246,15 @@ set tabstop=2
 set shiftwidth=2
 " On pressing tab, insert 2 spaces
 set expandtab
+
+
+
+
+
+
+
+
+
 
 " Folding auto mode
 set foldmethod=indent
@@ -897,8 +868,37 @@ require("diffview").setup({
   enhanced_diff_hl = true,
 })
 
+
+-- default configuration
+require('illuminate').configure({
+    providers = {
+        'regex',
+    },
+    delay = 300,
+    filetype_overrides = {},
+    filetypes_denylist = {
+        'fugitive',
+        'NvimTree'
+    },
+    filetypes_allowlist = {},
+    modes_denylist = {},
+    modes_allowlist = {},
+    providers_regex_syntax_denylist = {},
+    providers_regex_syntax_allowlist = {},
+    under_cursor = true,
+    large_file_cutoff = nil,
+    large_file_overrides = nil,
+    min_count_to_highlight = 1,
+})
+--  :lua print(vim.bo.filetype); Get file type of current file
+
+require("scrollbar").setup()
+require("scrollbar.handlers.gitsigns").setup()
+require("scrollbar.handlers.search").setup()
+require("better_escape").setup()
 EOF
 
+" imap jj <Esc>
 
 " au VimEnter,BufRead *.* :lua MiniMap.open()
 
@@ -1000,3 +1000,18 @@ if exists("g:neovide")
   let g:neovide_scale_factor = 0.85
   let g:neovide_fullscreen = v:true
 endif
+
+hi def IlluminatedWordText guibg=#6b496e
+hi def IlluminatedWordRead guibg=#6b496e
+hi def IlluminatedWordWrite guibg=#6b496e
+
+hi ScrollbarHandle guibg=#ABB2B9
+hi ScrollbarCursorHandle guibg=#ABB2B9
+hi ScrollbarCursor guibg=#ABB2B9
+" TODO: Here
+hi ScrollbarGitAdd guibg=green
+hi ScrollbarGitAddHandle guibg=green
+hi ScrollbarGitChange guibg=violet
+hi ScrollbarGitChangeHandle guibg=violet
+hi ScrollbarGitDelete guibg=red
+hi ScrollbarGitDeleteHandle guibg=red

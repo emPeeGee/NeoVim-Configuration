@@ -10,7 +10,8 @@
     "json",
     "less",
     "scss",
-    "rust"
+    "rust",
+    "go"
   ],
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
   "cSpell.userWords": ["Moldovanu", "NLWS", "testid", "testkit"],
