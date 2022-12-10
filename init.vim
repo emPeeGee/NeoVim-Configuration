@@ -145,6 +145,12 @@ call plug#begin("~/.vim/plugged")
   Plug 'famiu/bufdelete.nvim'
   Plug 'petertriho/nvim-scrollbar'
   Plug 'max397574/better-escape.nvim'
+
+  Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+  Plug 'Wansmer/treesj'
+  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'folke/drop.nvim'
+  Plug 'tamton-aquib/zone.nvim' 
 call plug#end()
 
 " Appearance
@@ -802,6 +808,25 @@ require('which-key').setup({
 
 -- " require("noice").setup()
 
+-- require("noice").setup({
+--   lsp = {
+--     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+--     override = {
+--       ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+--       ["vim.lsp.util.stylize_markdown"] = true,
+--       ["cmp.entry.get_documentation"] = true,
+--     },
+--   },
+--   -- you can enable a preset for easier configuration
+--   presets = {
+--     bottom_search = true, -- use a classic bottom cmdline for search
+--     command_palette = true, -- position the cmdline and popupmenu together
+--     long_message_to_split = true, -- long messages will be sent to a split
+--     inc_rename = false, -- enables an input dialog for inc-rename.nvim
+--     lsp_doc_border = false, -- add a border to hover docs and signature help
+--   },
+-- })
+
 require("bufferline").setup{
 options = {
   diagnostics = "coc",
@@ -896,6 +921,46 @@ require("scrollbar").setup()
 require("scrollbar.handlers.gitsigns").setup()
 require("scrollbar.handlers.search").setup()
 require("better_escape").setup()
+
+require("lsp_lines").setup()
+
+require('treesj').setup()
+vim.keymap.set('n', 'gJ', ":TSJToggle<CR>")
+
+vim.opt.termguicolors = true
+vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
+
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+        "IndentBlanklineIndent3",
+        "IndentBlanklineIndent4",
+        "IndentBlanklineIndent5",
+        "IndentBlanklineIndent6",
+    },
+}
+
+
+
+-- require("drop").setup({
+  -- theme = "snow", -- can be one of rhe default themes, or a custom theme
+--   max = 100, -- maximum number of drops on the screen
+  -- interval = 150, -- every 150ms we update the drops
+  -- screensaver = 1000 * 60 * 2, -- show after 5 minutes. Set to false, to disable
+ --  filetypes = { "dashboard", "alpha", "starter" }, -- will enable/disable automatically for the following filetypes
+-- })
+--  require("zone").setup()
 EOF
 
 " imap jj <Esc>
@@ -1015,3 +1080,5 @@ hi ScrollbarGitChange guibg=violet
 hi ScrollbarGitChangeHandle guibg=violet
 hi ScrollbarGitDelete guibg=red
 hi ScrollbarGitDeleteHandle guibg=red
+
+" Oxocarbon is good theme
