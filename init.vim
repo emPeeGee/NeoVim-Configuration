@@ -30,7 +30,7 @@ call plug#begin("~/.vim/plugged")
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer']
   " 'coc-tabnine' 
 
   Plug 'lewis6991/spellsitter.nvim'
@@ -121,6 +121,11 @@ call plug#begin("~/.vim/plugged")
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
   " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
   " Plug 'mvllow/modes.nvim'
+
+  Plug 'folke/noice.nvim'
+  Plug 'MunifTanjim/nui.nvim'
+  Plug 'rcarriga/nvim-notify'
+  Plug 'hrsh7th/nvim-cmp'
   " Plug 'mrjones2014/legendary.nvim'
   " Plug 'sidebar-nvim/sidebar.nvim' TODO: Good concept
 
@@ -692,8 +697,8 @@ require'gitsigns'.setup{
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir", "norg", "http", "regex" },
 
+  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir", "norg", "http", "haskell", "regex" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -824,6 +829,8 @@ require('which-key').setup({
   }
 })
 
+-- " require("noice").setup()
+
 require("bufferline").setup{
 options = {
   diagnostics = "coc",
@@ -865,7 +872,7 @@ window = {
 vim.keymap.set('n', '<Leader>mf', MiniMap.toggle_focus)
 vim.keymap.set('n', '<Leader>mr', MiniMap.refresh)
 vim.keymap.set('n', '<Leader>ms', MiniMap.toggle_side)
-vim.keymap.set('n', '<Leader>mm', MiniMap.toggle)  
+vim.keymap.set('n', '<Leader>mm', MiniMap.toggle)
 
 
 require('regexplainer').setup() 
@@ -876,6 +883,8 @@ lang = {
     }
   }
 })
+require('regexplainer').setup()
+
 -- require("sidebar-nvim").setup({
 -- files = {
 --    icon = "",

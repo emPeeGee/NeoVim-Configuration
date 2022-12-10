@@ -9,7 +9,8 @@
     "typescriptreact",
     "json",
     "less",
-    "scss"
+    "scss",
+    "rust"
   ],
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
   "cSpell.userWords": ["Moldovanu", "NLWS", "testid", "testkit"],
@@ -22,5 +23,31 @@
   "jest.watch": false,
   "diagnostic.signPriority": 2,
   "diagnostic.enableSign": true,
-  "diagnostic.infoSign": "!"
+  "diagnostic.infoSign": "!",
+  "languageserver": {
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml",
+        "hie.yaml"
+      ],
+      "filetypes": ["haskell", "lhaskell", "hs", "lhs"],
+      // Settings are optional, here are some example values
+      "settings": {
+        "haskell": {
+          "checkParents": "CheckOnSave",
+          "checkProject": true,
+          "maxCompletions": 40,
+          "formattingProvider": "ormolu",
+          "plugin": {
+            "stan": { "globalOn": true }
+          }
+        }
+      }
+    }
+  }
 }
