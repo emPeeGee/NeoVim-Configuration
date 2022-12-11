@@ -2,9 +2,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'morhetz/gruvbox'
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'lifepillar/vim-solarized8'
- 
   Plug 'ryanoasis/vim-devicons'
-
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim' 
   Plug 'fannheyward/telescope-coc.nvim'
@@ -16,19 +14,17 @@ call plug#begin("~/.vim/plugged")
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer', 'coc-go', 'coc-vimlsp']
   " 'coc-tabnine' 
-
   Plug 'lewis6991/spellsitter.nvim'
   Plug 'folke/which-key.nvim'
   Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-unimpaired' " Tpope pairs of mappings
-  Plug 'tpope/vim-surround'   " Surround
-
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-surround'
   " Cheat.sh integration
   " Plug 'RishabhRD/popfix'
   " Plug 'RishabhRD/nvim-cheat.sh'
   " Go lang
   " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'kyazdani42/nvim-tree.lua'
   Plug 'RRethy/vim-illuminate'
   Plug 'liuchengxu/vista.vim'
@@ -42,34 +38,27 @@ call plug#begin("~/.vim/plugged")
   Plug 'mbbill/undotree'
   Plug 'ggandor/lightspeed.nvim'
   " Plug 'ggandor/leap.nvim'
-
   " An always-on highlight for a unique character in every word on a line to help you use f, F
   " Plug 'unblevable/quick-scope'
   " Plug 'guns/vim-sexp',    {'for': 'clojure'}
   " Plug 'liquidz/vim-iced', {'for': 'clojure'}
   " Using vim-plug
   " Plug 'elixir-editors/vim-elixir'
-
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-neotest/neotest'
   " Plug 'nvim-neotest/neotest-go'
   " Plug 'haydenmeade/neotest-jest'
-
   Plug 'romainl/vim-cool'
   Plug 'inside/vim-search-pulse'
   Plug 'kevinhwang91/nvim-hlslens'
   Plug 'kkharji/sqlite.lua'
   Plug 'TimUntersberger/neogit'
-
-  Plug 'folke/todo-comments.nvim' " TODO: Map keys"
-
+  Plug 'folke/todo-comments.nvim'
   Plug 'rest-nvim/rest.nvim'
-
   " handy but why? 
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
   " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
   " Plug 'mvllow/modes.nvim'
-
   Plug 'folke/noice.nvim'
   Plug 'MunifTanjim/nui.nvim'
   Plug 'rcarriga/nvim-notify'
@@ -97,12 +86,9 @@ call plug#begin("~/.vim/plugged")
   Plug 'ahmedkhalf/project.nvim'
   Plug 'kylechui/nvim-surround'
   Plug 'uga-rosa/ccc.nvim'
-
-Plug 'folke/trouble.nvim'
-
-Plug 'psliwka/vim-smoothie'
-
-Plug 'gorbit99/codewindow.nvim',
+  Plug 'folke/trouble.nvim'
+  Plug 'psliwka/vim-smoothie'
+  Plug 'gorbit99/codewindow.nvim',
 call plug#end()
 
 if (has("termguicolors"))
@@ -215,11 +201,8 @@ if has("persistent_undo")
     set undofile
 endif
 
-" Make nvim use global clipboard
-" set clipboard=unnamedplus
-
-" disable default spell checker
 set nospell
+" set spell spelllang=en_us
 
 " Show signcolumn before line number
 set signcolumn=yes
@@ -246,7 +229,6 @@ set noruler
 set incsearch " Show results as you type
 set hlsearch  " Highlight the search results 
 
-set spell spelllang=en_us
 
 " Find recursive, not just in current folder
 set path+=**
@@ -302,7 +284,7 @@ nnoremap <leader>or :set relativenumber!<Cr>
 " Toggle spelling
 nnoremap <leader>os :set spell! <CR>
 
-"Unsets the last search pattern
+"Unset the last search pattern
 nnoremap <leader>oh :noh<CR><CR> 
 " Theme toggler
 nnoremap <leader>ol <cmd>:call SetLightTheme()<cr>
@@ -428,23 +410,11 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " Coc settings end
 
 
-" WhickKey
+" WhichKey
 " nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " Open whichkey after 500ms
 set timeoutlen=500
 
-" Vim-go -> Go setup
-" Highlight variable with same name when cursor is on them
-" I guess the below highlights are the same as treesitter provides
-" let g:go_auto_sameids = 1
-" let g:go_highlight_build_constraints = 1
-" let g:go_highlight_extra_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_structs = 1
-" let g:go_highlight_types = 1
 
 " Enrich go linter
 let g:go_metalinter_autosave=1
@@ -504,24 +474,19 @@ xmap <leader>vi <Plug>VimspectorBalloonEval
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-go', 'CodeLLDB', 'vscode-node-debug2' ]
 
 
-" Treesitter
 lua << EOF
-
 require'gitsigns'.setup{
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
   linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
   current_line_blame = true, -- color is ...
-
   sign_priority = 10,
-
   on_attach = function(bufnr)
     local function map(mode, lhs, rhs, opts)
         opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
         vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
     end
-
     -- Navigation
     map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
     map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
@@ -540,39 +505,22 @@ require'gitsigns'.setup{
   end
 }
 
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-
+require('nvim-treesitter.configs').setup {
   ensure_installed = { "lua", "rust", "javascript", "typescript", "scss",   "yaml", "tsx", "regex", "json", "html", "go", "css", "comment", "elixir", "norg", "http", "haskell", "regex" },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
-
-  -- List of parsers to ignore installing (for "all")
-  -- ignore_install = { "javascript" },
-
   playground = {
     enabled = true
   },
-
   highlight = {
-    -- `false` will disable the whole extension
     enable = true,
-
-    -- list of language that will be disabled
-    disable = { "c", "rust" },
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
+    disable = {"c"},
     additional_vim_regex_highlighting = false,
   },
 }
 
 
 -- Treesitter context
-require'treesitter-context'.setup{
+require('treesitter-context').setup{
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
   throttle = true, -- Throttles plugin updates (may improve performance)
   max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
@@ -722,13 +670,25 @@ options = {
   },
 }
 
+local function diff_source()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed
+    }
+  end
+end
+
 require('lualine').setup({
 options = {
   globalstatus = true,
-  },
+},
 extensions = {'nvim-tree'},
 sections = {
-  lualine_b = {'branch', 'diff', 'diagnostics'},
+  --lualine_b = {'branch', 'diff', 'diagnostics'}, FIX: is not working https://github.com/nvim-lualine/lualine.nvim/issues/799
+  lualine_b = {'branch',{'diff', source = diff_source}, 'diagnostics'},
   lualine_x = {'filesize'}
   }
 })
@@ -880,13 +840,11 @@ require("trouble").setup {
   mode = "loclist"
 }
 
-
--- FIX: Lualine dissappears with mini map
 local codewindow = require('codewindow')
 codewindow.setup({
   minimap_width = 10,
   width_multiplier = 8,
-  auto_enable = false,
+  auto_enable = true,
   exclude_filetypes = { 'NvimTree' },
   window_border = 'none'
 })
