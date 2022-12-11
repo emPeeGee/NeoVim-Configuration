@@ -1,116 +1,63 @@
 call plug#begin("~/.vim/plugged")
-  " Theme and coloring
   Plug 'morhetz/gruvbox'
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'lifepillar/vim-solarized8'
  
-  " Icons for vim
   Plug 'ryanoasis/vim-devicons'
 
-  " Telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim' 
   Plug 'fannheyward/telescope-coc.nvim'
   Plug 'nvim-telescope/telescope-symbols.nvim'
   " IDEA: Then exploring new file, get outline an see the file
-  " Plug 'nvim-telescope/telescope-frecency.nvim'
-
-  " Minimap
-  " Plug 'wfxr/minimap.vim' 
-
-  " Start screen
-  " Plug 'mhinz/vim-startify'
-
-  " Git
-  " Plug 'airblade/vim-gitgutter'
+  Plug 'nvim-telescope/telescope-frecency.nvim'
   Plug 'tpope/vim-fugitive'
   Plug 'lewis6991/gitsigns.nvim'
-
-  " Buffer line on the bottom
-  " Plug 'itchyny/lightline.vim'
-
-  " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer', 'coc-go']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer', 'coc-go', 'coc-vimlsp']
   " 'coc-tabnine' 
 
   Plug 'lewis6991/spellsitter.nvim'
- 
-  " Which key
-  " Plug 'liuchengxu/vim-which-key'
   Plug 'folke/which-key.nvim'
-
-  " Tim Pope
-  Plug 'tpope/vim-commentary' " Comment out lines
+  Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-unimpaired' " Tpope pairs of mappings
   Plug 'tpope/vim-surround'   " Surround
 
   " Cheat.sh integration
   " Plug 'RishabhRD/popfix'
   " Plug 'RishabhRD/nvim-cheat.sh'
-
   " Go lang
   " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-  " File tree  
-  " Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
-
   Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
   Plug 'kyazdani42/nvim-tree.lua'
-
-  " Highlight word under cursor
   Plug 'RRethy/vim-illuminate'
-
-  " A class outline viewer for Vim
   Plug 'liuchengxu/vista.vim'
-
-  " I guess something like org-mode
   Plug 'vimwiki/vimwiki'
-
-  " Color Highlight
-  " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-
   " Calendar for vim
   " Plug 'mattn/calendar-vim'
-
-  " Debugging
   Plug 'puremourning/vimspector'
-
-  " Treesitter
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-context'
   Plug 'nvim-treesitter/playground'
-
-  " Show marks on signcolumn
-  " Plug 'kshenoy/vim-signature'
-
-  " View undo list visually
   Plug 'mbbill/undotree'
-
-  " Enhanced navigation
   Plug 'ggandor/lightspeed.nvim'
   " Plug 'ggandor/leap.nvim'
 
   " An always-on highlight for a unique character in every word on a line to help you use f, F
   " Plug 'unblevable/quick-scope'
-
   " Plug 'guns/vim-sexp',    {'for': 'clojure'}
   " Plug 'liquidz/vim-iced', {'for': 'clojure'}
-
   " Using vim-plug
   " Plug 'elixir-editors/vim-elixir'
 
   Plug 'nvim-lua/plenary.nvim'
-
   Plug 'nvim-neotest/neotest'
   " Plug 'nvim-neotest/neotest-go'
   " Plug 'haydenmeade/neotest-jest'
 
-  " hlsearch
   Plug 'romainl/vim-cool'
   Plug 'inside/vim-search-pulse'
   Plug 'kevinhwang91/nvim-hlslens'
-
   Plug 'kkharji/sqlite.lua'
   Plug 'TimUntersberger/neogit'
 
@@ -129,52 +76,45 @@ call plug#begin("~/.vim/plugged")
   Plug 'hrsh7th/nvim-cmp'
   " Plug 'mrjones2014/legendary.nvim'
   " Plug 'sidebar-nvim/sidebar.nvim' TODO: Good concept
-
   Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'ntk148v/vim-horizon'
-
   Plug 'echasnovski/mini.nvim'
   Plug 'bennypowers/nvim-regexplainer'
   Plug 'MunifTanjim/nui.nvim',
-
   Plug 'andythigpen/nvim-coverage'
   Plug 'sindrets/diffview.nvim'
   Plug 'rhysd/conflict-marker.vim'
-
   Plug 'famiu/bufdelete.nvim'
   Plug 'petertriho/nvim-scrollbar'
   Plug 'max397574/better-escape.nvim'
-
   Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
   Plug 'Wansmer/treesj'
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'folke/drop.nvim'
   Plug 'tamton-aquib/zone.nvim' 
+  Plug 'gelguy/wilder.nvim'
+  Plug 'ahmedkhalf/project.nvim'
+  Plug 'kylechui/nvim-surround'
+  Plug 'uga-rosa/ccc.nvim'
+
+Plug 'folke/trouble.nvim'
+
+Plug 'psliwka/vim-smoothie'
+
+Plug 'gorbit99/codewindow.nvim',
 call plug#end()
 
-" Appearance
-" Enable theming support
 if (has("termguicolors"))
  set termguicolors
 endif
 
-" Turn syntax highlighting on.
 syntax on
 
 function! SetHorizon()
-  " let g:gruvbox_contrast_dark='soft'
-  " set background=dark
   colorscheme horizon
-
-  " highlight Cursor guifg=white guibg=reverse
-  " highlight iCursor guifg=white guibg=reverse
   highlight! link SignColumn LineNr
   hi illuminatedWord guifg=white guibg=grey50
-
-  " call SetupLightline('wombat')
-
-  " :lua require('lualine').setup{options = { theme = 'gruvbox-material' }}
   :lua require('lualine').setup{options = { theme = 'horizon' }}
 endfunction
 
@@ -182,14 +122,8 @@ function! SetDarkTheme()
   let g:gruvbox_contrast_dark='soft'
   set background=dark
   colorscheme gruvbox
-
-  " highlight Cursor guifg=white guibg=reverse
-  " highlight iCursor guifg=white guibg=reverse
   highlight! link SignColumn LineNr
   hi illuminatedWord guifg=white guibg=grey50
-
-  " call SetupLightline('wombat')
-
   :lua require('lualine').setup{options = { theme = 'gruvbox-material' }}
 endfunction
 
@@ -197,16 +131,7 @@ function! SetLightTheme()
   set background=light
   colorscheme solarized8_high
   colo solarized8_high
-
-  " highlight Cursor guifg=reverse guibg=#0087ff
-  " highlight iCursor guifg=reverse guibg=#0087ff
   highlight! link SignColumn LineNr
-
-  " set guicursor=n-v-c:block-Cursor
-  " set guicursor+=i:ver100-iCursor
-  " set guicursor+=n-v-c:blinkon0
-  " set guicursor+=i:blinkwait10
-
   hi LineNr guibg=NONE
   hi illuminatedWord guifg=white guibg=grey50
 
@@ -215,16 +140,7 @@ function! SetLightTheme()
 endfunction
 
 
-"Change theme depending on the time of day
-" let hr = (strftime('%H'))
-" if hr >= 19
-"   call SetDarkTheme()
-" elseif hr >= 8
-"   call SetLightTheme()
-" elseif hr >= 0
-  call SetDarkTheme()
-" endif
-
+call SetDarkTheme()
 
 " NeoVim default settings
 " Settings
@@ -252,15 +168,6 @@ set tabstop=2
 set shiftwidth=2
 " On pressing tab, insert 2 spaces
 set expandtab
-
-
-
-
-
-
-
-
-
 
 " Folding auto mode
 set foldmethod=indent
@@ -328,13 +235,13 @@ set listchars=tab:»·,trail:·
 set colorcolumn=80,120
 set noruler
 
-set wildmenu
-set wildmode=list:full
+" set wildmenu
+" set wildmode=list:full
 
 " There are certain files that we would never want to edit with Vim.
 " Wildmenu will ignore files with these extensions.
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-set wildignore+=*/node_modules/*
+" set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+" set wildignore+=*/node_modules/*
 
 set incsearch " Show results as you type
 set hlsearch  " Highlight the search results 
@@ -542,7 +449,6 @@ set timeoutlen=500
 " Enrich go linter
 let g:go_metalinter_autosave=1
 let g:go_metalinter_autosave_enabled=['golint', 'govet']
-
 " Auto imports for go
 let g:go_fmt_command = "goimports"
 " Show type in bottom of screen
@@ -555,36 +461,19 @@ let g:go_auto_type_info = 1
 " nnoremap <F6> :w <CR> :GoTestCompile <CR> <CR>
 " inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
 
-
-" Git blamer
-" let g:blamer_enabled = 1
-" let g:blamer_delay = 1000
-
-
-" Minimap
-" let g:minimap_width = 10
-" let g:minimap_auto_start = 0 " Disable autostart
-" let g:minimap_auto_start_win_enter = 0
-" let g:minimap_git_colors = 1 " Use with git 
-
-" Keybindings
-" nnoremap <leader>mm :MinimapToggle<CR>
-" nnoremap <leader>mr :MinimapRescan<CR>
-" nnoremap <leader>ms :MinimapRefresh<CR>
-
-
 " Telescope
 " Keybindings
 nnoremap <leader>ft <cmd>Telescope<cr>
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-" nnoremap <leader>fr <cmd>Telescope frecency workspace=CWD<cr>
-" nnoremap <leader>fe <cmd>Telescope frecency<cr>
+nnoremap <leader>fr <cmd>Telescope frecency workspace=CWD<cr>
+nnoremap <leader>fe <cmd>Telescope frecency<cr>
 nnoremap <leader>fv <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fs <cmd>Telescope grep_string<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fg <cmd>Telescope git_status<cr>
 nnoremap <leader>fc <cmd>Telescope coc<cr>
+nnoremap <leader>fp <cmd>Telescope projects<cr>
 
 
 nnoremap <leader>tl <cmd>TodoLocList<cr>
@@ -595,15 +484,6 @@ nnoremap <leader>tt <cmd>TodoTelescope<cr>
 let g:qs_delay = 150
 let g:qs_filetype_blacklist = ['startify']
 let g:qs_buftype_blacklist = ['nofile']
-
-
-" CHADTree
-" set width of the file tree
-" let g:chadtree_settings = {"view.width": 30}
-
-" Autoclose chadtree if it the last window left
-" autocmd BufEnter * if (winnr("$") == 1 && &filetype == "CHADTree") | q | endif
-
 " Keybindings
 nnoremap <leader>nm <cmd>NvimTreeFindFileToggle<CR>
 nnoremap <leader>nn <cmd>NvimTreeFocus<cr>
@@ -611,18 +491,6 @@ nnoremap <leader>nn <cmd>NvimTreeFocus<cr>
 
 " GitGutter
 highlight! link SignColumn LineNr
-" highlight GitGutterAdd    guifg=#009900
-" highlight GitGutterChange guifg=#bbbb00
-" highlight GitGutterDelete guifg=#ff2222
-"let g:gitgutter_highlight_lines = 1
-
-
-" Hexokinase
-" All possible highlighters
-let g:Hexokinase_highlighters = [
-\   'backgroundfull',
-\ ]
-
 
 " Vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
@@ -722,25 +590,41 @@ require'treesitter-context'.setup{
   },
 }
 
-require('telescope').setup{
-  defaults = {
-    live_grep = {
-      debounce = 250,
-    },
-    file_ignore_patterns = {
-      "_build",
-      "__localization__"
-    },
-    layout_strategy = 'vertical',
-    layout_config = {
-      width = 0.9,
-      height = 0.9
+
+ require "telescope".setup {
+   pickers = {
+     find_files = {
+     theme = 'ivy',
+     border = false,
+      layout_config = {
+        height = 15,
+        width = vim.o.columns,
+        preview_width = 0,
+        prompt_position = "bottom",
+      },
     }
-  },
-}
+   },
+   defaults = {
+     theme = 'ivy',
+     border = true,
+     live_grep = {
+       debounce = 250,
+     },
+     file_ignore_patterns = {
+       "_build",
+       "__localization__"
+     },
+     layout_strategy = "vertical",
+      layout_config = {
+        height = vim.o.lines,
+        width = vim.o.columns,
+        preview_height = 0.6,
+      },
+   },
+ }
 
 require('telescope').load_extension('coc')
--- " require"telescope".load_extension("frecency")
+require"telescope".load_extension("frecency")
 
 require('spellsitter').setup({
   enable = true,
@@ -844,6 +728,7 @@ options = {
   },
 extensions = {'nvim-tree'},
 sections = {
+  lualine_b = {'branch', 'diff', 'diagnostics'},
   lualine_x = {'filesize'}
   }
 })
@@ -952,6 +837,17 @@ require("indent_blankline").setup {
 }
 
 
+local wilder = require('wilder')
+wilder.setup({modes = {':'}})
+wilder.set_option('renderer', wilder.renderer_mux({
+  [':'] = wilder.popupmenu_renderer({
+    highlighter = wilder.basic_highlighter(),
+    min_width = '100%', -- minimum height of the popupmenu, can also be a number
+    max_height = '30%', -- to set a fixed height, set max_height to the same value
+    reverse = 0,        -- if 1, shows the candidates from bottom to top
+  }),
+}))
+wilder.set_option('use_python_remote_plugin', 0)
 
 -- require("drop").setup({
   -- theme = "snow", -- can be one of rhe default themes, or a custom theme
@@ -961,7 +857,44 @@ require("indent_blankline").setup {
  --  filetypes = { "dashboard", "alpha", "starter" }, -- will enable/disable automatically for the following filetypes
 -- })
 --  require("zone").setup()
+require("project_nvim").setup {    }
+require('telescope').load_extension('projects')
+
+require('nvim-surround').setup({ })
+
+vim.opt.termguicolors = true
+
+local ccc = require("ccc")
+local mapping = ccc.mapping
+ccc.setup({
+highlighter = {
+  auto_enable = true
+  }
+})
+require("trouble").setup {
+  position = "bottom", -- position of the list can be: bottom, top, left, right
+  height = 8, -- height of the trouble list when position is top or bottom
+  icons = true, -- use devicons for filenames
+  auto_open = true, -- automatically open the list when you have diagnostics
+  auto_close = true, -- automatically close the list when you have no diagnostics
+  mode = "loclist"
+}
+
+
+-- FIX: Lualine dissappears with mini map
+local codewindow = require('codewindow')
+codewindow.setup({
+  minimap_width = 10,
+  width_multiplier = 8,
+  auto_enable = false,
+  exclude_filetypes = { 'NvimTree' },
+  window_border = 'none'
+})
+
 EOF
+
+
+nmap <silent> gL <cmd>call coc#rpc#request('fillDiagnostics', [bufnr('%')])<CR><cmd>TroubleToggle loclist<CR>
 
 " imap jj <Esc>
 
@@ -974,8 +907,6 @@ set diffopt+=vertical
 " Keybindings
 nnoremap <leader>gg <cmd>Neogit<cr>
 nnoremap <leader>gm <cmd>Gdiffsplit!<cr>
-" nnoremap <leader>gf <cmd>0Gclog<cr>
-" nnoremap <leader>gl <cmd>Gclog<cr>
 nnoremap <leader>gb <cmd>Git blame<cr>
 
 " Diffview
@@ -1017,9 +948,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
    \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
    \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-  highlight Cursor guifg=white guibg=#0087ff
-  highlight iCursor guifg=white guibg=#0087ff
-  highlight! link SignColumn LineNr
 
 
 " Highlight on yank
@@ -1082,3 +1010,4 @@ hi ScrollbarGitDelete guibg=red
 hi ScrollbarGitDeleteHandle guibg=red
 
 " Oxocarbon is good theme
+" quickfix window

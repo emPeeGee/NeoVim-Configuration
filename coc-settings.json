@@ -14,7 +14,13 @@
     "go"
   ],
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
-  "cSpell.userWords": ["Moldovanu", "NLWS", "testid", "testkit"],
+  "cSpell.userWords": [
+    "Moldovanu",
+    "NLWS",
+    "structs",
+    "testid",
+    "testkit"
+  ],
   "diagnostic.checkCurrentLine": true,
   "diagnostic.showUnused": true,
   "diagnostic.virtualText": false,
@@ -50,5 +56,6 @@
         }
       }
     }
-  }
+  },
+  "Lua.telemetry.enable": false
 }
