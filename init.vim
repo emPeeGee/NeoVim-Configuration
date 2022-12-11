@@ -693,7 +693,21 @@ sections = {
   }
 })
 
-require('mini.starter').setup()
+
+local starter = require('mini.starter')
+starter.setup({
+evaluate_single = true,
+items = {
+  starter.sections.builtin_actions(),
+  starter.sections.recent_files(10, false),
+  starter.sections.recent_files(10, true),
+},
+content_hooks = {
+  starter.gen_hook.adding_bullet(),
+  starter.gen_hook.indexing('all', { 'Builtin actions' }),
+  starter.gen_hook.padding(3, 2),
+},
+})
 
 local map = require('mini.map')
 map.setup({
@@ -797,6 +811,7 @@ require("indent_blankline").setup {
 }
 
 
+-- TODO: Better config of wilder
 local wilder = require('wilder')
 wilder.setup({modes = {':'}})
 wilder.set_option('renderer', wilder.renderer_mux({
@@ -845,10 +860,13 @@ codewindow.setup({
   minimap_width = 10,
   width_multiplier = 8,
   auto_enable = true,
-  exclude_filetypes = { 'NvimTree' },
-  window_border = 'none'
+  exclude_filetypes = { 'NvimTree', 'starter' },
+  window_border = 'single'
 })
 
+    codewindow.apply_default_keybinds()
+
+vim.keymap.set('n', '<Leader>ob', ':lua print(vim.bo.filetype)<CR>', { desc = "Current buffer type" })
 EOF
 
 
