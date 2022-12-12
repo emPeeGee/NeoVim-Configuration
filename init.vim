@@ -1,6 +1,5 @@
 call plug#begin("~/.vim/plugged")
   Plug 'morhetz/gruvbox'
-  Plug 'NLKNguyen/papercolor-theme'
   Plug 'lifepillar/vim-solarized8'
   Plug 'ryanoasis/vim-devicons'
   Plug 'nvim-lua/plenary.nvim'
@@ -8,7 +7,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'fannheyward/telescope-coc.nvim'
   Plug 'nvim-telescope/telescope-symbols.nvim'
   " IDEA: Then exploring new file, get outline an see the file
-  Plug 'nvim-telescope/telescope-frecency.nvim'
   Plug 'tpope/vim-fugitive'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -38,12 +36,9 @@ call plug#begin("~/.vim/plugged")
   Plug 'mbbill/undotree'
   Plug 'ggandor/lightspeed.nvim'
   " Plug 'ggandor/leap.nvim'
-  " An always-on highlight for a unique character in every word on a line to help you use f, F
   " Plug 'unblevable/quick-scope'
   " Plug 'guns/vim-sexp',    {'for': 'clojure'}
   " Plug 'liquidz/vim-iced', {'for': 'clojure'}
-  " Using vim-plug
-  " Plug 'elixir-editors/vim-elixir'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-neotest/neotest'
   " Plug 'nvim-neotest/neotest-go'
@@ -58,7 +53,6 @@ call plug#begin("~/.vim/plugged")
   " handy but why? 
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
   " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
-  " Plug 'mvllow/modes.nvim'
   Plug 'folke/noice.nvim'
   Plug 'MunifTanjim/nui.nvim'
   Plug 'rcarriga/nvim-notify'
@@ -77,7 +71,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'famiu/bufdelete.nvim'
   Plug 'petertriho/nvim-scrollbar'
   Plug 'max397574/better-escape.nvim'
-  Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+ " " Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
   Plug 'Wansmer/treesj'
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'folke/drop.nvim'
@@ -88,7 +82,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'uga-rosa/ccc.nvim'
   Plug 'folke/trouble.nvim'
   Plug 'psliwka/vim-smoothie'
-  Plug 'gorbit99/codewindow.nvim',
+  " Plug 'gorbit99/codewindow.nvim',
 call plug#end()
 
 if (has("termguicolors"))
@@ -434,12 +428,11 @@ let g:go_auto_type_info = 1
 " Telescope
 " Keybindings
 nnoremap <leader>ft <cmd>Telescope<cr>
+nnoremap <leader><leader> <cmd>Telescope find_files<cr>
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fr <cmd>Telescope frecency workspace=CWD<cr>
-nnoremap <leader>fe <cmd>Telescope frecency<cr>
-nnoremap <leader>fv <cmd>Telescope live_grep<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+nnoremap <leader>fv <cmd>Telescope grep_string<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fg <cmd>Telescope git_status<cr>
 nnoremap <leader>fc <cmd>Telescope coc<cr>
@@ -553,7 +546,6 @@ require('treesitter-context').setup{
     }
    },
    defaults = {
-     theme = 'ivy',
      border = true,
      live_grep = {
        debounce = 250,
@@ -562,17 +554,18 @@ require('treesitter-context').setup{
        "_build",
        "__localization__"
      },
-     layout_strategy = "vertical",
+      layout_strategy = "vertical",
       layout_config = {
+        vertical  = {
+          preview_height = 0.6,
+        },
         height = vim.o.lines,
         width = vim.o.columns,
-        preview_height = 0.6,
       },
    },
  }
 
 require('telescope').load_extension('coc')
-require"telescope".load_extension("frecency")
 
 require('spellsitter').setup({
   enable = true,
@@ -781,7 +774,7 @@ require("scrollbar.handlers.gitsigns").setup()
 require("scrollbar.handlers.search").setup()
 require("better_escape").setup()
 
-require("lsp_lines").setup()
+-- require("lsp_lines").setup()
 
 require('treesj').setup()
 vim.keymap.set('n', 'gJ', ":TSJToggle<CR>")
@@ -822,6 +815,7 @@ wilder.set_option('renderer', wilder.renderer_mux({
     reverse = 0,        -- if 1, shows the candidates from bottom to top
   }),
 }))
+wilder.set_option('pipeline', {wilder.branch(wilder.cmdline_pipeline({debounce=300}))})
 wilder.set_option('use_python_remote_plugin', 0)
 
 -- require("drop").setup({
@@ -832,7 +826,9 @@ wilder.set_option('use_python_remote_plugin', 0)
  --  filetypes = { "dashboard", "alpha", "starter" }, -- will enable/disable automatically for the following filetypes
 -- })
 --  require("zone").setup()
-require("project_nvim").setup {    }
+require("project_nvim").setup {
+  detection_methods = {"patters"}
+}
 require('telescope').load_extension('projects')
 
 require('nvim-surround').setup({ })
@@ -855,16 +851,15 @@ require("trouble").setup {
   mode = "loclist"
 }
 
-local codewindow = require('codewindow')
-codewindow.setup({
-  minimap_width = 10,
-  width_multiplier = 8,
-  auto_enable = true,
-  exclude_filetypes = { 'NvimTree', 'starter' },
-  window_border = 'single'
-})
-
-    codewindow.apply_default_keybinds()
+-- local codewindow = require('codewindow')
+-- codewindow.setup({
+  --minimap_width = 10,
+  --width_multiplier = 8,
+  --auto_enable = true,
+  -- exclude_filetypes = { 'NvimTree', 'starter' },
+  -- window_border = 'single'
+--})
+-- codewindow.apply_default_keybinds()
 
 vim.keymap.set('n', '<Leader>ob', ':lua print(vim.bo.filetype)<CR>', { desc = "Current buffer type" })
 EOF
