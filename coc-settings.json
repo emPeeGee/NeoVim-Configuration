@@ -39,7 +39,7 @@
   ],
   "diagnostic.checkCurrentLine": true,
   "diagnostic.showUnused": true,
-  "diagnostic.virtualText": false,
+  "diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.virtualTextPrefix": " | ",
   "cSpell.showStatus": true,

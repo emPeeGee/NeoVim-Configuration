@@ -11,7 +11,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer', 'coc-go', 'coc-vimlsp']
-  " 'coc-tabnine' 
   Plug 'lewis6991/spellsitter.nvim'
   Plug 'folke/which-key.nvim'
   Plug 'tpope/vim-commentary'
@@ -20,25 +19,19 @@ call plug#begin("~/.vim/plugged")
   " Cheat.sh integration
   " Plug 'RishabhRD/popfix'
   " Plug 'RishabhRD/nvim-cheat.sh'
-  " Go lang
   " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'kyazdani42/nvim-tree.lua'
   Plug 'RRethy/vim-illuminate'
   Plug 'liuchengxu/vista.vim'
   Plug 'vimwiki/vimwiki'
-  " Calendar for vim
-  " Plug 'mattn/calendar-vim'
-  Plug 'puremourning/vimspector'
+  " Plug 'mattn/calendar-vim' Calendar for vim
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-context'
   Plug 'nvim-treesitter/playground'
   Plug 'mbbill/undotree'
   Plug 'ggandor/lightspeed.nvim'
   " Plug 'ggandor/leap.nvim'
-  " Plug 'unblevable/quick-scope'
-  " Plug 'guns/vim-sexp',    {'for': 'clojure'}
-  " Plug 'liquidz/vim-iced', {'for': 'clojure'}
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-neotest/neotest'
   " Plug 'nvim-neotest/neotest-go'
@@ -50,7 +43,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'TimUntersberger/neogit'
   Plug 'folke/todo-comments.nvim'
   Plug 'rest-nvim/rest.nvim'
-  " handy but why? 
   " Plug 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
   " Plug 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
   Plug 'folke/noice.nvim'
@@ -85,99 +77,6 @@ call plug#begin("~/.vim/plugged")
   " Plug 'gorbit99/codewindow.nvim',
 call plug#end()
 
-if (has("termguicolors"))
- set termguicolors
-endif
-
-syntax on
-
-function! SetHorizon()
-  colorscheme horizon
-  highlight! link SignColumn LineNr
-  hi illuminatedWord guifg=white guibg=grey50
-  :lua require('lualine').setup{options = { theme = 'horizon' }}
-endfunction
-
-function! SetDarkTheme()
-  let g:gruvbox_contrast_dark='soft'
-  set background=dark
-  colorscheme gruvbox
-  highlight! link SignColumn LineNr
-  hi illuminatedWord guifg=white guibg=grey50
-  :lua require('lualine').setup{options = { theme = 'gruvbox-material' }}
-endfunction
-
-function! SetLightTheme()
-  set background=light
-  colorscheme solarized8_high
-  colo solarized8_high
-  highlight! link SignColumn LineNr
-  hi LineNr guibg=NONE
-  hi illuminatedWord guifg=white guibg=grey50
-
-  call SetupLightline('solarized')
-  :lua require('lualine').setup{options = { theme = 'gruvbox_light'}}
-endfunction
-
-
-call SetDarkTheme()
-
-" NeoVim default settings
-" Settings
-let mapleader = "\<Space>"
-let g:mapleader="\<Space>"
-
-" Enable type file detection. Vim will be able to try to detect the type of file is use.
-filetype on
-" Enable plugins and load plugin for the detected file type.
-filetype plugin on
-" Load an indent file for the detected file type.
-filetype indent on
-set completeopt=longest,menuone
-set mouse=a
-" Disable compatibility with vi which can cause unexpected issues.
-set nocompatible
-set noswapfile
-set number relativenumber
-set title
-" Wrap lines.
-set wrap
-" show existing tab with 2 spaces width
-set tabstop=2
-" when indenting with '>', use 2 spaces width
-set shiftwidth=2
-" On pressing tab, insert 2 spaces
-set expandtab
-
-" Folding auto mode
-set foldmethod=indent
-set foldlevel=2
-set foldnestmax=10
-set nofoldenable
-
-" keep 20 lines visible above and below cursor at all times
-set scrolloff=15  
-" set sidescrolloff=10   " keep 30 columns visible left and right of the cursor at all time
-
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
-set encoding=utf-8
-
-" Reduce updatetime
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
 
 " persist
 " set undofile " Maintain undo history between sessions
@@ -195,23 +94,6 @@ if has("persistent_undo")
     set undofile
 endif
 
-set nospell
-" set spell spelllang=en_us
-
-" Show signcolumn before line number
-set signcolumn=yes
-
-" Highlight cursor line underneath the cursor horizontally.
-set cursorline
-" Highlight cursor line underneath the cursor vertically.
-set cursorcolumn
-
-set list
-set listchars=tab:»·,trail:·
-
-set colorcolumn=80,120
-set noruler
-
 " set wildmenu
 " set wildmode=list:full
 
@@ -220,13 +102,8 @@ set noruler
 " set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 " set wildignore+=*/node_modules/*
 
-set incsearch " Show results as you type
-set hlsearch  " Highlight the search results 
-
-
 " Find recursive, not just in current folder
-set path+=**
-
+" set path+=**
 
 " Persist cursor
 autocmd BufReadPost *
@@ -237,57 +114,22 @@ autocmd BufReadPost *
 " highlight the visual selection after pressing enter.
 xnoremap <silent> <cr> "*y:silent! let searchTerm = '\V'.substitute(escape(@*, '\/'), "\n", '\\n', "g") <bar> let @/ = searchTerm <bar> echo '/'.@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>
 
-" Highlight matching parenthesis
-hi MatchParen guibg=magenta guifg=white
+" Get rid of the artifacts
+autocmd CompleteDone <buffer> if has_key(v:completed_item, 'word') && v:completed_item.word =~ '\.$'
+\| call feedkeys("\<bs>")
+\| endif
+
+" vimwiki
+augroup vimwikigroup
+    autocmd!
+    " automatically update links on read diary
+    autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
+augroup end
 
 
-" If you select some lines then press > to indent the lines, the selection is removed. The indentation can be repeated on the same range using ., but if you still want to retain the visual selection after having pressed > or <, you can use these mappings
-vnoremap > >gv
-vnoremap < <gv
-
-
-" Neovim non plugin keybindings
-" Buffer maps
-nnoremap <Leader>bh :bprevious<CR>
-nnoremap <Leader>bl :bnext<CR>
-nnoremap <Leader>bk :bfirst<CR>
-nnoremap <Leader>bj :blast<CR>
-nnoremap <Leader>bx :bd<CR>
-nnoremap <Leader>bq :ls<CR>
-nmap <silent> [d :Bdelete <CR>
-
-" Move the line using alt and jk https://vim.fandom.com/wiki/Moving_lines_up_or_down
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-
-" Miscellaneous
-" Open vim init 
-nnoremap <leader>ov :e $MYVIMRC<CR>
-nnoremap <leader>oc :source $MYVIMRC<CR>
-nnoremap <leader>opi :PlugInstall<CR>
-nnoremap <leader>opc :PlugClean<CR>
-
-
-" Toggle relativenumber
-nnoremap <leader>or :set relativenumber!<Cr>
-
-" Toggle spelling
-nnoremap <leader>os :set spell! <CR>
-
-"Unset the last search pattern
-nnoremap <leader>oh :noh<CR><CR> 
-" Theme toggler
-nnoremap <leader>ol <cmd>:call SetLightTheme()<cr>
-nnoremap <leader>od <cmd>:call SetDarkTheme()<cr>
-nnoremap <leader>oq <cmd>:call SetHorizon()<cr>
-nnoremap <leader>ou :UndotreeToggle<CR>
-
-nnoremap <leader>ott <cmd>Vista!!<cr>
-nnoremap <leader>otc <cmd>Vista coc<cr>
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+  \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " Coc config
 " Use tab for trigger completion with characters ahead and navigate.
@@ -300,7 +142,7 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -401,14 +243,13 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+nmap <silent> gL <cmd>call coc#rpc#request('fillDiagnostics', [bufnr('%')])<CR><cmd>TroubleToggle loclist<CR>
+hi! CocInfoSign guifg=LightBlue
+" hi! CocErrorSign guibg=none
+" hi! CocInfoSign guibg=#353b45
+" hi! CocWarningSign guifg=#d1cd66
 " Coc settings end
-
-
-" WhichKey
-" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-" Open whichkey after 500ms
-set timeoutlen=500
-
 
 " Enrich go linter
 let g:go_metalinter_autosave=1
@@ -418,56 +259,142 @@ let g:go_fmt_command = "goimports"
 " Show type in bottom of screen
 let g:go_auto_type_info = 1
 
-" Keybindings
-" nnoremap <Leader>ll :GoRun<CR>
-" nnoremap <Leader>ld :GoDeclsDir<CR>
-
-" nnoremap <F6> :w <CR> :GoTestCompile <CR> <CR>
-" inoremap <F6> <ESC> :w <CR> :GoTestCompile <CR> <CR>
-
-" Telescope
-" Keybindings
-nnoremap <leader>ft <cmd>Telescope<cr>
-nnoremap <leader><leader> <cmd>Telescope find_files<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fs <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fv <cmd>Telescope grep_string<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fg <cmd>Telescope git_status<cr>
-nnoremap <leader>fc <cmd>Telescope coc<cr>
-nnoremap <leader>fp <cmd>Telescope projects<cr>
-
-
-nnoremap <leader>tl <cmd>TodoLocList<cr>
-nnoremap <leader>tq <cmd>TodoQuickFix<cr>
-nnoremap <leader>tt <cmd>TodoTelescope<cr>
-
-" Quick-scope
-let g:qs_delay = 150
-let g:qs_filetype_blacklist = ['startify']
-let g:qs_buftype_blacklist = ['nofile']
-" Keybindings
-nnoremap <leader>nm <cmd>NvimTreeFindFileToggle<CR>
-nnoremap <leader>nn <cmd>NvimTreeFocus<cr>
-
-
-" GitGutter
-highlight! link SignColumn LineNr
-
-" Vimspector
-let g:vimspector_enable_mappings = 'HUMAN'
-nmap <leader>vl :call vimspector#Launch()<CR>
-nmap <leader>vr :VimspectorReset<CR>
-nmap <leader>ve :VimspectorEval
-nmap <leader>vw :VimspectorWatch
-nmap <leader>vo :VimspectorShowOutput
-nmap <leader>vi <Plug>VimspectorBalloonEval
-xmap <leader>vi <Plug>VimspectorBalloonEval
-let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-go', 'CodeLLDB', 'vscode-node-debug2' ]
-
 
 lua << EOF
+vim.g.mapleader=" "
+
+if vim.fn.exists("g:neovide") then
+  vim.g.neovide_scale_factor = 0.85
+  vim.g.neovide_fullscreen = true
+end
+
+--" Disable compatibility with vi which can cause unexpected issues.
+vim.opt.swapfile = false
+
+--" Reduce updatetime
+vim.opt.updatetime=300
+
+--" Don't pass messages to |ins-completion-menu|.
+vim.opt.shortmess:append "c"
+vim.opt.completeopt={"longest","menuone"}
+
+-- Some servers have issues with backup files, see #649.
+vim.opt.backup = false
+vim.opt.writebackup = false
+
+vim.keymap.set('i', 'jj', '<ESC>', { desc = 'ESC' })
+-- " Avoid mswin.vim making Ctrl-v act as paste
+vim.keymap.set('', '<C-V>', '<C-V>', {noremap = true})
+
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel=2
+vim.opt.foldnestmax=10
+vim.opt.foldenable = false
+
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.title = true
+vim.opt.wrap = true
+
+vim.opt.tabstop=2 -- show existing tab with 2 spaces width
+vim.opt.shiftwidth=2 -- when indenting with '>', use 2 spaces width
+vim.opt.expandtab= true --" On pressing tab, insert 2 spaces
+vim.opt.scrolloff=15  
+vim.opt.cmdheight=2
+
+-- Show signcolumn before line number
+--set signcolumn=yes
+
+
+vim.opt.cursorline = true -- Highlight cursor line underneath the cursor horizontally.
+vim.opt.cursorcolumn = true -- Highlight cursor line underneath the cursor vertically.
+
+vim.opt.spell = false
+vim.opt.list = true
+-- set listchars=tab:»·,trail:·
+
+vim.opt.colorcolumn={80,120}
+vim.opt.ruler = false
+
+--" If you select some lines then press > to indent the lines, the selection is removed. The indentation can be repeated on the same range using ., but if you still want to retain the visual selection after having pressed > or <, you can use these mappings
+vim.keymap.set('v', '>', '>gv', { noremap = true })
+vim.keymap.set('v', '<', '<gv', { noremap = true })
+
+
+-- " Open whichkey after 500ms
+vim.opt.timeoutlen = 500 
+
+-- " Move the line using alt and jk https://vim.fandom.com/wiki/Moving_lines_up_or_down
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { noremap = true})
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { noremap = true})
+vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi', { noremap = true})
+vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==gi', { noremap = true})
+vim.keymap.set('v', '<A-j>', ':m \'>+1<CR>gv=gv', { noremap = true})
+vim.keymap.set('v', '<A-k>', ':m \'<-2<CR>gv=gv', { noremap = true})
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('highlight_yank', {}),
+  desc = 'Hightlight selection on yank',
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
+  end,
+})
+
+
+function set_horizon() 
+  vim.cmd [[colorscheme horizon]]
+  vim.cmd [[highlight! link SignColumn LineNr]]
+  require('lualine').setup{options = { theme = 'horizon' }}
+end
+
+
+function set_dark_theme()
+  vim.g.gruvbox_contrast_dark='soft'
+  vim.cmd [[set background=dark]]
+  vim.cmd [[colorscheme gruvbox]]
+  vim.cmd [[highlight! link SignColumn LineNr]]
+  require('lualine').setup{options = { theme = 'gruvbox-material' }}
+end
+
+function set_light_theme()
+  vim.cmd [[set background=light]]
+  vim.cmd [[colorscheme solarized8_high]]
+  vim.cmd [[colo solarized8_high]]
+  vim.cmd [[highlight! link SignColumn LineNr]]
+  vim.cmd [[hi LineNr guibg=NONE]]
+  require('lualine').setup{options = { theme = 'gruvbox_light'}}
+end
+
+
+
+set_dark_theme()
+
+
+--Theme toggler
+vim.keymap.set('n', '<leader>ol', set_light_theme, { desc = 'Set light theme'})
+vim.keymap.set('n', '<leader>od', set_dark_theme, { desc = 'Set dark theme'})
+vim.keymap.set('n', '<leader>oq', set_horizon, { desc = 'Set horizon theme'})
+
+--" Miscellaneous
+vim.keymap.set('n', '<leader>ov',  [[:e $MYVIMRC<CR>]], {desc = 'Open init.vim'} )
+vim.keymap.set('n', '<leader>oc',  [[:source $MYVIMRC<CR>]])
+vim.keymap.set('n', '<leader>or',  [[:set relativenumber!<Cr>]], { desc = 'Set relative number' })
+vim.keymap.set('n', '<leader>ou',  [[:UndotreeToggle<CR>]], { desc = 'Toggle undotree' })
+vim.keymap.set('n', '<leader>oi',  [[:PlugInstall<CR>]], { desc = 'PlugInstall' })
+vim.keymap.set('n', '<leader>opc', [[:PlugClean<CR>]], { desc = 'PlugClean' })
+vim.keymap.set('n', '<leader>ott', [[:Vista!!<cr>]] , {desc = 'Toggle Vista' })
+vim.keymap.set('n', '<leader>otc', [[:Vista coc<cr>]] , {desc = 'Toggle Vista coc' })
+
+
+vim.keymap.set('n', '<leader>tl', '<cmd>TodoLocList<cr>', { desc = 'Toggle Todo list'})
+vim.keymap.set('n', '<leader>tq', '<cmd>TodoQuickFix<cr>', {desc = 'Toggle quick fix list'})
+vim.keymap.set('n', '<leader>tt', '<cmd>TodoTelescope<cr>', {desc = 'Toggle Todo telescope'})
+vim.keymap.set('n', '<leader>nm', '<cmd>NvimTreeFindFileToggle<CR>', {desc = 'Toggle file tree'})
+vim.keymap.set('n', '<leader>nn', '<cmd>NvimTreeFocus<cr>', {desc = 'Focus file tree'})
+
+
+
 require'gitsigns'.setup{
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
@@ -566,6 +493,16 @@ require('treesitter-context').setup{
  }
 
 require('telescope').load_extension('coc')
+vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope find_files<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>ft', '<cmd>Telescope<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>fs', '<cmd>Telescope live_grep<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>fv', '<cmd>Telescope grep_string<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>fg', '<cmd>Telescope git_status<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>fc', '<cmd>Telescope coc<cr>', { desc = ''})
+vim.keymap.set('n', '<leader>fp', '<cmd>Telescope projects<cr>', { desc = ''})
 
 require('spellsitter').setup({
   enable = true,
@@ -769,17 +706,42 @@ require('illuminate').configure({
 })
 --  :lua print(vim.bo.filetype); Get file type of current file
 
+local hi_scrollbar = "#ABB2B9"
+local hi_gitadd = "#2E5049"
+local hi_gitadd = "#2E5049"
+local hi_gitchange = "#344F69"
+local hi_gittext = "#5F3469"
+local hi_gitremove = "#693434"
+
 require("scrollbar").setup()
+vim.cmd("hi ScrollbarHandle guibg=" .. hi_scrollbar)
+vim.cmd("hi ScrollbarCursorHandle guibg=" .. hi_scrollbar)
+vim.cmd("hi ScrollbarCursor guibg= " .. hi_scrollbar)
+vim.cmd("hi ScrollbarGitAdd guibg=" .. hi_gitadd)
+vim.cmd("hi ScrollbarGitAddHandle guibg=" .. hi_gitadd)
+vim.cmd("hi ScrollbarGitChange guibg=" .. hi_gittext)
+vim.cmd("hi ScrollbarGitChangeHandle guibg=" .. hi_gittext )
+vim.cmd("hi ScrollbarGitDelete guibg=" .. hi_gitremove)
+vim.cmd("hi ScrollbarGitDeleteHandle guibg=" .. hi_gitremove)
+
+
+local hi_word = "#6b496e"
+vim.cmd("hi def IlluminatedWordText guibg=" .. hi_word)
+vim.cmd("hi def IlluminatedWordRead guibg=".. hi_word)
+vim.cmd("hi def IlluminatedWordWrite guibg=".. hi_word)
+
 require("scrollbar.handlers.gitsigns").setup()
 require("scrollbar.handlers.search").setup()
 require("better_escape").setup()
 
 -- require("lsp_lines").setup()
 
-require('treesj').setup()
+require('treesj').setup({
+  use_default_keymaps = false,
+  max_join_length = 240
+})
 vim.keymap.set('n', 'gJ', ":TSJToggle<CR>")
 
-vim.opt.termguicolors = true
 vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
@@ -794,14 +756,46 @@ vim.opt.listchars:append "eol:↴"
 require("indent_blankline").setup {
     space_char_blankline = " ",
     char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
-        "IndentBlanklineIndent3",
-        "IndentBlanklineIndent4",
-        "IndentBlanklineIndent5",
-        "IndentBlanklineIndent6",
+      "IndentBlanklineIndent1",
+      "IndentBlanklineIndent2",
+      "IndentBlanklineIndent3",
+      "IndentBlanklineIndent4",
+      "IndentBlanklineIndent5",
+      "IndentBlanklineIndent6",
     },
 }
+
+
+-- disable the default highlight group
+-- let g:conflict_marker_highlight_group = ''
+vim.g.conflict_marker_highlight_group = ''
+
+-- Include text after begin and end markers
+vim.g.conflict_marker_begin = "^<<<<<<< .*$"
+vim.g.conflict_marker_end   = '^>>>>>>> .*$'
+
+local hi_gitend = "#2F628E"
+local hi_gitbegin = "#2F7366"
+
+vim.cmd("highlight ConflictMarkerBegin guibg=" .. hi_gitbegin)
+vim.cmd("highlight ConflictMarkerOurs guibg=" .. hi_gitadd)
+vim.cmd("highlight ConflictMarkerTheirs guibg=" .. hi_gitchange)
+vim.cmd("highlight ConflictMarkerEnd guibg=" .. hi_gitend)
+vim.cmd("highlight ConflictMarkerCommonAncestorsHunk guibg=" .. hi_gittext)
+
+
+vim.cmd("hi DiffAdd gui=none guifg=NONE guibg=" .. hi_gitadd)
+vim.cmd("hi DiffChange gui=none guifg=NONE guibg=" .. hi_gitchange)
+vim.cmd("hi DiffText gui=none guifg=NONE guibg=" .. hi_gitend)
+vim.cmd("hi DiffDelete gui=none guifg=NONE guibg=" .. hi_gitremove)
+vim.cmd("hi DiffviewDiffAddAsDelete gui=none guifg=NONE guibg=" .. hi_gitremove)
+
+vim.cmd("hi GitSignsChangeInline gui=none guifg=NONE guibg=" .. hi_gittext)
+vim.cmd("hi GitSignsAddInline gui=none guifg=NONE guibg=" .. hi_gittext)
+vim.cmd("hi GitSignsDeleteInline gui=none guifg=NONE guibg=" .. hi_gittext)
+
+
+vim.cmd [[hi MatchParen guibg=magenta guifg=white]]
 
 
 -- TODO: Better config of wilder
@@ -861,124 +855,29 @@ require("trouble").setup {
 --})
 -- codewindow.apply_default_keybinds()
 
+
+vim.keymap.set('n', '<leader>gg', '<cmd>Neogit<cr>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>gm', '<cmd>Gdiffsplit!<cr>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<cr>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>go', '<cmd>DiffviewOpen<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>gc', '<cmd>DiffviewClose<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>gl', '<cmd>DiffviewFileHistory<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>gf', '<cmd>DiffviewFileHistory %<CR>', { noremap = true, desc = ''})
+
+
+vim.keymap.set('n', '<leader>rr', '<cmd>lua require("neotest").run.run()<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>rf', '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>rl', '<cmd>lua require("neotest").run.run_last()<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>rx', '<cmd>lua require("neotest").run.stop()<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>rs', '<cmd>lua require("neotest").summary.toggle()<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<silent>[n', '<cmd>lua require("neotest").jump.prev()<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<silent>]n', '<cmd>lua require("neotest").jump.next()<CR>', { noremap = true, desc = ''})
+vim.keymap.set('n', '<leader>tc', ':CoverageToggle<CR>', { noremap = true, desc = ''})
+
 vim.keymap.set('n', '<Leader>ob', ':lua print(vim.bo.filetype)<CR>', { desc = "Current buffer type" })
+vim.keymap.set('n', '[d', ':Bdelete<CR>', { desc = "Bdelete", silent = true })
 EOF
 
-
-nmap <silent> gL <cmd>call coc#rpc#request('fillDiagnostics', [bufnr('%')])<CR><cmd>TroubleToggle loclist<CR>
-
-" imap jj <Esc>
-
-" au VimEnter,BufRead *.* :lua MiniMap.open()
-
-" Fugitive
-" Make diff vertical
-set diffopt+=vertical
-
-" Keybindings
-nnoremap <leader>gg <cmd>Neogit<cr>
-nnoremap <leader>gm <cmd>Gdiffsplit!<cr>
-nnoremap <leader>gb <cmd>Git blame<cr>
-
-" Diffview
-nnoremap <leader>go <cmd>DiffviewOpen<CR>
-nnoremap <leader>gc <cmd>DiffviewClose<CR>
-nnoremap <leader>gl <cmd>DiffviewFileHistory<CR>
-nnoremap <leader>gf <cmd>DiffviewFileHistory %<CR>
-
-
-" Neotest
-nnoremap <leader>rr <cmd>lua require("neotest").run.run()<CR>
-nnoremap <leader>rf <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>
-nnoremap <leader>rl <cmd>lua require("neotest").run.run_last()<CR>
-nnoremap <leader>rx <cmd>lua require("neotest").run.stop()<CR>
-nnoremap <leader>rs <cmd>lua require("neotest").summary.toggle()<CR>
-nnoremap <silent>[n <cmd>lua require("neotest").jump.prev()<CR>
-nnoremap <silent>]n <cmd>lua require("neotest").jump.next()<CR>
-
-nnoremap <leader>tc :CoverageToggle<CR>
-
 " Handy for angular https://www.reddit.com/r/vim/comments/fedjzm/open_angular_counterpart_html_or_ts_files/
-
-
-" Get rid of the artifacts
-autocmd CompleteDone <buffer> if has_key(v:completed_item, 'word') && v:completed_item.word =~ '\.$'
-\| call feedkeys("\<bs>")
-\| endif
-
-
-" vimwiki
-augroup vimwikigroup
-    autocmd!
-    " automatically update links on read diary
-    autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
-augroup end
-
-
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-   \,sm:block-blinkwait175-blinkoff150-blinkon175
-
-
-
-" Highlight on yank
-augroup highlight_yank
-    autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})
-augroup END
-
-imap jj <Esc>
-
-" disable the default highlight group
-let g:conflict_marker_highlight_group = ''
-
-" Include text after begin and end markers
-let g:conflict_marker_begin = '^<<<<<<< .*$'
-let g:conflict_marker_end   = '^>>>>>>> .*$'
-
-
-highlight ConflictMarkerBegin guibg=#2f7366
-highlight ConflictMarkerOurs guibg=#2e5049
-highlight ConflictMarkerTheirs guibg=#344f69
-highlight ConflictMarkerEnd guibg=#2f628e
-highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
-
-
-hi DiffAdd      gui=none    guifg=NONE          guibg=#2e5049
-hi DiffChange   gui=none    guifg=NONE          guibg=#344f69
-hi DiffText     gui=none    guifg=NONE          guibg=#5f3469
-hi DiffDelete   gui=none    guifg=NONE          guibg=#693434
-hi DiffviewDiffAddAsDelete  gui=none guifg=NONE guibg=#693434
-
-hi GitSignsChangeInline     gui=none    guifg=NONE          guibg=#5f3469
-hi GitSignsAddInline     gui=none    guifg=NONE          guibg=#5f3469
-hi GitSignsDeleteInline     gui=none    guifg=NONE          guibg=#5f3469
-
-hi! CocInfoSign guifg=LightBlue
-" hi! CocErrorSign guibg=none
-" hi! CocInfoSign guibg=#353b45
-" hi! CocWarningSign guifg=#d1cd66
-
-
-if exists("g:neovide")
-  let g:neovide_scale_factor = 0.85
-  let g:neovide_fullscreen = v:true
-endif
-
-hi def IlluminatedWordText guibg=#6b496e
-hi def IlluminatedWordRead guibg=#6b496e
-hi def IlluminatedWordWrite guibg=#6b496e
-
-hi ScrollbarHandle guibg=#ABB2B9
-hi ScrollbarCursorHandle guibg=#ABB2B9
-hi ScrollbarCursor guibg=#ABB2B9
-" TODO: Here
-hi ScrollbarGitAdd guibg=green
-hi ScrollbarGitAddHandle guibg=green
-hi ScrollbarGitChange guibg=violet
-hi ScrollbarGitChangeHandle guibg=violet
-hi ScrollbarGitDelete guibg=red
-hi ScrollbarGitDeleteHandle guibg=red
-
 " Oxocarbon is good theme
 " quickfix window
