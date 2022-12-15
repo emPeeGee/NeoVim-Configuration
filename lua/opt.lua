@@ -8,7 +8,9 @@ vim.opt.updatetime=300
 
 --" Don't pass messages to |ins-completion-menu|.
 vim.opt.shortmess:append "c"
-vim.opt.completeopt={"longest","menuone"}
+-- vim.opt.completeopt={"longest","menuone"}
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+
 
 -- Some servers have issues with backup files, see #649.
 vim.opt.backup = false

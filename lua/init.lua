@@ -93,7 +93,7 @@ vim.keymap.set('n', '<leader>ou',  [[:UndotreeToggle<CR>]], { desc = 'Toggle und
 vim.keymap.set('n', '<leader>oi',  [[:PlugInstall<CR>]], { desc = 'PlugInstall' })
 vim.keymap.set('n', '<leader>opc', [[:PlugClean<CR>]], { desc = 'PlugClean' })
 vim.keymap.set('n', '<leader>ott', [[:Vista!!<cr>]] , {desc = 'Toggle Vista' })
-vim.keymap.set('n', '<leader>otc', [[:Vista coc<cr>]] , {desc = 'Toggle Vista coc' })
+-- vim.keymap.set('n', '<leader>otc', [[:Vista coc<cr>]] , {desc = 'Toggle Vista coc' })
 
 
 vim.keymap.set('n', '<leader>tl', '<cmd>TodoLocList<cr>', { desc = 'Toggle Todo list'})
@@ -201,7 +201,7 @@ require('treesitter-context').setup{
    },
  }
 
-require('telescope').load_extension('coc')
+-- require('telescope').load_extension('coc')
 vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope find_files<cr>', { desc = ''})
 vim.keymap.set('n', '<leader>ft', '<cmd>Telescope<cr>', { desc = ''})
 vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { desc = ''})
@@ -210,7 +210,7 @@ vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { desc = ''})
 vim.keymap.set('n', '<leader>fv', '<cmd>Telescope grep_string<cr>', { desc = ''})
 vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { desc = ''})
 vim.keymap.set('n', '<leader>fg', '<cmd>Telescope git_status<cr>', { desc = ''})
-vim.keymap.set('n', '<leader>fc', '<cmd>Telescope coc<cr>', { desc = ''})
+-- vim.keymap.set('n', '<leader>fc', '<cmd>Telescope coc<cr>', { desc = ''})
 vim.keymap.set('n', '<leader>fp', '<cmd>Telescope projects<cr>', { desc = ''})
 
 require('spellsitter').setup({
@@ -300,7 +300,7 @@ require('which-key').setup({
 
 require("bufferline").setup{
 options = {
-  diagnostics = "coc",
+  -- diagnostics = "coc",
   actions = {
     open_file = {
       quit_on_open = true
@@ -585,5 +585,7 @@ vim.keymap.set('n', '<leader>tc', ':CoverageToggle<CR>', { noremap = true, desc 
 
 vim.keymap.set('n', '<Leader>ob', ':lua print(vim.bo.filetype)<CR>', { desc = "Current buffer type" })
 vim.keymap.set('n', '[d', ':Bdelete<CR>', { desc = "Bdelete", silent = true })
+
+
 
 
