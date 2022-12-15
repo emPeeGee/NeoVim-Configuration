@@ -95,20 +95,26 @@ return require('packer').startup(function(use)
   use { 'hrsh7th/cmp-path' }
 
 
-  -- use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-  -- use 'L3MON4D3/LuaSnip' -- Snippets plugin
-
+  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+  use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  use 'simrat39/rust-tools.nvim'
 
 
   require("mason").setup()
   require("mason-lspconfig").setup({
-    ensure_installed = { "sumneko_lua", "tsserver", "tailwindcss", "eslint",
+    ensure_installed = {
+      "sumneko_lua",
+      "tsserver",
+      "emmet",
+      "tailwindcss",
+      "eslint",
       'html',
-      'cssls'
+      'cssls',
     }
   })
 
   require "fidget".setup {}
+  local luasnip = require('luasnip')
   -- require("lsp_lines").setup()
 
 
@@ -200,18 +206,15 @@ return require('packer').startup(function(use)
     capabilities = capabilities
   }
 
-  nvim_lsp.eslint.setup {
+  nvim_lsp.html.setup {
     on_attach = on_attach,
     capabilities = capabilities
   }
 
-
-
-
-
-
-
-
+  nvim_lsp.eslint.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
 
   nvim_lsp.tsserver.setup {
     -- root_dir = require('lspconfig.util').root_pattern('.git'),
@@ -353,11 +356,11 @@ return require('packer').startup(function(use)
   if (not status) then return end
 
   cmp.setup({
-    -- snippet = {
-    -- expand = function(args)
-    --   require('luasnip').lsp_expand(args.body)
-    -- end,
-    -- },
+    snippet = {
+      expand = function(args)
+        require('luasnip').lsp_expand(args.body)
+      end,
+    },
     mapping = cmp.mapping.preset.insert({
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -370,18 +373,18 @@ return require('packer').startup(function(use)
       ['<Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-          -- elseif luasnip.expand_or_jumpable() then
-          --   luasnip.expand_or_jump()
-          -- else
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        else
           fallback()
         end
       end, { 'i', 's' }),
       ['<S-Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
-          -- elseif luasnip.jumpable(-1) then
-          --   luasnip.jump(-1)
-          -- else
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
           fallback()
         end
       end, { 'i', 's' }),
@@ -405,9 +408,10 @@ return require('packer').startup(function(use)
   null_ls.setup({
     sources = {
       null_ls.builtins.formatting.prettierd,
-      -- null_ls.builtins.formatting.stylua,
+      null_ls.builtins.formatting.stylua,
       -- null_ls.builtins.diagnostics.eslint,
-      -- null_ls.builtins.completion.spell,
+      -- null_ls.builtins.diagnostics.cspell,
+      -- null_ls.builtins.code_actions.cspell
     },
   })
 
@@ -432,7 +436,8 @@ return require('packer').startup(function(use)
   -- you can edit the definition file in this flaotwindow
   -- also support open/vsplit/etc operation check definition_action_keys
   -- support tagstack C-t jump back
-  keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+  keymap("n", "gd", vim.lsp.buf.definition, { silent = true })
+  keymap("n", "gD", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 
   -- Show line diagnostics
   keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
@@ -441,14 +446,14 @@ return require('packer').startup(function(use)
   keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 
   -- Diagnostic jump can use `<c-o>` to jump back
-  keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
-  keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+  keymap("n", "[g", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
+  keymap("n", "]g", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
   -- Only jump to error
-  keymap("n", "[E", function()
+  keymap("n", "[G", function()
     require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
   end, { silent = true })
-  keymap("n", "]E", function()
+  keymap("n", "]G", function()
     require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
   end, { silent = true })
   -- Outline
@@ -471,7 +476,19 @@ return require('packer').startup(function(use)
     },
   }
 
+  local rt = require("rust-tools")
+
+  rt.setup({
+    server = {
+      on_attach = function(client, bufnr)
+        on_attach(client, bufnr)
+        enable_format_on_save(client, bufnr)
+      end,
+    },
+  })
+
 end)
+
 
 -- prettierd is pretty fast
 -- root is delivery not acc in proj
