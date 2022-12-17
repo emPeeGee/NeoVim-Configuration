@@ -133,17 +133,42 @@ require 'gitsigns'.setup {
 }
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { "lua", "rust", "javascript", "typescript", "scss", "yaml", "tsx", "regex", "json", "html", "go",
-    "css", "comment", "elixir", "norg", "http", "haskell", "regex", "vim" },
+  ensure_installed = {
+    "help",
+    "lua",
+    "rust",
+    "javascript",
+    "typescript",
+    "scss",
+    "yaml",
+    "tsx",
+    "regex",
+    "json",
+    "html",
+    "go",
+    "css",
+    "comment",
+    "elixir",
+    "norg",
+    "http",
+    "haskell",
+    "regex",
+    "vim",
+  },
   sync_install = false,
   playground = {
     enabled = true
   },
   highlight = {
     enable = true,
-    disable = { "c" },
     additional_vim_regex_highlighting = false,
   },
+  ident = { enable = true },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+  }
 }
 
 
@@ -461,17 +486,17 @@ vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
 vim.opt.listchars:append "eol:↴"
 
-require("indent_blankline").setup {
-  space_char_blankline = " ",
-  char_highlight_list = {
-    "IndentBlanklineIndent1",
-    "IndentBlanklineIndent2",
-    "IndentBlanklineIndent3",
-    "IndentBlanklineIndent4",
-    "IndentBlanklineIndent5",
-    "IndentBlanklineIndent6",
-  },
-}
+-- require("indent_blankline").setup {
+--   space_char_blankline = " ",
+--   char_highlight_list = {
+--     "IndentBlanklineIndent1",
+--     "IndentBlanklineIndent2",
+--     "IndentBlanklineIndent3",
+--     "IndentBlanklineIndent4",
+--     "IndentBlanklineIndent5",
+--     "IndentBlanklineIndent6",
+--   },
+-- }
 
 
 -- disable the default highlight group

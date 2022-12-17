@@ -184,6 +184,10 @@ lua << EOF
 require('init')
 EOF
 
+" Ban specific commands
+" cnoremap <expr> <CR> getcmdtype() == ":" && index(["q", "wq"], getcmdline()) >= 0 ? "<C-u>" : "<CR>"
+
+
 " Handy for angular https://www.reddit.com/r/vim/comments/fedjzm/open_angular_counterpart_html_or_ts_files/
 " Oxocarbon is good theme
 " quickfix window

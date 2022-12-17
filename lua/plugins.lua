@@ -93,11 +93,17 @@ return require('packer').startup(function(use)
   use { 'jose-elias-alvarez/null-ls.nvim' }
   use 'glepnir/lspsaga.nvim'
   use { 'hrsh7th/cmp-path' }
-
+  use 'hrsh7th/cmp-nvim-lua'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
 
   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'simrat39/rust-tools.nvim'
+
+  use 'p00f/nvim-ts-rainbow'
+  use {
+    "windwp/nvim-autopairs",
+  }
 
 
   use {
@@ -120,6 +126,8 @@ return require('packer').startup(function(use)
 
   require "fidget".setup {}
   local luasnip = require('luasnip')
+  -- FIX it
+  local s = {}
   -- require("lsp_lines").setup()
 
 
@@ -258,19 +266,6 @@ return require('packer').startup(function(use)
     },
   }
 
-  -- local tw_highlight = require('tailwind-highlight')
-  -- nvim_lsp.tailwindcss.setup({
-  --   on_attach = function(client, bufnr)
-  --     tw_highlight.setup(client, bufnr, {
-  --       single_column = false,
-  --       mode = 'background',
-  --       debounce = 200,
-  --     })
-  --   end,
-  --   capabilities = capabilities
-  -- })
-
-
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
@@ -285,19 +280,21 @@ return require('packer').startup(function(use)
 
 
   vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
     update_in_insert = false,
+    underline = true,
+    severity_sort = true,
     float = {
-      source = "always", -- Or "if_many"
+      focusable = false,
+      style = 'minimal',
+      border = 'rounded',
+      source = 'always',
+      header = '',
+      prefix = '',
     },
-
   })
 
-  -- Add additional capabilities supported by nvim-cmp
-  -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-  -- local lsp_attach = function(client, buf)
-  -- Example maps, set your own with vim.api.nvim_buf_set_keymap(buf, "n", <lhs>, <rhs>, { desc = <desc> })
-  -- or a plugin like which-key.nvim
-  -- <lhs>        <rhs>                        <desc>
   -- "K"          vim.lsp.buf.hover            "Hover Info"
   -- "<leader>qf" vim.diagnostic.setqflist     "Quickfix Diagnostics"
   -- "[d"         vim.diagnostic.goto_prev     "Previous Diagnostic"
@@ -311,29 +308,7 @@ return require('packer').startup(function(use)
   -- vim.api.nvim_buf_set_option(buf, "formatexpr", "v:lua.vim.lsp.formatexpr()")
   -- vim.api.nvim_buf_set_option(buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
   -- vim.api.nvim_buf_set_option(buf, "tagfunc", "v:lua.vim.lsp.tagfunc")
-  -- end
 
-  --   sources = {
-  --     {name = 'path'},
-  --     {name = 'nvim_lsp', keyword_length = 2},
-  --     {name = 'buffer', keyword_length = 3},
-  --     {name = 'luasnip', keyword_length = 2},
-  --   },
-  --   formatting = {
-  --     fields = {'menu', 'abbr', 'kind'},
-  --     format = function(entry, item)
-  --       local menu_icon = {
-  --         nvim_lsp = 'λ',
-  --         luasnip = '⋗',
-  --         buffer = 'Ω',
-  --         path = '🖫',
-  --       }
-
-  --       item.menu = menu_icon[entry.source.name]
-  --       return item
-  --     end,
-  --   },
-  -- }
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
   -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'eslint' }
   -- for _, lsp in ipairs(servers) do
@@ -350,27 +325,45 @@ return require('packer').startup(function(use)
   -- end
   -- local lspconfig = require('lspconfig')
 
-  -- lspconfig.util.default_config = vim.tbl_deep_extend(
-  --   'force',
-  --   lspconfig.util.default_config,
-  --   lsp_defaults
-  -- )
-  --
-
   local status, cmp = pcall(require, "cmp")
   if (not status) then return end
 
+  ---@diagnostic disable-next-line: redundant-parameter
   cmp.setup({
+    completion = {
+      keyword_length = 0,
+    },
+    formatting = {
+      fields = { 'abbr', 'menu', 'kind' },
+      format = function(entry, item)
+        local short_name = {
+          nvim_lsp = 'LSP',
+          nvim_lua = 'nvim'
+        }
+
+        local menu_name = short_name[entry.source.name] or entry.source.name
+
+        item.menu = string.format('[%s]', menu_name)
+        return item
+      end,
+    },
     snippet = {
       expand = function(args)
         require('luasnip').lsp_expand(args.body)
       end,
     },
     mapping = cmp.mapping.preset.insert({
+      ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
+      ['<Down>'] = cmp.mapping.select_next_item(select_opts),
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
+      ['<C-e>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.close()
+        else
+          cmp.complete()
+        end
+      end),
       ['<CR>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = true
@@ -380,8 +373,12 @@ return require('packer').startup(function(use)
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
-        else
+
+        elseif s.check_back_space() then
           fallback()
+        else
+
+          cmp.complete()
         end
       end, { 'i', 's' }),
       ['<S-Tab>'] = cmp.mapping(function(fallback)
@@ -389,8 +386,10 @@ return require('packer').startup(function(use)
           cmp.select_prev_item()
         elseif luasnip.jumpable(-1) then
           luasnip.jump(-1)
-        else
+        elseif s.check_back_space() then
           fallback()
+        else
+          cmp.complete()
         end
       end, { 'i', 's' }),
     }),
@@ -398,18 +397,20 @@ return require('packer').startup(function(use)
       { name = 'nvim_lsp', keyword_length = 0 },
       { name = 'buffer' },
       { name = 'path' },
+      { name = 'luasnip', keyword_length = 2 },
+      { name = 'nvim_lsp_signature_help' },
+      { name = 'nvim_lua' },
     }),
   })
 
+
   vim.cmd [[
-  set completeopt=menuone,noinsert,noselect
-  highlight! default link CmpItemKind CmpItemMenuDefault
-]]
+    set completeopt=menuone,noinsert,noselect
+    highlight! default link CmpItemKind CmpItemMenuDefault
+  ]]
 
 
   local null_ls = require("null-ls")
-
-
   null_ls.setup({
     sources = {
       null_ls.builtins.formatting.prettierd,
@@ -495,9 +496,27 @@ return require('packer').startup(function(use)
   require "lsp_signature".setup()
 
 
+  s.check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+      return true
+    else
+      return false
+    end
+  end
+
+  require("nvim-autopairs").setup {}
+  -- If you want insert `(` after select function or method item
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  local cmp = require('cmp')
+  cmp.event:on(
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
+  )
 end)
 
--- prettierd is pretty fast, aption
+-- treesitter folding??
+-- prettierd is pretty fast
 -- root is delivery not acc in proj
 -- disable saga scroll
 -- saga floting window still bug
