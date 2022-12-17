@@ -100,16 +100,21 @@ return require('packer').startup(function(use)
   use 'simrat39/rust-tools.nvim'
 
 
+  use {
+    "ray-x/lsp_signature.nvim",
+  }
+
   require("mason").setup()
   require("mason-lspconfig").setup({
     ensure_installed = {
       "sumneko_lua",
       "tsserver",
-      "emmet",
+      -- "emmet",
       "tailwindcss",
       "eslint",
       'html',
       'cssls',
+      -- 'cspell'
     }
   })
 
@@ -390,7 +395,7 @@ return require('packer').startup(function(use)
       end, { 'i', 's' }),
     }),
     sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
+      { name = 'nvim_lsp', keyword_length = 0 },
       { name = 'buffer' },
       { name = 'path' },
     }),
@@ -487,13 +492,17 @@ return require('packer').startup(function(use)
     },
   })
 
+  require "lsp_signature".setup()
+
+
 end)
 
-
--- prettierd is pretty fast
+-- prettierd is pretty fast, aption
 -- root is delivery not acc in proj
 -- disable saga scroll
 -- saga floting window still bug
 -- cspell, auto pairs
 -- \ as key
 -- tab completion
+-- autopairs on cmp
+-- cmd doesn't suggest object\s fields
