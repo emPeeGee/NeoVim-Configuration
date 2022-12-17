@@ -171,14 +171,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 " " hi! CocWarningSign guifg=#d1cd66
 " " Coc settings end
 
-" Enrich go linter
-let g:go_metalinter_autosave=1
-let g:go_metalinter_autosave_enabled=['golint', 'govet']
-" Auto imports for go
-let g:go_fmt_command = "goimports"
-" Show type in bottom of screen
-let g:go_auto_type_info = 1
-
 
 lua << EOF
 require('init')

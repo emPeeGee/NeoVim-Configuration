@@ -1,5 +1,7 @@
 print("opts")
 
+vim.opt.termguicolors = true
+
 --" Disable compatibility with vi which can cause unexpected issues.
 vim.opt.swapfile = false
 
@@ -39,8 +41,21 @@ vim.opt.cursorline = true -- Highlight cursor line underneath the cursor horizon
 vim.opt.cursorcolumn = true -- Highlight cursor line underneath the cursor vertically.
 
 vim.opt.spell = false
-vim.opt.list = true
--- set listchars=tab:»·,trail:·
 
 vim.opt.colorcolumn = { 80, 120 }
 vim.opt.ruler = false
+
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")
+vim.opt.listchars:append("eol:↴")
+
+vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("highlight_yank", {}),
+  desc = "Hightlight selection on yank",
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
+  end,
+})
