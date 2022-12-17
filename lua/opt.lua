@@ -7,18 +7,17 @@ vim.opt.swapfile = false
 vim.opt.updatetime = 300
 
 --" Don't pass messages to |ins-completion-menu|.
-vim.opt.shortmess:append "c"
+vim.opt.shortmess:append("c")
 -- vim.opt.completeopt={"longest","menuone"}
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Some servers have issues with backup files, see #649.
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.keymap.set('i', 'jj', '<ESC>', { desc = 'ESC' })
+vim.keymap.set("i", "jj", "<ESC>", { desc = "ESC" })
 -- " Avoid mswin.vim making Ctrl-v act as paste
-vim.keymap.set('', '<C-V>', '<C-V>', { noremap = true })
+vim.keymap.set("", "<C-V>", "<C-V>", { noremap = true })
 
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 2
