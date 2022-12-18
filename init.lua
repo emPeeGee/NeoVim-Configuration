@@ -10,8 +10,6 @@ if vim.fn.exists("g:neovide") then
   vim.g.neovide_fullscreen = true
 end
 
-vim.cmd([[hi MatchParen guibg=magenta]])
-
 require("hlslens").setup()
 require("nvim-surround").setup({})
 
@@ -64,9 +62,7 @@ vim.cmd([[augroup vimwikigroup
     autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
 augroup end ]])
 
-vim.opt.guicursor =
-  [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175]]
-
+vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
 -- require("lsp_signature").setup()
 --[[ require('neorg').setup {
     load = {

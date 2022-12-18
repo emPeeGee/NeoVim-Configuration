@@ -54,6 +54,7 @@ vim.cmd("hi DiffText gui=none guifg=NONE guibg=" .. color.gitend)
 vim.cmd("hi DiffDelete gui=none guifg=NONE guibg=" .. color.gitremove)
 vim.cmd("hi DiffviewDiffAddAsDelete gui=none guifg=NONE guibg=" .. color.gitremove)
 
+vim.cmd([[hi  link GitSignsCurrentLineBlame Comment]])
 vim.cmd("hi GitSignsChangeInline gui=none guifg=NONE guibg=" .. color.gittext)
 vim.cmd("hi GitSignsAddInline gui=none guifg=NONE guibg=" .. color.gittext)
 vim.cmd("hi GitSignsDeleteInline gui=none guifg=NONE guibg=" .. color.gittext)
