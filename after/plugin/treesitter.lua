@@ -35,6 +35,75 @@ require("nvim-treesitter.configs").setup({
     extended_mode = true,
     max_file_lines = nil,
   },
+  textobjects = {
+    swap = {
+      enable = true,
+      swap_next = {
+        ["]s"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["[s"] = "@parameter.inner",
+      },
+    },
+    lsp_interop = {
+      enable = true,
+      border = "none",
+      peek_definition_code = {
+        ["<leader>df"] = "@function.outer",
+        ["<leader>dF"] = "@class.outer",
+      },
+    },
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+
+      goto_next_start = {
+        ["]f"] = "@function.outer",
+        ["]v"] = "@class.outer",
+        -- ["]c"] = {query = "@class.outer", desc = "Example"},
+      },
+      goto_next_end = {
+        ["]F"] = "@function.outer",
+        ["]V"] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[f"] = "@function.outer",
+        ["[v"] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[F"] = "@function.outer",
+        ["[V"] = "@class.outer",
+      },
+    },
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      -- BUG: They don't display in which key
+      -- init_selection = "<Bslash>a",
+      -- node_incremental = "<Bslash>a",
+      -- scope_incremental = "<Bslash>s",
+      -- node_decremental = "<Bslash>x",
+      init_selection = "gnn",
+      node_incremental = "gnn",
+      scope_incremental = "gnc",
+      node_decremental = "gnm",
+    },
+  },
 })
 
 -- Treesitter context
@@ -59,3 +128,5 @@ require("treesitter-context").setup({
 require("spellsitter").setup({
   enable = true,
 })
+
+-- FIX:  Why where are commands like [m ]m [f ]f but :map dpesn't know about them. Treesitter docs

@@ -5,6 +5,9 @@ vim.opt.termguicolors = true
 --" Disable compatibility with vi which can cause unexpected issues.
 vim.opt.swapfile = false
 
+-- Save undo history
+vim.o.undofile = true
+
 --" Reduce updatetime
 vim.opt.updatetime = 300
 
@@ -42,7 +45,7 @@ vim.opt.cursorcolumn = true -- Highlight cursor line underneath the cursor verti
 
 vim.opt.spell = false
 
-vim.opt.colorcolumn = { 80, 120 }
+vim.opt.colorcolumn = { 80, 100, 120 }
 vim.opt.ruler = false
 
 vim.opt.list = true
@@ -50,6 +53,7 @@ vim.opt.listchars:append("space:⋅")
 vim.opt.listchars:append("eol:↴")
 
 vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
+print("hei")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("highlight_yank", {}),

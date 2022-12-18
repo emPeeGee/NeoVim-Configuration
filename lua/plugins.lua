@@ -1,7 +1,13 @@
--- Only required if you have packer configured as `opt`
-vim.cmd([[packadd packer.nvim]])
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local is_bootstrap = false
 
-return require("packer").startup(function(use)
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  is_bootstrap = true
+  vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+  vim.cmd([[packadd packer.nvim]])
+end
+
+require("packer").startup(function(use)
   use("morhetz/gruvbox")
   use("lifepillar/vim-solarized8")
   use("ryanoasis/vim-devicons")
@@ -15,7 +21,7 @@ return require("packer").startup(function(use)
   use("lewis6991/spellsitter.nvim")
   use("folke/which-key.nvim")
   use("tpope/vim-commentary")
-  use("tpope/vim-unimpaired")
+  -- use("tpope/vim-unimpaired")
   use("tpope/vim-surround")
   -- Cheat.sh integration
   -- use 'RishabhRD/popfix'
@@ -55,7 +61,7 @@ return require("packer").startup(function(use)
   use("sindrets/diffview.nvim")
   use("rhysd/conflict-marker.vim")
   use("famiu/bufdelete.nvim")
-  use("petertriho/nvim-scrollbar")
+  -- use("petertriho/nvim-scrollbar")
   use("max397574/better-escape.nvim")
   -- use 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
   -- use 'Maan2003/lsp_lines.nvim'
@@ -72,10 +78,9 @@ return require("packer").startup(function(use)
   use("j-hui/fidget.nvim")
   -- use {'neoclide/coc.nvim', branch = 'release'}
   -- vim.g['coc_global_extensions'] = ({'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer', 'coc-go'})
-  use({
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-  })
+  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+
+  use("nvim-treesitter/nvim-treesitter-textobjects")
   use({
     "akinsho/bufferline.nvim",
     tag = "v3.*",
@@ -102,7 +107,49 @@ return require("packer").startup(function(use)
   use("windwp/nvim-autopairs")
   -- use("ray-x/lsp_signature.nvim")
   use("m-demare/hlargs.nvim")
+  use("kdheepak/lazygit.nvim")
+
+  -- TODO: Check if now you can customize hi
+  use("lewis6991/satellite.nvim")
+
+  -- local has_plugins, plugins = pcall(require, "custom.plugins")
+  -- if has_plugins then
+  --   plugins(use)
+  -- end
+
+  -- if is_bootstrap then
+  --   require("packer").sync()
+  -- end
 end)
+
+-- When we are bootstrapping a configuration, it doesn't
+-- make sense to execute the rest of the init.lua.
+--
+-- You'll need to restart nvim, and then it will work.
+-- if is_bootstrap then
+--   print("==================================")
+--   print("    Plugins are being installed")
+--   print("    Wait until Packer completes,")
+--   print("       then restart nvim")
+--   print("==================================")
+--   return
+-- end
+
+-- Automatically source and re-compile packer whenever you save this file
+-- local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--   command = "source <afile> | PackerCompile",
+--   group = packer_group,
+--   pattern = vim.fn.expand("$MYVIMRC"),
+-- })
+-- fdsfs
+-- Autocommand that reloads neovim whenever you save the plugins.lua file
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerSync
+--   augroup end
+-- ]])
 
 -- surrounds ys, ds, cs
 -- treesitter folding??

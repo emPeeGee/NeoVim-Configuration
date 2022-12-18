@@ -10,12 +10,7 @@ saga.init_lsp_saga()
 keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 
 -- Code action
-keymap(
-  { "n", "v" },
-  "<leader>ca",
-  "<cmd>Lspsaga code_action<CR>",
-  { silent = true }
-)
+keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
 
 -- Rename
 keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
@@ -28,32 +23,22 @@ keymap("n", "gd", vim.lsp.buf.definition, { silent = true })
 keymap("n", "gD", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 
 -- Show line diagnostics
-keymap(
-  "n",
-  "<leader>cd",
-  "<cmd>Lspsaga show_line_diagnostics<CR>",
-  { silent = true }
-)
+keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 
 -- Show cursor diagnostics
-keymap(
-  "n",
-  "<leader>cd",
-  "<cmd>Lspsaga show_cursor_diagnostics<CR>",
-  { silent = true }
-)
+keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 
 -- Diagnostic jump can use `<c-o>` to jump back
-keymap("n", "[g", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
-keymap("n", "]g", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+keymap("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
+keymap("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
 -- Only jump to error
-keymap("n", "[G", function()
+keymap("n", "[D", function()
   require("lspsaga.diagnostic").goto_prev({
     severity = vim.diagnostic.severity.ERROR,
   })
 end, { silent = true })
-keymap("n", "]G", function()
+keymap("n", "]D", function()
   require("lspsaga.diagnostic").goto_next({
     severity = vim.diagnostic.severity.ERROR,
   })
@@ -62,9 +47,6 @@ end, { silent = true })
 keymap("n", "<leader>co", "<cmd>LSoutlineToggle<CR>", { silent = true })
 -- Hover Doc
 keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
-keymap(
-  "t",
-  "<A-d>",
-  [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]],
-  { silent = true }
-)
+keymap("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], { silent = true })
+
+-- Loc list

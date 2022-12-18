@@ -1,4 +1,4 @@
-local color = require("../../lua/color")
+local color = require("color")
 require("illuminate").configure({
   providers = {
     "regex",

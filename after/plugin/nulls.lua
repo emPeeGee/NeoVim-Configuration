@@ -6,7 +6,7 @@ null_ls.setup({
     null_ls.builtins.formatting.stylua.with({
       extra_args = {
         "--column-width",
-        "80",
+        "100",
         "--indent-type",
         "Spaces",
         "--indent-width",

@@ -70,9 +70,8 @@ local on_attach = function(client, bufnr)
 end
 
 -- Set up completion using nvim_cmp with LSP source
-local capabilities = require("cmp_nvim_lsp").default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local capabilities =
+  require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 nvim_lsp.flow.setup({
   on_attach = on_attach,
@@ -116,23 +115,23 @@ nvim_lsp.sumneko_lua.setup({
         -- Get the language server to recognize the `vim` global
         globals = { "vim" },
       },
-
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
         checkThirdParty = false,
       },
+      telemetry = { enable = false },
     },
   },
 })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
-vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  underline = true,
-  update_in_insert = false,
-  virtual_text = { spacing = 4 },
-  severity_sort = true,
-})
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = true,
+    update_in_insert = false,
+    virtual_text = { spacing = 4 },
+    severity_sort = true,
+  })
 
 -- Show line diagnostics automatically in hover window
 vim.o.updatetime = 250

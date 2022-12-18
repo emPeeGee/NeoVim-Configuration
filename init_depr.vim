@@ -1,18 +1,18 @@
 " persist
 " set undofile " Maintain undo history between sessions
 " set undodir=~/.vim/undodir
-if has("persistent_undo")
-   let target_path = expand('~/.undodir')
+" if has("persistent_undo")
+"    let target_path = expand('~/.undodir')
 
-    " create the directory and any parent directories
-    " if the location does not exist.
-    if !isdirectory(target_path)
-        call mkdir(target_path, "p", 0700)
-    endif
+"     " create the directory and any parent directories
+"     " if the location does not exist.
+"     if !isdirectory(target_path)
+"         call mkdir(target_path, "p", 0700)
+"     endif
 
-    let &undodir=target_path
-    set undofile
-endif
+"     let &undodir=target_path
+"     set undofile
+" endif
 
 " set wildmenu
 " set wildmode=list:full
@@ -26,30 +26,18 @@ endif
 " set path+=**
 
 " Persist cursor
-autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
-  \ | endif
+" autocmd BufReadPost *
+"   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+"   \ |   exe "normal! g`\""
+"   \ | endif
+"    
 
-" highlight the visual selection after pressing enter.
-xnoremap <silent> <cr> "*y:silent! let searchTerm = '\V'.substitute(escape(@*, '\/'), "\n", '\\n', "g") <bar> let @/ = searchTerm <bar> echo '/'.@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>
 
 " Get rid of the artifacts
-autocmd CompleteDone <buffer> if has_key(v:completed_item, 'word') && v:completed_item.word =~ '\.$'
-\| call feedkeys("\<bs>")
-\| endif
+" autocmd CompleteDone <buffer> if has_key(v:completed_item, 'word') && v:completed_item.word =~ '\.$'
+" \| call feedkeys("\<bs>")
+" \| endif
 
-" vimwiki
-augroup vimwikigroup
-    autocmd!
-    " automatically update links on read diary
-    autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
-augroup end
-
-
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-  \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " " Coc config
 " " Use tab for trigger completion with characters ahead and navigate.
@@ -184,3 +172,4 @@ EOF
 " Oxocarbon is good theme
 " quickfix window
 " Whichkey desc
+" aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

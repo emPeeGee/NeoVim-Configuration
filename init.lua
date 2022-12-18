@@ -10,6 +10,8 @@ if vim.fn.exists("g:neovide") then
   vim.g.neovide_fullscreen = true
 end
 
+vim.cmd([[hi MatchParen guibg=magenta]])
+
 require("hlslens").setup()
 require("nvim-surround").setup({})
 
@@ -56,10 +58,9 @@ vim.g.go_fmt_command = "goimports"
 -- " Show type in bottom of screen
 vim.g.go_auto_type_info = 1
 
--- vimwiki
+-- automatically update links on read diary
 vim.cmd([[augroup vimwikigroup
     autocmd!
-    " automatically update links on read diary
     autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
 augroup end ]])
 
@@ -121,5 +122,6 @@ vim.opt.guicursor =
 --  filetypes = { "dashboard", "alpha", "starter" }, -- will enable/disable automatically for the following filetypes
 -- })
 --  require("zone").setup()
+-- require('mini.indentscope').setup()
 
 -- TODO: LAzy git

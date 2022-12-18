@@ -1,4 +1,4 @@
-local color = require("../../lua/color")
+local color = require("color")
 
 require("diffview").setup({
   enhanced_diff_hl = true,
@@ -13,24 +13,13 @@ require("gitsigns").setup({
   sign_priority = 10,
   on_attach = function(bufnr)
     local function map(mode, lhs, rhs, opts)
-      opts =
-        vim.tbl_extend("force", { noremap = true, silent = true }, opts or {})
+      opts = vim.tbl_extend("force", { noremap = true, silent = true }, opts or {})
       vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
     end
 
     -- Navigation
-    map(
-      "n",
-      "]c",
-      "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'",
-      { expr = true }
-    )
-    map(
-      "n",
-      "[c",
-      "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'",
-      { expr = true }
-    )
+    map("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+    map("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
     -- Actions
     map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>")
@@ -42,11 +31,7 @@ require("gitsigns").setup({
     map("n", "<leader>hd", "<cmd>Gitsigns diffthis<CR>")
     map("n", "<leader>hD", '<cmd>lua require"gitsigns".diffthis("~")<CR>')
     map("n", "<leader>hv", "<cmd>Gitsigns toggle_deleted<CR>")
-    map(
-      "n",
-      "<leader>hB",
-      '<cmd>lua require"gitsigns".blame_line{full=true}<CR>'
-    )
+    map("n", "<leader>hB", '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
   end,
 })
 
@@ -67,53 +52,16 @@ vim.cmd("hi DiffAdd gui=none guifg=NONE guibg=" .. color.gitadd)
 vim.cmd("hi DiffChange gui=none guifg=NONE guibg=" .. color.gitchange)
 vim.cmd("hi DiffText gui=none guifg=NONE guibg=" .. color.gitend)
 vim.cmd("hi DiffDelete gui=none guifg=NONE guibg=" .. color.gitremove)
-vim.cmd(
-  "hi DiffviewDiffAddAsDelete gui=none guifg=NONE guibg=" .. color.gitremove
-)
+vim.cmd("hi DiffviewDiffAddAsDelete gui=none guifg=NONE guibg=" .. color.gitremove)
 
 vim.cmd("hi GitSignsChangeInline gui=none guifg=NONE guibg=" .. color.gittext)
 vim.cmd("hi GitSignsAddInline gui=none guifg=NONE guibg=" .. color.gittext)
 vim.cmd("hi GitSignsDeleteInline gui=none guifg=NONE guibg=" .. color.gittext)
 
-vim.keymap.set(
-  "n",
-  "<leader>gg",
-  "<cmd>Neogit<cr>",
-  { noremap = true, desc = "" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>gm",
-  "<cmd>Gdiffsplit!<cr>",
-  { noremap = true, desc = "" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>gb",
-  "<cmd>Git blame<cr>",
-  { noremap = true, desc = "" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>go",
-  "<cmd>DiffviewOpen<CR>",
-  { noremap = true, desc = "" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>gc",
-  "<cmd>DiffviewClose<CR>",
-  { noremap = true, desc = "" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>gl",
-  "<cmd>DiffviewFileHistory<CR>",
-  { noremap = true, desc = "" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>gf",
-  "<cmd>DiffviewFileHistory %<CR>",
-  { noremap = true, desc = "" }
-)
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { noremap = true, desc = "" })
+vim.keymap.set("n", "<leader>gm", "<cmd>Gdiffsplit!<cr>", { noremap = true, desc = "" })
+vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<cr>", { noremap = true, desc = "" })
+vim.keymap.set("n", "<leader>go", "<cmd>DiffviewOpen<CR>", { noremap = true, desc = "" })
+vim.keymap.set("n", "<leader>gc", "<cmd>DiffviewClose<CR>", { noremap = true, desc = "" })
+vim.keymap.set("n", "<leader>gl", "<cmd>DiffviewFileHistory<CR>", { noremap = true, desc = "" })
+vim.keymap.set("n", "<leader>gf", "<cmd>DiffviewFileHistory %<CR>", { noremap = true, desc = "" })
