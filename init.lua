@@ -1,9 +1,31 @@
 vim.g.mapleader = " "
 
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
 require("plugins")
 require("opt")
 require("colorscheme")
 require("remap")
+
+_G.open_telescope = function()
+  local first_arg = vim.v.argv[2]
+  if first_arg and vim.fn.isdirectory(first_arg) == 1 then
+    vim.g.loaded_netrwPlugin = 1
+    require("telescope.builtin").find_files({ search_dirs = { first_arg } })
+  end
+end
+
+vim.api.nvim_exec(
+  [[
+augroup TelescopeOnEnter
+    autocmd!
+    autocmd VimEnter * lua open_telescope()
+augroup END
+]],
+  false
+)
 
 if vim.fn.exists("g:neovide") then
   vim.g.neovide_scale_factor = 0.85
@@ -121,3 +143,6 @@ vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
 -- require('mini.indentscope').setup()
 
 -- TODO: LAzy git
+-- TODO git signs most priority or idk
+-- begin with telescope find files instead of nvimtree
+-- Check if update_in_insert = false works in win
