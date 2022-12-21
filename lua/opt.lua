@@ -6,7 +6,7 @@ vim.opt.termguicolors = true
 vim.opt.swapfile = false
 
 -- Save undo history
-vim.o.undofile = true
+vim.opt.undofile = true
 
 --" Reduce updatetime
 vim.opt.updatetime = 300
