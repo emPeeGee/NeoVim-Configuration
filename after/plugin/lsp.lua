@@ -137,7 +137,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
   vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
     update_in_insert = false,
-    virtual_text = { spacing = 4 },
+    virtual_text = { spacing = 2 },
     severity_sort = true,
   })
 
@@ -147,7 +147,9 @@ vim.o.updatetime = 250
 
 vim.diagnostic.config({
   virtual_text = false,
-  signs = true,
+  signs = {
+    priority = 6,
+  },
   update_in_insert = false,
   underline = true,
   severity_sort = true,

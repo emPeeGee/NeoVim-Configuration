@@ -1,10 +1,11 @@
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded = 1
-vim.g.loaded_netrwPlugin = 1
+-- Right now, auto close of tree on last buffer doesn't work.
+-- Solution. Nvim-tree team said it is not posible
+-- https://github.com/nvim-tree/nvim-tree.lua/issues/1368
 
--- TODO: Right now, auto close of tree on last buffer doesn't work,
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
+  open_on_setup = false,
+  -- open_on_setup_file = true,
   view = {
     adaptive_size = true,
     mappings = {},
@@ -14,6 +15,7 @@ require("nvim-tree").setup({
     enable = true,
   },
   renderer = {
+    indent_width = 1,
     group_empty = true,
     highlight_git = true,
   },
@@ -22,15 +24,7 @@ require("nvim-tree").setup({
   },
 })
 
-vim.keymap.set(
-  "n",
-  "<leader>nm",
-  "<cmd>NvimTreeFindFileToggle<CR>",
-  { desc = "Toggle file tree" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>nn",
-  "<cmd>NvimTreeFocus<cr>",
-  { desc = "Focus file tree" }
-)
+vim.keymap.set("n", "<leader>nm", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file tree" })
+vim.keymap.set("n", "<leader>nn", "<cmd>NvimTreeFocus<cr>", { desc = "Focus file tree" })
+
+-- *nvim-tree.hijack_cursor* ???
