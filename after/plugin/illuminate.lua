@@ -1,4 +1,5 @@
 local color = require("color")
+
 require("illuminate").configure({
   providers = {
     "regex",
@@ -20,6 +21,6 @@ require("illuminate").configure({
   min_count_to_highlight = 1,
 })
 
-vim.cmd("hi def IlluminatedWordText guibg=" .. color.word)
-vim.cmd("hi def IlluminatedWordRead guibg=" .. color.word)
-vim.cmd("hi def IlluminatedWordWrite guibg=" .. color.word)
+vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = color.word })
+vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = color.word })
+vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = color.word })

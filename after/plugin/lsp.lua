@@ -88,6 +88,14 @@ nvim_lsp.eslint.setup({
   capabilities = capabilities,
 })
 
+nvim_lsp.cssls.setup({
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    enable_format_on_save(client, bufnr)
+  end,
+  capabilities = capabilities,
+})
+
 nvim_lsp.tsserver.setup({
   -- root_dir = require('lspconfig.util').root_pattern('.git'),
   on_attach = function(client, bufnr)

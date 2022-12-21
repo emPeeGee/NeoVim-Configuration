@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
 
+-- require("neodev").setup()
+
 require("plugins")
 require("opt")
 require("colorscheme")

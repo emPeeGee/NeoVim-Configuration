@@ -111,6 +111,7 @@ require("packer").startup(function(use)
 
   -- TODO: Check if now you can customize hi
   use("lewis6991/satellite.nvim")
+  -- use("folke/neodev.nvim")
 
   -- local has_plugins, plugins = pcall(require, "custom.plugins")
   -- if has_plugins then
