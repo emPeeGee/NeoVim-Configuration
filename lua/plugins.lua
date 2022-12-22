@@ -18,11 +18,9 @@ require("packer").startup(function(use)
   -- " IDEA: Then exploring new file, get outline an see the file
   use("tpope/vim-fugitive")
   use("lewis6991/gitsigns.nvim")
-  use("lewis6991/spellsitter.nvim")
   use("folke/which-key.nvim")
   use("tpope/vim-commentary")
   -- use("tpope/vim-unimpaired")
-  use("tpope/vim-surround")
   -- Cheat.sh integration
   -- use 'RishabhRD/popfix'
   -- use 'RishabhRD/nvim-cheat.sh'
@@ -43,10 +41,9 @@ require("packer").startup(function(use)
   use("romainl/vim-cool")
   use("inside/vim-search-pulse")
   use("kevinhwang91/nvim-hlslens")
-  use("kkharji/sqlite.lua")
+  -- use("kkharji/sqlite.lua")
   use("TimUntersberger/neogit")
   use("folke/todo-comments.nvim")
-  use("rest-nvim/rest.nvim")
   -- " use 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
   -- " use 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
   use("folke/noice.nvim")
@@ -56,8 +53,8 @@ require("packer").startup(function(use)
   use("nvim-lualine/lualine.nvim")
   use("ntk148v/vim-horizon")
   use("echasnovski/mini.nvim")
-  use("bennypowers/nvim-regexplainer")
-  use("andythigpen/nvim-coverage")
+  -- use("bennypowers/nvim-regexplainer") TODO:
+  -- use("andythigpen/nvim-coverage")
   use("sindrets/diffview.nvim")
   use("rhysd/conflict-marker.vim")
   use("famiu/bufdelete.nvim")
@@ -67,8 +64,8 @@ require("packer").startup(function(use)
   -- use 'Maan2003/lsp_lines.nvim'
   use("Wansmer/treesj")
   use("lukas-reineke/indent-blankline.nvim")
-  use("folke/drop.nvim")
-  use("tamton-aquib/zone.nvim")
+  -- use("folke/drop.nvim")
+  -- use("tamton-aquib/zone.nvim")
   use("ahmedkhalf/project.nvim")
   use("kylechui/nvim-surround")
   use("uga-rosa/ccc.nvim")
@@ -79,7 +76,6 @@ require("packer").startup(function(use)
   -- use {'neoclide/coc.nvim', branch = 'release'}
   -- vim.g['coc_global_extensions'] = ({'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint', 'coc-angular', 'coc-pairs', 'coc-snippets', 'coc-clojure', 'coc-elixir', 'coc-spell-checker', 'coc-lua', 'coc-rust-analyzer', 'coc-go'})
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-
   use("nvim-treesitter/nvim-treesitter-textobjects")
   use({
     "akinsho/bufferline.nvim",
@@ -143,7 +139,6 @@ end)
 --   group = packer_group,
 --   pattern = vim.fn.expand("$MYVIMRC"),
 -- })
--- fdsfs
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 -- vim.cmd([[
 --   augroup packer_user_config
@@ -157,7 +152,7 @@ end)
 -- prettierd is pretty fast
 -- root is delivery not acc in proj
 -- disable saga scroll
--- saga floting window still bug
+-- saga floating window still bug
 -- cspell, auto pairs
 -- \ as key
 -- tab completion

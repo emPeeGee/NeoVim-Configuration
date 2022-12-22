@@ -14,23 +14,27 @@ null_ls.setup({
       },
     }),
     -- null_ls.builtins.diagnostics.eslint, f
-    null_ls.builtins.diagnostics.cspell.with({
-      diagnostics_postprocess = function(diagnostic)
-        if diagnostic.severity == vim.diagnostic.severity.ERROR then
-          diagnostic.severity = vim.diagnostic.severity.HINT
-        end
-      end,
-      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-      diagnostic_config = {
-        -- see :help vim.diagnostic.config()
-        underline = false,
-        virtual_text = false,
-        update_in_insert = false,
-        severity_sort = true,
-        signs = { enable = true, priority = 11 },
-      },
-    }),
-    null_ls.builtins.code_actions.cspell,
+    -- null_ls.builtins.diagnostics.misspell, TODO: Try misspell
+    -- FIX: Not very optimized, it runs on every move, and looks like native spell is better
+
+    -- null_ls.builtins.diagnostics.cspell.with({
+    --   timeout = 35000, -- too long files needs more time
+    --   diagnostics_postprocess = function(diagnostic)
+    --     if diagnostic.severity == vim.diagnostic.severity.ERROR then
+    --       diagnostic.severity = vim.diagnostic.severity.INFO
+    --     end
+    --   end,
+    --   method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+    --   diagnostic_config = {
+    --     underline = false,
+    --     virtual_text = false,
+    --     update_in_insert = false,
+    --     severity_sort = true,
+    --     signs = { enable = true, priority = 11 },
+    --   },
+    -- }),
+    -- null_ls.builtins.code_actions.cspell,
   },
 })
---  aption
+--  TODO: Code action is executed on every move
+--  There is one cspell.json in the ~ as a global config

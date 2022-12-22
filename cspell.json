@@ -1,6 +1,38 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
-  "ignorePaths": ["node_modules"],
-  "ignoreWords": ["stylua", "prettierd", "builtins"],
+  "ignorePaths": [
+    "node_modules"
+  ],
+  "allowCompoundWords": true,
+  "ignoreWords": [
+    "stylua",
+    "prettierd",
+    "builtins",
+    "vimwiki",
+    "folke",
+    "tpope",
+    "nvim",
+    "devicons",
+    "gruvbox",
+    "gitsigns",
+    "treesitter",
+    "augroup",
+    "lsp",
+    "lspconfig",
+    "sumneko",
+    "autocmd",
+    "neodev",
+    "treesj",
+    "lualine",
+    "neoclide",
+    "MYVIMRC",
+    "lspsaga",
+    "cmdline",
+    "hrsh",
+    "noremap",
+    "cmd",
+    "higroup",
+    "cterm"
+  ]
 }

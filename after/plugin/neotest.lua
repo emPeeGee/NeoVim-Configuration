@@ -4,13 +4,13 @@ require("neotest").setup({
   },
 })
 
-require("coverage").setup({
-  lang = {
-    javascript = {
-      coverage_file = "packages/delivery/coverage/lcov.info",
-    },
-  },
-})
+-- require("coverage").setup({
+--   lang = {
+--     javascript = {
+--       coverage_file = "packages/delivery/coverage/lcov.info",
+--     },
+--   },
+-- })
 
 vim.keymap.set(
   "n",
@@ -54,9 +54,4 @@ vim.keymap.set(
   '<cmd>lua require("neotest").jump.next()<CR>',
   { noremap = true, desc = "" }
 )
-vim.keymap.set(
-  "n",
-  "<leader>tc",
-  ":CoverageToggle<CR>",
-  { noremap = true, desc = "" }
-)
+vim.keymap.set("n", "<leader>tc", ":CoverageToggle<CR>", { noremap = true, desc = "" })

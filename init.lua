@@ -144,6 +144,3 @@ vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
 -- require('mini.indentscope').setup()
 
 -- TODO: LAzy git
--- TODO git signs most priority or idk
--- begin with telescope find files instead of nvimtree
--- Check if update_in_insert = false works in win

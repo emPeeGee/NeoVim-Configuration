@@ -24,6 +24,7 @@ require("telescope").setup({
     file_ignore_patterns = {
       "_build",
       "__localization__",
+      "packer_compiled.lua",
     },
     layout_strategy = "vertical",
     layout_config = {
@@ -53,14 +54,14 @@ require("telescope").load_extension("projects")
 
 local tl = require("telescope.builtin")
 
-vim.keymap.set("n", "<leader>ft", "<cmd>Telescope<cr>", { desc = "Telescope" })
+vim.keymap.set("n", "<leader>ft", "<cmd>Telescope<cr>", { desc = "[F]ind in [T]elescope" })
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_status<cr>", { desc = "[F]ind [G]it" })
 vim.keymap.set("n", "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "[F]ind [P]rojects" })
 
 vim.keymap.set("n", "g/", tl.live_grep, { desc = "[F]ind by [G]rep" })
 vim.keymap.set("n", "<leader><leader>", tl.find_files, { desc = "[F]ind [F]iles" })
 vim.keymap.set("n", "<leader>?", tl.oldfiles, { desc = "[?] Find recently opened files" })
-vim.keymap.set("n", "<leader>fb", tl.buffers, { desc = "[ ] Find existing buffers" })
+vim.keymap.set("n", "<leader>fb", tl.buffers, { desc = "[F}ind existing [b]uffers" })
 vim.keymap.set("n", "<leader>fh", tl.help_tags, { desc = "[F]ind [H]elp" })
 vim.keymap.set("n", "<leader>fw", tl.grep_string, { desc = "[F]ind current [W]ord" })
 vim.keymap.set("n", "<leader>fd", tl.diagnostics, { desc = "[F]ind [D]iagnostics" })

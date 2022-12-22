@@ -39,10 +39,10 @@ require("nvim-treesitter.configs").setup({
     swap = {
       enable = true,
       swap_next = {
-        ["]s"] = "@parameter.inner",
+        ["]w"] = "@parameter.inner",
       },
       swap_previous = {
-        ["[s"] = "@parameter.inner",
+        ["[w"] = "@parameter.inner",
       },
     },
     lsp_interop = {
@@ -93,11 +93,6 @@ require("nvim-treesitter.configs").setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      -- BUG: They don't display in which key
-      -- init_selection = "<Bslash>a",
-      -- node_incremental = "<Bslash>a",
-      -- scope_incremental = "<Bslash>s",
-      -- node_decremental = "<Bslash>x",
       init_selection = "gnn",
       node_incremental = "gnn",
       scope_incremental = "gnc",
@@ -125,8 +120,8 @@ require("treesitter-context").setup({
   },
 })
 
-require("spellsitter").setup({
-  enable = true,
-})
+-- require("spellsitter").setup({
+--   enable = true,
+-- })
 
--- FIX:  Why where are commands like [m ]m [f ]f but :map dpesn't know about them. Treesitter docs
+-- FIX:  Why where are commands like [m ]m [f ]f but :map doesn't know about them. Treesitter docs

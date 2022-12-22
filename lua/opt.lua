@@ -1,28 +1,19 @@
-print("opts")
-
 vim.opt.termguicolors = true
 
---" Disable compatibility with vi which can cause unexpected issues.
-vim.opt.swapfile = false
+vim.opt.swapfile = false -- Disable compatibility with vi which can cause unexpected issues.
 
--- Save undo history
-vim.opt.undofile = true
+vim.opt.undofile = true -- Save undo history
 
---" Reduce updatetime
-vim.opt.updatetime = 300
+vim.opt.updatetime = 30 -- Reduce updatetime
 
---" Don't pass messages to |ins-completion-menu|.
-vim.opt.shortmess:append("c")
--- vim.opt.completeopt={"longest","menuone"}
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.shortmess:append("c") -- Don't pass messages to |ins-completion-menu|.
+vim.opt.completeopt = { "menu", "menuone", "noselect" } -- vim.opt.completeopt={"longest","menuone"}
 
--- Some servers have issues with backup files, see #649.
 vim.opt.backup = false
 vim.opt.writebackup = false
 
 vim.keymap.set("i", "jj", "<ESC>", { desc = "ESC" })
--- " Avoid mswin.vim making Ctrl-v act as paste
-vim.keymap.set("", "<C-V>", "<C-V>", { noremap = true })
+vim.keymap.set("", "<C-V>", "<C-V>", { noremap = true }) -- Make Ctrl-v act as paste
 
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 2
@@ -36,14 +27,12 @@ vim.opt.wrap = true
 
 vim.opt.tabstop = 2 -- show existing tab with 2 spaces width
 vim.opt.shiftwidth = 2 -- when indenting with '>', use 2 spaces width
-vim.opt.expandtab = true --" On pressing tab, insert 2 spaces
+vim.opt.expandtab = true -- On pressing tab, insert 2 spaces
 vim.opt.scrolloff = 15
 vim.opt.cmdheight = 2
 vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true -- Highlight cursor line underneath the cursor horizontally.
 vim.opt.cursorcolumn = true -- Highlight cursor line underneath the cursor vertically.
-
-vim.opt.spell = false
 
 vim.opt.colorcolumn = { 80, 100, 120 }
 vim.opt.ruler = false
@@ -57,9 +46,14 @@ vim.opt.guicursor =
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("highlight_yank", {}),
-  desc = "Hightlight selection on yank",
+  desc = "Highlight selection on yank",
   pattern = "*",
   callback = function()
     vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
   end,
 })
+
+-- FIX: incorrect variable names will be ignored. Create issue for neovim
+vim.opt.spell = true -- [s ]s zg z=
+vim.opt.spelllang = { "en" }
+vim.opt.spelloptions = "camel"

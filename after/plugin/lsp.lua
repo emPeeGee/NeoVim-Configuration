@@ -8,6 +8,7 @@ require("mason-lspconfig").setup({
     "eslint",
     "html",
     "cssls",
+    "jsonls",
     -- "stylua",
     -- 'cspell'
   },
@@ -85,6 +86,14 @@ nvim_lsp.html.setup({
 
 nvim_lsp.eslint.setup({
   on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+nvim_lsp.jsonls.setup({
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    enable_format_on_save(client, bufnr)
+  end,
   capabilities = capabilities,
 })
 
@@ -178,7 +187,6 @@ vim.diagnostic.config({
 -- vim.api.nvim_buf_set_option(buf, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
--- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'eslint' }
 -- for _, lsp in ipairs(servers) do
 --   lspconfig[lsp].setup {
 --     -- on_attach = my_custom_on_attach,
