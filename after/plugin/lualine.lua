@@ -9,6 +9,15 @@ local function diff_source()
   end
 end
 
+require("battery").setup({})
+local battery = function()
+  return require("battery").get_status_line()
+end
+
+local time = function()
+  return os.date("%H:%M")
+end
+
 require("lualine").setup({
   options = {
     globalstatus = true,
@@ -21,6 +30,7 @@ require("lualine").setup({
       { "diff", source = diff_source },
       "diagnostics",
     },
-    lualine_x = { "filesize" },
+    lualine_x = { battery },
+    lualine_z = { time },
   },
 })

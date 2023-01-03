@@ -109,6 +109,7 @@ require("packer").startup(function(use)
   use("lewis6991/satellite.nvim")
   -- use("folke/neodev.nvim")
 
+  use("justinhj/battery.nvim")
   -- local has_plugins, plugins = pcall(require, "custom.plugins")
   -- if has_plugins then
   --   plugins(use)
