@@ -1,5 +1,4 @@
 local bottom_style = {
-
   theme = "ivy",
   border = false,
   layout_config = {
@@ -9,6 +8,7 @@ local bottom_style = {
     prompt_position = "top",
   },
 }
+
 require("telescope").setup({
   pickers = {
     find_files = bottom_style,
@@ -17,6 +17,13 @@ require("telescope").setup({
     oldfiles = bottom_style,
   },
   defaults = {
+    mappings = {
+      i = {
+        ["<C-h>"] = "which_key",
+        ["<C-j>"] = "move_selection_next",
+        ["<C-k>"] = "move_selection_previous",
+      }
+    },
     border = true,
     live_grep = {
       debounce = 250,
@@ -72,3 +79,5 @@ vim.keymap.set("n", "<leader>/", function()
     previewer = false,
   }))
 end, { desc = "[/] Fuzzily search in current buffer]" })
+
+

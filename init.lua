@@ -18,15 +18,15 @@ _G.open_telescope = function()
   end
 end
 
-vim.api.nvim_exec(
-  [[
-augroup TelescopeOnEnter
-    autocmd!
-    autocmd VimEnter * lua open_telescope()
-augroup END
-]],
-  false
-)
+-- vim.api.nvim_exec(
+--   [[
+-- augroup TelescopeOnEnter
+--     autocmd!
+--     autocmd VimEnter * lua open_telescope()
+-- augroup END
+-- ]],
+--   false
+-- )
 
 if vim.fn.exists("g:neovide") then
   vim.g.neovide_scale_factor = 0.85
@@ -103,6 +103,10 @@ vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
       }
     }
 }]]
+
+-- vim.opt.numberwidth = 3
+-- vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
+
 
 -- require("noice").setup({
 --   lsp = {

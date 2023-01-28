@@ -30,7 +30,31 @@ require("lualine").setup({
       { "diff", source = diff_source },
       "diagnostics",
     },
-    lualine_x = { battery },
+    lualine_c = {},
+    lualine_y = { battery },
+    lualine_x = {'searchcount'},
     lualine_z = { time },
   },
+
+winbar = {
+  lualine_a = {},
+  lualine_b = {{
+    'filetype',
+    colored = true,   -- Displays filetype icon in color if set to true
+    icon_only = true, -- Display only an icon for filetype
+    icon = { align = 'right' }, -- Display filetype icon on the right hand side
+  }},
+  lualine_c = {{'filename', path = 1}},
+  lualine_x = {},
+  lualine_y = {'location', {'progress'}},
+  lualine_z = {'filesize'}
+},
+inactive_winbar = {
+  lualine_a = {},
+  lualine_b = {},
+  lualine_c = {'filename'},
+  lualine_x = {},
+  lualine_y = {},
+  lualine_z = {}
+}
 })

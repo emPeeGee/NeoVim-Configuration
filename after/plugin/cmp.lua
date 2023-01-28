@@ -25,10 +25,10 @@ cmp.setup({
       fetching_timeout = 200,
     },
   },
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
+  -- window = {
+  --   completion = cmp.config.window.bordered(),
+  --   documentation = cmp.config.window.bordered(),
+  -- },
   completion = {
     keyword_length = 0,
   },

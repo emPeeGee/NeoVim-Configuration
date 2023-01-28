@@ -20,6 +20,8 @@ require("nvim-treesitter.configs").setup({
     "haskell",
     "regex",
     "vim",
+    "commonlisp",
+    "markdown"
   },
   sync_install = false,
   playground = {

@@ -62,3 +62,6 @@ vite
 mantine
 utf
 spl
+augroup
+autocmd
+[sharkdp/fd](https://github.com/sharkdp/fd)
