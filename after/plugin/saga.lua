@@ -1,10 +1,12 @@
-local saga = require("lspsaga").setup();
+require("lspsaga").setup({
+  ui = {
+    border = "single",
+  },
+})
 local keymap = vim.keymap.set
 
 -- svim.opt.numberwidth = 3
 -- vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
-
--- saga.init_lsp_saga()
 
 -- Lsp finder find the symbol definition implement reference
 -- if there is no implement it will hide
@@ -51,6 +53,5 @@ keymap("n", "<leader>co", "<cmd>LSoutlineToggle<CR>", { silent = true })
 -- Hover Doc
 keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 keymap("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], { silent = true })
-
 
 -- Loc list
