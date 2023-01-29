@@ -1,5 +1,9 @@
 local color = require("color")
 
+require("gruvbox").setup({
+  contrast = "soft",
+})
+
 local function set_horizon()
   vim.cmd([[colorscheme horizon]])
   vim.cmd([[highlight! link SignColumn LineNr]])
@@ -7,8 +11,7 @@ local function set_horizon()
 end
 
 local function set_dark_theme()
-  vim.g.gruvbox_contrast_dark = "soft"
-  vim.cmd([[set background=dark]])
+  vim.o.background = "dark" -- or "light" for light mode
   vim.cmd([[colorscheme gruvbox]])
   vim.cmd([[highlight! link SignColumn LineNr]])
 

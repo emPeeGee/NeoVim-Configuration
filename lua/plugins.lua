@@ -8,7 +8,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 require("packer").startup(function(use)
-  use("morhetz/gruvbox")
+  use({ "ellisonleao/gruvbox.nvim" })
   use("lifepillar/vim-solarized8")
   use("ryanoasis/vim-devicons")
   use("nvim-lua/plenary.nvim")
@@ -110,6 +110,8 @@ require("packer").startup(function(use)
   -- use("folke/neodev.nvim")
 
   use("justinhj/battery.nvim")
+
+  use("nvim-orgmode/orgmode")
   -- local has_plugins, plugins = pcall(require, "custom.plugins")
   -- if has_plugins then
   --   plugins(use)
