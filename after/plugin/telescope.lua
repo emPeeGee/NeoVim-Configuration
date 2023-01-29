@@ -22,7 +22,7 @@ require("telescope").setup({
         ["<C-h>"] = "which_key",
         ["<C-j>"] = "move_selection_next",
         ["<C-k>"] = "move_selection_previous",
-      }
+      },
     },
     border = true,
     live_grep = {
@@ -80,4 +80,11 @@ vim.keymap.set("n", "<leader>/", function()
   }))
 end, { desc = "[/] Fuzzily search in current buffer]" })
 
+local function find_org_files()
+  local opts = {
+    cwd = "~/org",
+  }
+  require("telescope.builtin").find_files(opts)
+end
 
+vim.keymap.set("n", "<leader>fo", find_org_files, { desc = "[F]ind [O]rg" })

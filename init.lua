@@ -87,64 +87,24 @@ augroup end ]])
 
 vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
 -- require("lsp_signature").setup()
---[[ require('neorg').setup {
-    load = {
-      ["core.defaults"] = {},
-      ["core.norg.concealer"] = {},
-      ["core.norg.journal"] = {},
-      ["core.norg.qol.toc"] = {},
-      ["core.norg.dirman"] = {
-        config = {
-          workspaces = {
-            work = "~/notes/work",
-            home = "~/notes/home",
-          }
-        }
-      }
-    }
-}]]
-
 -- vim.opt.numberwidth = 3
 -- vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
 
-
--- require("noice").setup({
---   lsp = {
---     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
---     override = {
---       ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
---       ["vim.lsp.util.stylize_markdown"] = true,
---       ["cmp.entry.get_documentation"] = true,
---     },
---   },
---   -- you can enable a preset for easier configuration
---   presets = {
---     bottom_search = true, -- use a classic bottom cmdline for search
---     command_palette = true, -- position the cmdline and popupmenu together
---     long_message_to_split = true, -- long messages will be sent to a split
---     inc_rename = false, -- enables an input dialog for inc-rename.nvim
---     lsp_doc_border = false, -- add a border to hover docs and signature help
---   },
--- })
-
--- require("regexplainer").setup()
--- require("sidebar-nvim").setup({
--- files = {
---    icon = "",
---   show_hidden = false,
---   ignored_paths = {"%.git$"}
---   }
--- })
-
--- require("lsp_lines").setup()
--- require("drop").setup({
--- theme = "snow", -- can be one of rhe default themes, or a custom theme
---   max = 100, -- maximum number of drops on the screen
--- interval = 150, -- every 150ms we update the drops
--- screensaver = 1000 * 60 * 2, -- show after 5 minutes. Set to false, to disable
---  filetypes = { "dashboard", "alpha", "starter" }, -- will enable/disable automatically for the following filetypes
--- })
---  require("zone").setup()
 -- require('mini.indentscope').setup()
 
--- TODO: LAzy git
+require("orgmode").setup({
+  org_agenda_files = "~/org/*",
+  org_default_notes_file = "~/org/*",
+  org_capture_templates = {
+
+    T = {
+      description = "Todo",
+      template = "* TODO %?\n %u",
+      target = "~/org/todo.org",
+    },
+  },
+})
+
+require("orgmode").setup_ts_grammar()
+
+-- TODO: Lazy git

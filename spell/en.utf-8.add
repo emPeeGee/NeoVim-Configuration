@@ -64,4 +64,12 @@ utf
 spl
 augroup
 autocmd
-[sharkdp/fd](https://github.com/sharkdp/fd)
+fd
+numberwidth
+statuscolumn
+orgmode
+todo
+Paren
+guibg
+guifg
+Neogit
