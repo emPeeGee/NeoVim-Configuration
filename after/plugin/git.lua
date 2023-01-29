@@ -1,4 +1,9 @@
 local color = require("color")
+local wk = require("which-key")
+
+wk.register({
+  g = { name = "+git" },
+}, { prefix = "<leader>" })
 
 require("diffview").setup({
   enhanced_diff_hl = true,
@@ -22,16 +27,16 @@ require("gitsigns").setup({
     map("n", "[d", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
     -- Actions
-    map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>")
-    map("v", "<leader>hs", ":Gitsigns stage_hunk<CR>")
-    map("n", "<leader>hr", ":Gitsigns reset_hunk<CR>")
-    map("v", "<leader>hr", ":Gitsigns reset_hunk<CR>")
-    map("n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>")
-    map("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>")
-    map("n", "<leader>hd", "<cmd>Gitsigns diffthis<CR>")
-    map("n", "<leader>hD", '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-    map("n", "<leader>hv", "<cmd>Gitsigns toggle_deleted<CR>")
-    map("n", "<leader>hB", '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+    map("n", "<leader>gs", ":Gitsigns stage_hunk<CR>")
+    map("v", "<leader>gs", ":Gitsigns stage_hunk<CR>")
+    map("n", "<leader>gr", ":Gitsigns reset_hunk<CR>")
+    map("v", "<leader>gr", ":Gitsigns reset_hunk<CR>")
+    map("n", "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<CR>")
+    map("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<CR>")
+    -- map("n", "<leader>hd", "<cmd>Gitsigns diffthis<CR>")
+    -- map("n", "<leader>hD", '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+    map("n", "<leader>gv", "<cmd>Gitsigns toggle_deleted<CR>")
+    map("n", "<leader>gB", '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
   end,
 })
 
@@ -59,10 +64,30 @@ vim.cmd("hi GitSignsChangeInline gui=none guifg=NONE guibg=" .. color.gittext)
 vim.cmd("hi GitSignsAddInline gui=none guifg=NONE guibg=" .. color.gittext)
 vim.cmd("hi GitSignsDeleteInline gui=none guifg=NONE guibg=" .. color.gittext)
 
-vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { noremap = true, desc = "" })
-vim.keymap.set("n", "<leader>gm", "<cmd>Gdiffsplit!<cr>", { noremap = true, desc = "" })
-vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<cr>", { noremap = true, desc = "" })
-vim.keymap.set("n", "<leader>go", "<cmd>DiffviewOpen<CR>", { noremap = true, desc = "" })
-vim.keymap.set("n", "<leader>gc", "<cmd>DiffviewClose<CR>", { noremap = true, desc = "" })
-vim.keymap.set("n", "<leader>gl", "<cmd>DiffviewFileHistory<CR>", { noremap = true, desc = "" })
-vim.keymap.set("n", "<leader>gf", "<cmd>DiffviewFileHistory %<CR>", { noremap = true, desc = "" })
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { noremap = true, desc = "Neogit" })
+vim.keymap.set("n", "<leader>gm", "<cmd>Gdiffsplit!<cr>", { noremap = true, desc = "Gdiffsplit" })
+vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<cr>", { noremap = true, desc = "Git blame" })
+vim.keymap.set(
+  "n",
+  "<leader>go",
+  "<cmd>DiffviewOpen<CR>",
+  { noremap = true, desc = "Diffview open" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>gc",
+  "<cmd>DiffviewClose<CR>",
+  { noremap = true, desc = "Diffview close" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>gl",
+  "<cmd>DiffviewFileHistory<CR>",
+  { noremap = true, desc = "Git Log" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>gf",
+  "<cmd>DiffviewFileHistory %<CR>",
+  { noremap = true, desc = "Git File History" }
+)
