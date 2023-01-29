@@ -13,22 +13,22 @@ starter.setup({
   },
 })
 
-local map = require("mini.map")
-map.setup({
-  symbols = {
-    encode = map.gen_encode_symbols.shade("1x2"),
-  },
-  integrations = {
-    map.gen_integration.builtin_search(),
-    map.gen_integration.gitsigns(),
-    map.gen_integration.diagnostic(),
-  },
-  window = {
-    width = 12,
-  },
-})
+-- local map = require("mini.map")
+-- map.setup({
+--   symbols = {
+--     encode = map.gen_encode_symbols.shade("1x2"),
+--   },
+--   integrations = {
+--     map.gen_integration.builtin_search(),
+--     map.gen_integration.gitsigns(),
+--     map.gen_integration.diagnostic(),
+--   },
+--   window = {
+--     width = 12,
+--   },
+-- })
 
-vim.keymap.set("n", "<Leader>mf", MiniMap.toggle_focus)
-vim.keymap.set("n", "<Leader>mr", MiniMap.refresh)
-vim.keymap.set("n", "<Leader>ms", MiniMap.toggle_side)
-vim.keymap.set("n", "<Leader>mm", MiniMap.toggle)
+-- vim.keymap.set("n", "<Leader>mf", MiniMap.toggle_focus)
+-- vim.keymap.set("n", "<Leader>mr", MiniMap.refresh)
+-- vim.keymap.set("n", "<Leader>ms", MiniMap.toggle_side)
+-- vim.keymap.set("n", "<Leader>mm", MiniMap.toggle)

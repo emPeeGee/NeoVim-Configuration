@@ -15,13 +15,14 @@ require("nvim-treesitter.configs").setup({
     "css",
     "comment",
     "elixir",
-    "norg",
+    -- "orgmode",
+    -- "norg",
     "http",
     "haskell",
     "regex",
     "vim",
     "commonlisp",
-    "markdown"
+    "markdown",
   },
   sync_install = false,
   playground = {
