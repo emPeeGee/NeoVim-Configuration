@@ -73,3 +73,9 @@ Paren
 guibg
 guifg
 Neogit
+utils
+autocmd
+filetype
+filesize
+searchcount
+src

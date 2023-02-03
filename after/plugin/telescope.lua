@@ -82,9 +82,37 @@ end, { desc = "[/] Fuzzily search in current buffer]" })
 
 local function find_org_files()
   local opts = {
-    cwd = "~/org",
+    cwd = "~/AppData/Roaming/org",
   }
   require("telescope.builtin").find_files(opts)
 end
 
 vim.keymap.set("n", "<leader>fo", find_org_files, { desc = "[F]ind [O]rg" })
+
+-- You don't need to set any of these options.
+-- IMPORTANT!: this is only a showcase of how you can set default options!
+require("telescope").setup({
+  extensions = {
+    file_browser = {
+      cwd_to_path = true,
+      -- theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
+  },
+})
+
+-- To get telescope-file-browser loaded and working with telescope,
+-- you need to call load_extension, somewhere after setup function:
+require("telescope").load_extension("file_browser")
+
+vim.keymap.set("n", "<leader>f.", ":Telescope file_browser path=%:p:h<CR>", { desc = "Find Here" })
+vim.keymap.set("n", "<leader>fr", ":Telescope file_browser<CR>", { desc = "[F]ind from [R]oot" })

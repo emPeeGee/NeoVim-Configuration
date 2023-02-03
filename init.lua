@@ -51,10 +51,10 @@ require("trouble").setup({
   icons = true, -- use devicons for filenames
   auto_open = true, -- automatically open the list when you have diagnostics
   auto_close = true, -- automatically close the list when you have no diagnostics
-  mode = "loclist",
+  mode = "quickfix",
 })
 
-require("better_escape").setup()
+-- require("better_escape").setup()
 require("treesj").setup({ use_default_keymaps = false, max_join_length = 240 })
 vim.keymap.set("n", "gJ", ":TSJToggle<CR>")
 
@@ -93,18 +93,16 @@ vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
 -- require('mini.indentscope').setup()
 
 require("orgmode").setup({
-  org_agenda_files = "~/org/*",
-  org_default_notes_file = "~/org/*",
+  org_agenda_files = "~/AppData/Roaming/org/*",
+  org_default_notes_file = "~/AppData/Roaming/org/*",
   org_capture_templates = {
 
     T = {
       description = "Todo",
       template = "* TODO %?\n %u",
-      target = "~/org/todo.org",
+      target = "~/AppData/Roaming/org/todo.org",
     },
   },
 })
 
 require("orgmode").setup_ts_grammar()
-
--- TODO: Lazy git
