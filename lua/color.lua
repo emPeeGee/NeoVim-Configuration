@@ -7,6 +7,7 @@ local color = {
   gittext = "#5F3469",
   gitremove = "#693434",
   word = "#6b496e",
+  word_light = "#f9c68b",
 }
 
 return color
