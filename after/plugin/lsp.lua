@@ -47,13 +47,13 @@ local on_attach = function(client, bufnr)
   --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  -- local opts = { noremap = true, silent = true }
+  local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+  buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+  buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+  buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
   -- vim.api.nvim_create_autocmd("CursorHold", {
   -- 	buffer = bufnr,
   -- 	callback = function()
@@ -174,8 +174,8 @@ vim.diagnostic.config({
 
 -- "K"          vim.lsp.buf.hover            "Hover Info"
 -- "<leader>qf" vim.diagnostic.setqflist     "Quickfix Diagnostics"
--- "[d"         vim.diagnostic.goto_prev     "Previous Diagnostic"
--- "]d"         vim.diagnostic.goto_next     "Next Diagnostic"
+vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
+vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 -- "<leader>e"  vim.diagnostic.open_float    "Explain Diagnostic"
 -- "<leader>ca" vim.lsp.buf.code_action      "Code Action"
 -- "<leader>cr" vim.lsp.buf.rename           "Rename Symbol"

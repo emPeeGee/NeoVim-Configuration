@@ -22,6 +22,7 @@ require("lualine").setup({
   options = {
     globalstatus = true,
     component_separators = { left = "|", right = "|" },
+    disabled_filetypes = { winbar = { "packer", "NvimTree" } },
   },
   extensions = { "nvim-tree" },
   sections = {
