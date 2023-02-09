@@ -61,6 +61,7 @@ require("telescope").load_extension("projects")
 
 local tl = require("telescope.builtin")
 
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope<cr>", { desc = "[F]ind [F]iles" })
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope<cr>", { desc = "[F]ind in [T]elescope" })
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_status<cr>", { desc = "[F]ind [G]it" })
 vim.keymap.set("n", "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "[F]ind [P]rojects" })
@@ -97,7 +98,7 @@ require("telescope").setup({
       cwd_to_path = true,
       -- theme = "ivy",
       -- disables netrw and use telescope-file-browser in its place
-      hijack_netrw = true,
+      hijack_netrw = false,
       mappings = {
         ["i"] = {
           -- your custom insert mode mappings
