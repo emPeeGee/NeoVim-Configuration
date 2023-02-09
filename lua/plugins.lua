@@ -11,10 +11,9 @@ require("packer").startup(function(use)
   use("ryanoasis/vim-devicons")
   use("nvim-lua/plenary.nvim")
   use("nvim-telescope/telescope.nvim")
-  -- use 'fannheyward/telescope-coc.nvim'
   use("nvim-telescope/telescope-symbols.nvim")
   -- " IDEA: Then exploring new file, get outline an see the file
-  use("tpope/vim-fugitive")
+  -- use("tpope/vim-fugitive")
   use("lewis6991/gitsigns.nvim")
   use("folke/which-key.nvim")
   use("tpope/vim-commentary")
@@ -92,6 +91,8 @@ require("packer").startup(function(use)
   use("justinhj/battery.nvim")
   use("nvim-orgmode/orgmode")
   use({ "nvim-telescope/telescope-file-browser.nvim" })
+
+  use("dstein64/vim-startuptime")
 end)
 
 -- surrounds ys, ds, cs
