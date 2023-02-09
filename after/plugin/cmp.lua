@@ -1,5 +1,3 @@
-print("fs")
-
 local s = {}
 -- TODO: Move from here
 s.check_back_space = function()
@@ -15,6 +13,8 @@ local status, cmp = pcall(require, "cmp")
 if not status then
   return
 end
+
+local select_opts = {}
 
 ---@diagnostic disable-next-line: redundant-parameter
 cmp.setup({
@@ -51,9 +51,12 @@ cmp.setup({
       require("luasnip").lsp_expand(args.body)
     end,
   },
+
   mapping = cmp.mapping.preset.insert({
     ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
     ["<Down>"] = cmp.mapping.select_next_item(select_opts),
+    ["<C-j>"] = cmp.mapping.select_next_item(select_opts),
+    ["<C-k>"] = cmp.mapping.select_prev_item(select_opts),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping(function(_)
