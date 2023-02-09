@@ -3,6 +3,7 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "sumneko_lua",
     "tsserver",
+    "angularls", -- sudo npm install -g @angular/language-service@next typescript @angular/language-server
     -- "emmet",
     "tailwindcss",
     "eslint",
@@ -85,6 +86,11 @@ nvim_lsp.html.setup({
 })
 
 nvim_lsp.eslint.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+nvim_lsp.angularls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
