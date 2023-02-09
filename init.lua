@@ -102,7 +102,30 @@ require("orgmode").setup({
       template = "* TODO %?\n %u",
       target = "~/AppData/Roaming/org/todo.org",
     },
+    e = "English",
+    ee = {
+      description = "English classes",
+      template = "** Lesson nr. %? %t",
+      target = "~/AppData/Roaming/org/english.org",
+      headline = "Lessons",
+    },
   },
 })
 
 require("orgmode").setup_ts_grammar()
+
+vim.api.nvim_create_user_command("PathCopyAbs", function()
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
+
+vim.api.nvim_create_user_command("PathCopyRel", function()
+  local path = vim.fn.expand("%")
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
+
+-- // nav - Delivery summary, instead of
+-- clicks label
+--  TODO: After search, you can move results in quickfix
