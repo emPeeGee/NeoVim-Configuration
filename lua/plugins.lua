@@ -27,7 +27,7 @@ require("packer").startup(function(use)
   use("ggandor/leap.nvim")
   use("nvim-neotest/neotest")
   -- " use 'nvim-neotest/neotest-go'
-  -- " use 'haydenmeade/neotest-jest'
+  use("haydenmeade/neotest-jest")
   use("romainl/vim-cool")
   use("kevinhwang91/nvim-hlslens")
   -- use("kkharji/sqlite.lua")
