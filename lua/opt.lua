@@ -37,9 +37,9 @@ vim.opt.cursorcolumn = true -- Highlight cursor line underneath the cursor verti
 vim.opt.colorcolumn = { 80, 100, 120 }
 vim.opt.ruler = false
 
-vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("eol:↴")
+-- vim.opt.list = true
+-- vim.opt.listchars:append("space:⋅")
+-- vim.opt.listchars:append("eol:↴")
 
 vim.opt.guicursor =
   [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175]]

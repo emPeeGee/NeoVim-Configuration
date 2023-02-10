@@ -74,3 +74,11 @@ guibg
 guifg
 Neogit
 localhost
+utils
+autocmd
+filetype
+filesize
+searchcount
+src
+lodash
+vega

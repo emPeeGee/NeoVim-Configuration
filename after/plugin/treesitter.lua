@@ -1,3 +1,5 @@
+require("nvim-treesitter.install").compilers = { "clang" }
+
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "help",
@@ -15,7 +17,7 @@ require("nvim-treesitter.configs").setup({
     "css",
     "comment",
     "elixir",
-    -- "orgmode",
+    -- "org",
     -- "norg",
     "http",
     "haskell",
@@ -119,6 +121,13 @@ require("treesitter-context").setup({
       "if",
       "switch",
       "case",
+      "key",
+      "pair",
+      "attribute",
+      "jsx_expression",
+      "jsx_element",
+      "lexical_declaration",
+      "open_tag",
     },
   },
 })

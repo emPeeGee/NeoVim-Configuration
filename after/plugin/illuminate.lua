@@ -20,7 +20,3 @@ require("illuminate").configure({
   large_file_overrides = nil,
   min_count_to_highlight = 1,
 })
-
-vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = color.word })
-vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = color.word })
-vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = color.word })

@@ -66,7 +66,7 @@ vim.cmd("hi GitSignsDeleteInline gui=none guifg=NONE guibg=" .. color.gittext)
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { noremap = true, desc = "Neogit" })
 vim.keymap.set("n", "<leader>gm", "<cmd>Gdiffsplit!<cr>", { noremap = true, desc = "Gdiffsplit" })
-vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<cr>", { noremap = true, desc = "Git blame" })
+vim.keymap.set("n", "<leader>gb", '<cmd>lua require"gitsigns".blame_line{}<CR>')
 vim.keymap.set(
   "n",
   "<leader>go",
