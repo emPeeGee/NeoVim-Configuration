@@ -112,6 +112,8 @@ require("packer").startup(function(use)
   use("justinhj/battery.nvim")
 
   use("nvim-orgmode/orgmode")
+  use 'ray-x/go.nvim'
+  -- use 'ray-x/guihua.lua' -- recommended if need floating window support
   -- local has_plugins, plugins = pcall(require, "custom.plugins")
   -- if has_plugins then
   --   plugins(use)
