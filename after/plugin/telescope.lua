@@ -1,5 +1,6 @@
 local bottom_style = {
   theme = "ivy",
+  hidden = true,
   border = false,
   layout_config = {
     height = 15,
