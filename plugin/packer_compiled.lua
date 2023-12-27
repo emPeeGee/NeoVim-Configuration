@@ -89,11 +89,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\bufdelete.nvim",
     url = "https://github.com/famiu/bufdelete.nvim"
   },
-  ["bufferline.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\bufferline.nvim",
-    url = "https://github.com/akinsho/bufferline.nvim"
-  },
   ["ccc.nvim"] = {
     loaded = true,
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\ccc.nvim",
@@ -179,11 +174,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\leap.nvim",
     url = "https://github.com/ggandor/leap.nvim"
   },
-  ["lspsaga.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspsaga.nvim",
-    url = "https://github.com/glepnir/lspsaga.nvim"
-  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lualine.nvim",
@@ -209,10 +199,20 @@ _G.packer_plugins = {
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neogit",
     url = "https://github.com/TimUntersberger/neogit"
   },
+  neorg = {
+    loaded = true,
+    path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neorg",
+    url = "https://github.com/nvim-neorg/neorg"
+  },
   neotest = {
     loaded = true,
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neotest",
     url = "https://github.com/nvim-neotest/neotest"
+  },
+  ["neotest-jest"] = {
+    loaded = true,
+    path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neotest-jest",
+    url = "https://github.com/haydenmeade/neotest-jest"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -329,6 +329,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\treesj",
     url = "https://github.com/Wansmer/treesj"
   },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
+  },
   undotree = {
     loaded = true,
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\undotree",
@@ -349,20 +354,10 @@ _G.packer_plugins = {
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-devicons",
     url = "https://github.com/ryanoasis/vim-devicons"
   },
-  ["vim-fugitive"] = {
-    loaded = true,
-    path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-fugitive",
-    url = "https://github.com/tpope/vim-fugitive"
-  },
   ["vim-illuminate"] = {
     loaded = true,
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-illuminate",
     url = "https://github.com/RRethy/vim-illuminate"
-  },
-  ["vim-search-pulse"] = {
-    loaded = true,
-    path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-search-pulse",
-    url = "https://github.com/inside/vim-search-pulse"
   },
   ["vim-smoothie"] = {
     loaded = true,
@@ -373,6 +368,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-solarized8",
     url = "https://github.com/lifepillar/vim-solarized8"
+  },
+  ["vim-startuptime"] = {
+    loaded = true,
+    path = "C:\\Users\\mipopovici\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-startuptime",
+    url = "https://github.com/dstein64/vim-startuptime"
   },
   vimwiki = {
     loaded = true,

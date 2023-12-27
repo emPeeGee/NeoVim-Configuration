@@ -3,7 +3,7 @@ require("nvim-treesitter.install").compilers = { "clang" }
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "help",
-    "lua",
+    -- "lua",
     "rust",
     "javascript",
     "typescript",
@@ -16,14 +16,12 @@ require("nvim-treesitter.configs").setup({
     "go",
     "css",
     "comment",
-    "elixir",
+    -- "elixir",
     -- "org",
     -- "norg",
     "http",
-    "haskell",
     "regex",
     "vim",
-    "commonlisp",
     "markdown",
   },
   sync_install = false,
@@ -32,6 +30,7 @@ require("nvim-treesitter.configs").setup({
   },
   highlight = {
     enable = true,
+    disable = { "spell" },
     additional_vim_regex_highlighting = false,
   },
   -- indent = { enable = true },
@@ -131,9 +130,5 @@ require("treesitter-context").setup({
     },
   },
 })
-
--- require("spellsitter").setup({
---   enable = true,
--- })
 
 -- FIX:  Why where are commands like [m ]m [f ]f but :map doesn't know about them. Treesitter docs

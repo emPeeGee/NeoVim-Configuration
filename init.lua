@@ -92,27 +92,27 @@ vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
 
 -- require('mini.indentscope').setup()
 
-require("orgmode").setup({
-  org_agenda_files = "~/AppData/Roaming/org/*",
-  org_default_notes_file = "~/AppData/Roaming/org/*",
-  org_capture_templates = {
+-- require("orgmode").setup({
+--   org_agenda_files = "~/AppData/Roaming/org/*",
+--   org_default_notes_file = "~/AppData/Roaming/org/*",
+--   org_capture_templates = {
 
-    T = {
-      description = "Todo",
-      template = "* TODO %?\n %u",
-      target = "~/AppData/Roaming/org/todo.org",
-    },
-    e = "English",
-    ee = {
-      description = "English classes",
-      template = "** Lesson nr. %? %t",
-      target = "~/AppData/Roaming/org/english.org",
-      headline = "Lessons",
-    },
-  },
-})
+--     T = {
+--       description = "Todo",
+--       template = "* TODO %?\n %u",
+--       target = "~/AppData/Roaming/org/todo.org",
+--     },
+--     e = "English",
+--     ee = {
+--       description = "English classes",
+--       template = "** Lesson nr. %? %t",
+--       target = "~/AppData/Roaming/org/english.org",
+--       headline = "Lessons",
+--     },
+--   },
+-- })
 
-require("orgmode").setup_ts_grammar()
+-- require("orgmode").setup_ts_grammar()
 
 vim.api.nvim_create_user_command("PathCopyAbs", function()
   local path = vim.fn.expand("%:p")

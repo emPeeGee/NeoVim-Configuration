@@ -8,7 +8,6 @@ require("nvim-tree").setup({
   -- open_on_setup_file = true,
   view = {
     adaptive_size = true,
-    mappings = {},
   },
   reload_on_bufenter = true,
   update_focused_file = {
