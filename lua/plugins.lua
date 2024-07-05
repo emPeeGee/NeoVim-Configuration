@@ -21,21 +21,23 @@ require("packer").startup(function(use)
   use("kyazdani42/nvim-web-devicons")
   use("kyazdani42/nvim-tree.lua")
   use("RRethy/vim-illuminate")
-  use("liuchengxu/vista.vim")
-  use("vimwiki/vimwiki")
+  -- use("liuchengxu/vista.vim")
+  -- use("vimwiki/vimwiki")
+  -- " use 'mattn/calendar-vim' Calendar for vim
+  use("nvim-treesitter/nvim-treesitter-context")
+  use("nvim-treesitter/playground")
   use("mbbill/undotree")
   use("ggandor/leap.nvim")
-  use("nvim-neotest/neotest")
-  -- " use 'nvim-neotest/neotest-go'
-  use("haydenmeade/neotest-jest")
   use("romainl/vim-cool")
   use("kevinhwang91/nvim-hlslens")
   -- use("kkharji/sqlite.lua")
   use("TimUntersberger/neogit")
-  use("folke/todo-comments.nvim")
-  use("nvim-neorg/neorg")
-  -- use("folke/noice.nvim")
-  -- use("rcarriga/nvim-notify")
+  -- use("folke/todo-comments.nvim")
+  -- use 'nvim-neorg/neorg' TODO: uncomment after NEOVIM 0.8
+  -- use 'rest-nvim/rest.nvim'  TODO: Good concept but doesn't work
+  use("folke/noice.nvim")
+  use("MunifTanjim/nui.nvim")
+  use("rcarriga/nvim-notify")
   -- " use 'sidebar-nvim/sidebar.nvim' TODO: Good concept
   use("nvim-lualine/lualine.nvim")
   use("echasnovski/mini.nvim")
@@ -51,18 +53,14 @@ require("packer").startup(function(use)
   use("ahmedkhalf/project.nvim")
   use("kylechui/nvim-surround")
   use("uga-rosa/ccc.nvim")
-  use("folke/trouble.nvim")
   use("psliwka/vim-smoothie")
   use("j-hui/fidget.nvim")
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use("nvim-treesitter/nvim-treesitter-context")
   use("nvim-treesitter/playground")
   use("nvim-treesitter/nvim-treesitter-textobjects")
-  -- use({
-  --   "akinsho/bufferline.nvim",
-  --   tag = "v3.*",
-  --   requires = "nvim-tree/nvim-web-devicons",
-  -- })
+
+  use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
   use({
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -73,7 +71,6 @@ require("packer").startup(function(use)
   use("hrsh7th/cmp-buffer")
   use("hrsh7th/cmp-path")
   use("hrsh7th/cmp-nvim-lua")
-  use("hrsh7th/cmp-cmdline")
   use("hrsh7th/cmp-nvim-lsp-signature-help")
   use("jose-elias-alvarez/null-ls.nvim")
   -- use("glepnir/lspsaga.nvim")
@@ -89,8 +86,22 @@ require("packer").startup(function(use)
   use("lewis6991/satellite.nvim")
   -- use("folke/neodev.nvim")
   use("justinhj/battery.nvim")
-  use("nvim-orgmode/orgmode")
-  use({ "nvim-telescope/telescope-file-browser.nvim" })
+  use("chaoren/vim-wordmotion")
+
+  use({
+    "nvim-neotest/neotest",
+    requires = {
+      "haydenmeade/neotest-jest",
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+  })
+  -- local has_plugins, plugins = pcall(require, "custom.plugins")
+  -- if has_plugins then
+  --   plugins(use)
+  -- end
 
   use("dstein64/vim-startuptime")
 end)
