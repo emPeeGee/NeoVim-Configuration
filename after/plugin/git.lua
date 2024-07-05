@@ -5,6 +5,8 @@ wk.register({
   g = { name = "+git" },
 }, { prefix = "<leader>" })
 
+require("neogit").setup({})
+
 require("diffview").setup({
   enhanced_diff_hl = true,
 })
