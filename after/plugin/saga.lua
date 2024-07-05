@@ -5,8 +5,7 @@
 -- })
 -- local keymap = vim.keymap.set
 
--- -- svim.opt.numberwidth = 3
--- -- vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
+saga.setup({})
 
 -- -- Lsp finder find the symbol definition implement reference
 -- -- if there is no implement it will hide
