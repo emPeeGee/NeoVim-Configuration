@@ -84,13 +84,4 @@ require("ibl").setup({ scope = { highlight = highlight } })
 
 hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 
-require("bufferline").setup({
-  options = {
-    -- diagnostics = "coc",
-    actions = {
-      open_file = {
-        quit_on_open = true,
-      },
-    },
-  },
-})
+require("bufferline").setup({})
