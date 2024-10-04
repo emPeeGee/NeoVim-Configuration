@@ -1,7 +1,9 @@
 -- Right now, auto close of tree on last buffer doesn't work.
 -- Solution. Nvim-tree team said it is not posible
 -- https://github.com/nvim-tree/nvim-tree.lua/issues/1368
-
+return {
+    "kyazdani42/nvim-tree.lua",
+config = function()
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   -- open_on_setup = false,
@@ -49,3 +51,5 @@ end
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 -- *nvim-tree.hijack_cursor* ???
+end,
+}

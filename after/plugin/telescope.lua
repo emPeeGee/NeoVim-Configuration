@@ -62,12 +62,7 @@ require("telescope").load_extension("projects")
 
 local tl = require("telescope.builtin")
 
-<<<<<<< HEAD
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope<cr>", { desc = "[F]ind [F]iles" })
-||||||| parent of eefc887 (feat: new keymaps for telescope)
-=======
 vim.keymap.set("n", "<leader>ff", tl.find_files, { desc = "[F]ind [F]iles" })
->>>>>>> eefc887 (feat: new keymaps for telescope)
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope<cr>", { desc = "[F]ind in [T]elescope" })
 -- vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_status<cr>", { desc = "[F]ind [G]it" })
 vim.keymap.set("n", "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "[F]ind [P]rojects" })
