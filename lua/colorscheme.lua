@@ -2,7 +2,13 @@ local color = require("color")
 
 require("gruvbox").setup({
   contrast = "soft",
-  italic = false,
+  italic = {
+    strings = false,
+    emphasis = false,
+    comments = false,
+    operators = false,
+    folds = false,
+  },
 })
 
 local function set_dark_theme()

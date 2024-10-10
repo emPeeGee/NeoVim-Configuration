@@ -1,7 +1,7 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
-    "sumneko_lua",
+    "lua_ls",
     "tsserver",
     "angularls", -- sudo npm install -g @angular/language-service@next typescript @angular/language-server
     -- "emmet",
@@ -125,7 +125,7 @@ nvim_lsp.sourcekit.setup({
   on_attach = on_attach,
 })
 
-nvim_lsp.sumneko_lua.setup({
+nvim_lsp.lua_ls.setup({
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     enable_format_on_save(client, bufnr)
@@ -197,9 +197,12 @@ vim.diagnostic.config({
 -- "<leader>qf" vim.diagnostic.setqflist     "Quickfix Diagnostics"
 vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
 vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+vim.keymap.set("n", "\\q", vim.lsp.buf.code_action, { desc = "Code Action" })
+vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename Symbol" })
+
+-- "<leader>cr" vim.lsp.buf.rename           "Rename Symbol"
 -- "<leader>e"  vim.diagnostic.open_float    "Explain Diagnostic"
 -- "<leader>ca" vim.lsp.buf.code_action      "Code Action"
--- "<leader>cr" vim.lsp.buf.rename           "Rename Symbol"
 -- "<leader>fs" vim.lsp.buf.document_symbol  "Document Symbols"
 -- "<leader>fS" vim.lsp.buf.workspace_symbol "Workspace Symbols"
 -- "<leader>gq" vim.lsp.buf.formatting_sync  "Format File"
