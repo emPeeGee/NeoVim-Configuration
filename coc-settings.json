@@ -11,7 +11,9 @@
     "less",
     "scss",
     "rust",
-    "go"
+    "go",
+    "lua",
+    "vue"
   ],
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
   "cSpell.userWords": [
@@ -49,31 +51,6 @@
   "diagnostic.signPriority": 2,
   "diagnostic.enableSign": true,
   "diagnostic.infoSign": "!",
-  "languageserver": {
-    "haskell": {
-      "command": "haskell-language-server-wrapper",
-      "args": ["--lsp"],
-      "rootPatterns": [
-        "*.cabal",
-        "stack.yaml",
-        "cabal.project",
-        "package.yaml",
-        "hie.yaml"
-      ],
-      "filetypes": ["haskell", "lhaskell", "hs", "lhs"],
-      // Settings are optional, here are some example values
-      "settings": {
-        "haskell": {
-          "checkParents": "CheckOnSave",
-          "checkProject": true,
-          "maxCompletions": 40,
-          "formattingProvider": "ormolu",
-          "plugin": {
-            "stan": { "globalOn": true }
-          }
-        }
-      }
-    }
-  },
-  "Lua.telemetry.enable": false
+  "Lua.telemetry.enable": false,
+  "svelte.enable-ts-plugin": false
 }
