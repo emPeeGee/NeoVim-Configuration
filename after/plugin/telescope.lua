@@ -62,11 +62,12 @@ require("telescope").load_extension("projects")
 
 local tl = require("telescope.builtin")
 
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope<cr>", { desc = "[F]ind [F]iles" })
+vim.keymap.set("n", "<leader>ff", tl.find_files, { desc = "[F]ind [F]iles" })
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope<cr>", { desc = "[F]ind in [T]elescope" })
-vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_status<cr>", { desc = "[F]ind [G]it" })
+-- vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_status<cr>", { desc = "[F]ind [G]it" })
 vim.keymap.set("n", "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "[F]ind [P]rojects" })
 
+vim.keymap.set("n", "<leader>fg", tl.live_grep, { desc = "[F]ind by [G]rep" })
 vim.keymap.set("n", "g/", tl.live_grep, { desc = "[F]ind by [G]rep" })
 vim.keymap.set("n", "<leader><leader>", tl.find_files, { desc = "[F]ind [F]iles" })
 vim.keymap.set("n", "<leader>?", tl.oldfiles, { desc = "[?] Find recently opened files" })

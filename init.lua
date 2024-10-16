@@ -33,43 +33,23 @@ if vim.fn.exists("g:neovide") then
 	vim.g.neovide_fullscreen = true
 end
 
-require("hlslens").setup()
-require("nvim-surround").setup({})
+-- require("hlslens").setup()
+-- require("nvim-surround").setup({})
 
 -- TODO: ???
-local ccc = require("ccc")
-ccc.setup({
-	highlighter = {
-		auto_enable = true,
-	},
-})
+-- local ccc = require("ccc")
+-- ccc.setup({
+--   highlighter = {
+--     auto_enable = true,
+--   },
+-- })
 
--- TODO: config
-require("trouble").setup({
-	position = "bottom", -- position of the list can be: bottom, top, left, right
-	height = 8, -- height of the trouble list when position is top or bottom
-	icons = true, -- use devicons for filenames
-	auto_open = true, -- automatically open the list when you have diagnostics
-	auto_close = true, -- automatically close the list when you have no diagnostics
-	mode = "quickfix",
-})
 
--- require("better_escape").setup()
-require("treesj").setup({ use_default_keymaps = false, max_join_length = 240 })
-vim.keymap.set("n", "gJ", ":TSJToggle<CR>")
 
-require("leap").set_default_keymaps()
-vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
-vim.api.nvim_set_hl(0, "LeapMatch", {
-	fg = "white", -- for light themes, set to 'black' or similar
-	bold = true,
-	nocombine = true,
-})
-require("leap").opts.highlight_unlabeled_phase_one_targets = true
 
-require("fidget").setup({})
-require("luasnip")
-require("hlargs").setup()
+-- require("fidget").setup({})
+-- require("luasnip")
+-- require("hlargs").setup()
 
 -- " Enrich go linter
 vim.g.go_metalinter_autosave = 1

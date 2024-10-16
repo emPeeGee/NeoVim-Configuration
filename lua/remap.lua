@@ -26,8 +26,6 @@ vim.keymap.set("n", "<leader>or", [[:set relativenumber!<Cr>]], { desc = "Set re
 vim.keymap.set("n", "<leader>ou", [[:UndotreeToggle<CR>]], { desc = "Toggle undotree" })
 vim.keymap.set("n", "<leader>oi", [[:PlugInstall<CR>]], { desc = "PlugInstall" })
 vim.keymap.set("n", "<leader>opc", [[:PlugClean<CR>]], { desc = "PlugClean" })
-vim.keymap.set("n", "<leader>ott", [[:Vista!!<cr>]], { desc = "Toggle Vista" })
--- vim.keymap.set('n', '<leader>otc', [[:Vista coc<cr>]] , {desc = 'Toggle Vista coc' })
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")

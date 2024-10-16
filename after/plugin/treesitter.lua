@@ -1,5 +1,6 @@
-require("nvim-treesitter.install").compilers = { "clang" }
-
+return {
+"treesitter/nvim-treesitter",
+config = function()
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "help",
@@ -132,3 +133,6 @@ require("treesitter-context").setup({
 })
 
 -- FIX:  Why where are commands like [m ]m [f ]f but :map doesn't know about them. Treesitter docs
+
+end,
+}
