@@ -95,18 +95,18 @@ vim.cmd([[hi MatchParen guibg=magenta guifg=white]])
 -- require("orgmode").setup_ts_grammar()
 
 
-require 'go'.setup({
-	goimport = 'gopls', -- if set to 'gopls' will use golsp format
-	gofmt = 'gopls', -- if set to gopls will use golsp format
-	max_line_len = 120,
-	tag_transform = false,
-	test_dir = '',
-	comment_placeholder = '   ',
-	lsp_cfg = true, -- false: use your own lspconfig
-	lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-	lsp_on_attach = true, -- use on_attach from go.nvim
-	dap_debug = true,
-})
+-- require 'go'.setup({
+-- 	goimport = 'gopls', -- if set to 'gopls' will use golsp format
+-- 	gofmt = 'gopls', -- if set to gopls will use golsp format
+-- 	max_line_len = 120,
+-- 	tag_transform = false,
+-- 	test_dir = '',
+-- 	comment_placeholder = '   ',
+-- 	lsp_cfg = true, -- false: use your own lspconfig
+-- 	lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+-- 	lsp_on_attach = true, -- use on_attach from go.nvim
+-- 	dap_debug = true,
+-- })
 
 -- TODO: Lazy git
 vim.api.nvim_create_user_command("PathCopyAbs", function()
