@@ -1,5 +1,6 @@
 #!/bin/bash
 #
+ln -sf ~/.dotfiles/.zshrc ~/.zshrc
 ln -sf ~/.dotfiles/nvim ~/.config
 ln -sf ~/.dotfiles/.tmux.conf ~/.tmux.conf
 # ln -s ~/.dotfiles/alacritty ~/.config
