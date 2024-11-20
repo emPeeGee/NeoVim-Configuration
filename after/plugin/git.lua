@@ -5,9 +5,6 @@ wk.register({
   g = { name = "+git" },
 }, { prefix = "<leader>" })
 
-require("neogit").setup({})
-
-
 
 -- disable the default highlight group
 vim.g.conflict_marker_highlight_group = ""

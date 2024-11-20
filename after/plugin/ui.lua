@@ -1,5 +1,3 @@
-local color = require("color")
-
 require("battery").setup({})
 require("satellite").setup({
   current_only = false,
