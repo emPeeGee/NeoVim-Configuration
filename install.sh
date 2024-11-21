@@ -1,7 +1,8 @@
 #!/bin/bash
 #
 ln -sf ~/.dotfiles/.zshrc ~/.zshrc
-ln -sf ~/.dotfiles/nvim ~/.config
+ln -sf ~/.dotfiles/.config/kitty ~/.config
+ln -sf ~/.dotfiles/.config/nvim ~/.config
 ln -sf ~/.dotfiles/.tmux.conf ~/.tmux.conf
 # ln -s ~/.dotfiles/alacritty ~/.config
 # ln -s ~/.dotfiles/sketchybar/ ~/.config
